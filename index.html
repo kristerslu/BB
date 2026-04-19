@@ -1,174 +1,19 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beta Beatrise — Artist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #ffffff; --text: #1a1a1a; --muted: #71717a; --accent: #c2b5a3; --border: #eeeeee;
-        }
+/* UPDATED IOS-FRIENDLY FOG EFFECT */
+.reveal {
+    opacity: 0;
+    -webkit-filter: blur(15px); /* Added for iPhone */
+    filter: blur(15px);
+    transform: translateY(30px);
+    transition: opacity 1.2s ease, 
+                filter 1.2s ease, 
+                -webkit-filter 1.2s ease, 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, filter, transform; /* Tells iOS to prepare for animation */
+}
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
-        .serif { font-family: 'Playfair Display', serif; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-
-        /* Navigation & Language Switcher */
-        nav { position: fixed; top: 0; width: 100%; z-index: 2000; padding: 1.5rem 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .lang-menu { display: flex; gap: 1rem; font-size: 10px; font-weight: 600; cursor: pointer; }
-        .lang-link { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s; }
-        .lang-link.active { color: var(--text); border-bottom: 1px solid var(--text); }
-
-        /* Hero */
-        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
-        .hero-title { font-size: clamp(4rem, 12vw, 9rem); line-height: 0.85; margin: 0; font-weight: 400; }
-        .hero-title span { color: var(--accent); font-style: normal; } /* Beatrise is now normal */
-
-        /* FOG SCROLL EFFECT */
-        .reveal {
-            opacity: 0;
-            filter: blur(20px);
-            transform: translateY(50px);
-            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            filter: blur(0);
-            transform: translateY(0);
-        }
-
-        /* Gallery */
-        .section-header { margin: 10rem 0 4rem 0; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 4rem; }
-        .card { cursor: pointer; transition: 0.5s; }
-        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f7f7f7; margin-bottom: 1.5rem; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
-        .card:hover img { transform: scale(1.03); }
-
-        /* LIGHTBOX GALLERY */
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98);
-            display: none; justify-content: center; align-items: center; z-index: 3000;
-        }
-        #lightbox img { max-height: 80vh; max-width: 90vw; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .lb-close { position: absolute; top: 30px; right: 40px; font-size: 30px; cursor: pointer; }
-        .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 40px; cursor: pointer; padding: 20px; color: var(--accent); }
-        .lb-prev { left: 20px; } .lb-next { right: 20px; }
-
-        @media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="container nav-content">
-            <div class="logo serif">BETA BEATRISE</div>
-            <div class="lang-menu">
-                <span class="lang-link active" onclick="setLang('nl')">NL</span>
-                <span class="lang-link" onclick="setLang('fr')">FR</span>
-                <span class="lang-link" onclick="setLang('en')">EN</span>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero container reveal">
-        <div>
-            <span class="hero-tag" data-key="tag">Riga — Belgique</span>
-            <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
-            <p style="max-width: 400px; margin-top: 2rem; color: var(--muted);" data-key="heroSub">
-                Exploring the Golden Circle of Life.
-            </p>
-        </div>
-    </section>
-
-    <section class="container">
-        <div class="section-header reveal">
-            <h2 class="serif" style="font-size: 3rem; margin: 0;" data-key="collTitle">Golden Circle of Life</h2>
-            <p style="color: var(--muted); font-size: 11px; letter-spacing: 0.2em;">COLLECTION 2025–2026</p>
-        </div>
-
-        <div class="gallery-grid" id="gallery">
-            </div>
-    </section>
-
-    <div id="lightbox">
-        <span class="lb-close">&times;</span>
-        <span class="lb-arrow lb-prev">&#8249;</span>
-        <img id="lb-img" src="">
-        <span class="lb-arrow lb-next">&#8250;</span>
-    </div>
-
-    <footer style="padding: 8rem 0; text-align: center;" class="reveal">
-        <p class="serif">BETA BEATRISE</p>
-        <p style="font-size: 10px; color: var(--muted);">beta.beatrise@gmail.com</p>
-    </footer>
-
-    <script>
-        // TRANSLATIONS
-        const texts = {
-            nl: { tag: "Riga — België", collTitle: "Gouden Cirkel van het Leven", heroSub: "Verkenning van de gouden cirkel van het leven door textuur en licht." },
-            fr: { tag: "Riga — Belgique", collTitle: "Cercle de Vie Doré", heroSub: "Exploration du cercle doré de la vie à travers la texture et la lumière." },
-            en: { tag: "Riga — Belgium", collTitle: "Golden Circle of Life", heroSub: "Exploring the golden circle of life through texture and light." }
-        };
-
-        function setLang(l) {
-            document.querySelectorAll('.lang-link').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('[data-key]').forEach(el => {
-                el.innerText = texts[l][el.getAttribute('data-key')];
-            });
-        }
-
-        // PAINTINGS DATA (The 4 for the new collection)
-        const collection = [
-            { id: 0, img: "paintings/p1.png", title: "Cirkel I" },
-            { id: 1, img: "paintings/p2.png", title: "Cirkel II" },
-            { id: 2, img: "paintings/p3.png", title: "Cirkel III" },
-            { id: 3, img: "paintings/p4.png", title: "Cirkel IV" }
-        ];
-
-        const gal = document.getElementById('gallery');
-        collection.forEach(p => {
-            gal.innerHTML += `
-                <div class="card reveal" onclick="openLightbox(${p.id})">
-                    <div class="img-wrap"><img src="${p.img}" alt="${p.title}"></div>
-                    <h3 class="serif italic" style="margin:0">${p.title}</h3>
-                </div>
-            `;
-        });
-
-        // LIGHTBOX LOGIC
-        let currentIdx = 0;
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-
-        function openLightbox(id) {
-            currentIdx = id;
-            lbImg.src = collection[currentIdx].img;
-            lb.style.display = 'flex';
-        }
-
-        document.querySelector('.lb-close').onclick = () => lb.style.display = 'none';
-        document.querySelector('.lb-next').onclick = () => {
-            currentIdx = (currentIdx + 1) % collection.length;
-            lbImg.src = collection[currentIdx].img;
-        };
-        document.querySelector('.lb-prev').onclick = () => {
-            currentIdx = (currentIdx - 1 + collection.length) % collection.length;
-            lbImg.src = collection[currentIdx].img;
-        };
-
-        // FOG REVEAL ANIMATION
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-</body>
-</html>
+.reveal.active {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    transform: translateY(0);
+}
