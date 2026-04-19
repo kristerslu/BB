@@ -1,16 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beta Beatrise — Artist & Painter</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #ffffff; --text: #1a1a1a; --muted: #71717a; --accent: #c2b5a3; --card: #f8f8f8; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        /* Navbar */
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2rem 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; gap: 2rem; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; }
+        .nav-links a { text-decoration: none; color: var(--text); }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero-title { font-size: 8rem; line-height: 0.85; margin: 0; }
+        @media (max-width: 768px) { 
+            .hero-grid { grid-template-columns: 1fr; } 
+            .hero-title { font-size: 4rem; }
+        }
+
+        /* Gallery */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4rem; padding: 5rem 0; }
+        .painting-card { display: flex; flex-direction: column; }
+        .painting-img { width: 100%; aspect-ratio: 3/4; object-cover: cover; background: var(--card); margin-bottom: 1.5rem; }
+        .price { font-size: 1.2rem; border-top: 1px solid #eee; padding-top: 1rem; margin-top: auto; }
+
+        /* Interior Section */
+        .interior { background: #2d2924; color: #f0ede9; padding: 10rem 2rem; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="serif" style="font-size: 1.5rem;">BETA BEATRISE</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#commissions">Commissions</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <div class="hero-grid">
+            <div>
+                <p style="font-size: 10px; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 2rem;">RIGA — BELGIQUE</p>
+                <h1 class="hero-title serif">Beta<br><span style="color: var(--accent)">Beatrise</span></h1>
+                <p style="max-width: 300px; margin-top: 3rem; color: var(--muted);">Capturing the soul of the Baltic light through oil and gold leaf.</p>
+            </div>
+            <img src="paintings/p5.png" alt="Hero Artwork" class="painting-img" style="margin: 0;">
+        </div>
+    </section>
+
+    <section id="gallery" class="container">
+        <div style="border-bottom: 1px solid #eee; padding-bottom: 2rem; margin-top: 5rem;">
+            <h2 class="serif" style="font-size: 4rem; margin: 0;">The Gallery</h2>
+            <p style="font-size: 10px; letter-spacing: 0.2em; color: var(--muted);">COLLECTION 2024–2025</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="painting-card">
+                <img src="paintings/p1.png" class="painting-img" alt="Baltic Light">
+                <h3 class="serif" style="font-size: 1.5rem; font-style: italic; margin: 0.5rem 0;">Baltic Light</h3>
+                <p style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em;">OIL ON CANVAS · 80 × 100 CM</p>
+                <div class="price serif">€ 1850</div>
+            </div>
+            <div class="painting-card">
+                <img src="paintings/p2.png" class="painting-img" alt="Golden Profile">
+                <h3 class="serif" style="font-size: 1.5rem; font-style: italic; margin: 0.5rem 0;">Golden Profile</h3>
+                <p style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em;">OIL ON CANVAS · 60 × 80 CM</p>
+                <div class="price serif">€ 1200</div>
+            </div>
+            </div>
+    </section>
+
+    <section class="interior">
+        <div class="container">
+            <p style="font-size: 10px; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem;">INTERIOR DESIGN</p>
+            <h2 class="serif" style="font-size: 3rem; font-style: italic;">"Art is the final layer of a home's story."</h2>
+            <p style="color: var(--accent); opacity: 0.8;">BESPOKE CURATION SERVICES COMING SOON</p>
+        </div>
+    </section>
+
+    <footer style="padding: 5rem 0; text-align: center; border-top: 1px solid #eee;">
+        <p class="serif">BETA BEATRISE</p>
+        <p style="font-size: 10px; color: var(--muted);">© 2026 · beta.beatrise@gmail.com</p>
+    </footer>
+
+</body>
 </html>
