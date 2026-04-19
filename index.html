@@ -3,191 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>Beta Beatrise — Artist</title>
+    <title>Beta Beatrise — Fine Art</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #ffffff; --text: #1a1a1a; --muted: #71717a; --accent: #c2b5a3; --border: #eeeeee; --card: #f9f9f8;
+            --bg: #ffffff; --text: #1a1a1a; --muted: #888888; --accent: #c2b5a3; --border: #eeeeee; --section-alt: #fcfcfb;
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
         .serif { font-family: 'Playfair Display', serif; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
-        nav { position: fixed; top: 0; width: 100%; z-index: 2000; padding: 1.5rem 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        /* Navigation & Dropdown */
+        nav { position: fixed; top: 0; width: 100%; z-index: 3000; padding: 1.2rem 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .lang-menu { display: flex; gap: 1rem; font-size: 10px; font-weight: 600; }
-        .lang-link { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s; cursor: pointer; border-bottom: 1px solid transparent; }
-        .lang-link.active { color: var(--text); border-bottom: 1px solid var(--text); }
+        
+        .nav-links { display: flex; gap: 2rem; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; }
+        .nav-links a { text-decoration: none; color: var(--text); transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* SUBTLE REVEAL EFFECT (Less Fog) */
-        .reveal {
-            opacity: 0;
-            -webkit-filter: blur(4px); /* Much less blur */
-            filter: blur(4px);
-            transform: translateY(15px); /* Less movement */
-            transition: opacity 1s ease, filter 1s ease, transform 1s ease;
-            will-change: opacity, filter, transform;
-        }
-        .reveal.active {
-            opacity: 1;
-            -webkit-filter: blur(0px);
-            filter: blur(0px);
-            transform: translateY(0);
-        }
+        .lang-dropdown { position: relative; display: inline-block; }
+        .dropbtn { background: none; border: 1px solid var(--border); padding: 5px 12px; font-size: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: #fff; border: 1px solid var(--border); min-width: 80px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 1; }
+        .dropdown-content div { padding: 10px; cursor: pointer; font-size: 10px; border-bottom: 1px solid var(--border); }
+        .dropdown-content div:hover { background-color: var(--section-alt); }
+        .lang-dropdown:hover .dropdown-content { display: block; }
 
-        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
-        .hero-title { font-size: clamp(3.5rem, 10vw, 8rem); line-height: 0.85; margin: 0; font-weight: 400; }
+        /* Reveal Logic */
+        .reveal { opacity: 0; filter: blur(4px); transform: translateY(20px); transition: all 1s ease; will-change: opacity, filter, transform; }
+        .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
+
+        /* Sections */
+        section { padding: 10rem 0; border-bottom: 1px solid var(--border); }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; border: none; }
+        .bg-alt { background-color: var(--section-alt); }
+
+        /* Typography */
+        .hero-title { font-size: clamp(3.5rem, 12vw, 9rem); line-height: 0.8; margin: 0; font-weight: 400; }
         .hero-title span { color: var(--accent); font-style: normal !important; }
+        .section-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; display: block; }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4rem; margin-top: 4rem; }
-        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f7f7f7; margin-bottom: 1.5rem; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
+        /* Gallery */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; }
+        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #eee; cursor: pointer; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-wrap:hover img { transform: scale(1.05); }
 
-        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); display: none; justify-content: center; align-items: center; z-index: 3000; }
-        #lightbox img { max-height: 80vh; max-width: 90vw; }
-        .lb-close { position: absolute; top: 30px; right: 40px; font-size: 30px; cursor: pointer; }
+        /* Contact Form */
+        .form-group { margin-bottom: 2rem; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1rem 0; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; }
+        .btn { background: var(--text); color: #fff; border: none; padding: 1.2rem 4rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: var(--accent); }
 
-        .content-section { padding: 8rem 0; }
-        .bg-card { background-color: var(--card); }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1rem 0; margin-bottom: 2rem; outline: none; background: transparent; font-family: inherit; }
-        .btn { background: var(--text); color: white; border: none; padding: 1rem 3rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; }
-
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { 
+            section { padding: 6rem 0; }
+            .nav-links { display: none; } 
+            .hero-title { font-size: 4.5rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="container nav-content">
-            <div class="logo serif">BETA BEATRISE</div>
-            <div class="lang-menu">
-                <span class="lang-link active" onclick="setLang('nl', this)">NL</span>
-                <span class="lang-link" onclick="setLang('fr', this)">FR</span>
-                <span class="lang-link" onclick="setLang('en', this)">EN</span>
+            <div class="logo serif" style="font-size: 1.2rem;">BB</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#collection">Collection</a>
+                <a href="#about">About</a>
+                <a href="#inquire">Inquire</a>
+            </div>
+            <div class="lang-dropdown">
+                <button class="dropbtn" id="current-lang">NL</button>
+                <div class="dropdown-content">
+                    <div onclick="setLang('nl')">NL</div>
+                    <div onclick="setLang('fr')">FR</div>
+                    <div onclick="setLang('en')">EN</div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero container reveal">
-        <div>
+    <section class="hero container">
+        <div class="reveal">
             <h1 class="hero-title serif">Beta<br><span style="font-style: normal;">Beatrise</span></h1>
-            <p style="max-width: 500px; margin-top: 2rem; color: var(--muted); line-height: 1.6;" data-key="heroSub">
-                Abstract compositions. Heavy textures. Glimmers of 24k gold.
+            <p style="max-width: 500px; margin-top: 3rem; font-size: 1.2rem; font-weight: 300;" data-key="heroSub">
+                Abstract compositions. Deep textures. Glimmers of gold.
             </p>
         </div>
     </section>
 
-    <section class="container content-section">
-        <div class="reveal">
-            <h2 class="serif" style="font-size: 3rem; margin: 0;" data-key="collTitle">Golden Circle of Life</h2>
-            <p style="color: var(--muted); font-size: 11px; letter-spacing: 0.2em;">COLLECTION 2025–2026</p>
+    <section id="collection" class="bg-alt">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag" data-key="tagColl">New Collection</span>
+                <h2 class="serif" style="font-size: 3.5rem; margin: 0;">Golden Circle of Life</h2>
+                <p style="color: var(--muted); margin-top: 1rem;">2025 — 2026</p>
+            </div>
+            <div class="gallery-grid" id="gallery"></div>
         </div>
-        <div class="gallery-grid" id="gallery"></div>
     </section>
 
-    <section id="about" class="bg-card content-section">
-        <div class="container grid-2 reveal">
-            <div class="img-wrap"><img src="paintings/p2.png" alt="Artist"></div>
-            <div>
-                <h2 class="serif italic" style="font-size: 2.5rem;" data-key="aboutTitle">Beyond the Canvas</h2>
-                <p style="line-height: 1.8; color: var(--muted);" data-key="aboutText">
-                    Beta Beatrise explores the tension between raw material and refined elegance. Using a specialized alchemy of multi-layered textures and genuine metal leaf, her work captures the shifting play of light found in the Baltic north and the architectural shadows of Belgium.
-                </p>
+    <section id="about">
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+            <div class="reveal">
+                <div class="img-wrap" style="aspect-ratio: 4/5;"><img src="paintings/p2.png" alt="Artist"></div>
+            </div>
+            <div class="reveal" style="padding-top: 2rem;">
+                <span class="section-tag" data-key="tagAbout">The Philosophy</span>
+                <h2 class="serif italic" style="font-size: 2.8rem; margin-bottom: 2rem;" data-key="aboutTitle">Elegance in the Raw</h2>
+                <div style="font-size: 1.1rem; color: #444;" data-key="aboutText">
+                    <p>Beta Beatrise explores the connection between raw material and refined elegance. Her art uses multi-layered textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
+                    <p>Her works are designed without a fixed orientation; you are invited to rotate the canvas, finding new inspirations and ideas as the light hits the texture from different angles. It is art that moves with you.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="commissions" class="content-section">
-        <div class="container grid-2 reveal">
-            <div>
-                <h2 class="serif" style="font-size: 3rem;" data-key="commTitle">Your Vision</h2>
-                <p style="color: var(--muted); line-height: 1.6;" data-key="commText">
-                    Looking for a custom artwork? I welcome personal inquiries. Let me know your desired style, color palette, or the specific room the piece is intended for.
-                </p>
+    <section id="interior" class="bg-alt" style="text-align: center;">
+        <div class="container reveal">
+            <span class="section-tag">Design</span>
+            <h2 class="serif italic" style="font-size: 3rem;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
+            <p style="color: var(--muted); letter-spacing: 0.2em; font-size: 11px; margin-top: 2rem;" data-key="soon">COMING SOON</p>
+        </div>
+    </section>
+
+    <section id="inquire">
+        <div class="container" style="max-width: 800px;">
+            <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+                <span class="section-tag" data-key="tagInq">Contact</span>
+                <h2 class="serif" style="font-size: 3.5rem; margin: 0;" data-key="inqTitle">Start a Commission</h2>
+                <p style="color: var(--muted); margin-top: 1rem;" data-key="inqSub">Share your vision or style preference for a custom piece.</p>
             </div>
-            <form>
-                <input type="text" data-placeholder="pName" placeholder="Naam">
-                <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your idea..."></textarea>
-                <button type="button" class="btn" data-key="btnSend">Inquire</button>
+            <form class="reveal">
+                <div class="form-group"><input type="text" data-placeholder="pName" placeholder="Name"></div>
+                <div class="form-group"><textarea rows="4" data-placeholder="pMsg" placeholder="Your idea, style, or color palette..."></textarea></div>
+                <div style="text-align: center;"><button type="button" class="btn" data-key="btnSend">Inquire</button></div>
             </form>
         </div>
     </section>
 
-    <section id="interior" style="background:#1a1816; color:white; text-align:center; padding: 10rem 0;">
-        <div class="container reveal">
-            <p style="color: var(--accent); letter-spacing: 0.2em; font-size: 10px; margin-bottom: 1rem;" data-key="intQ">DID YOU KNOW?</p>
-            <h2 class="serif italic" style="font-size: 3rem;" data-key="interiorTitle">I also provide Interior Design services.</h2>
-            <p style="opacity: 0.6; font-size: 10px; letter-spacing: 0.2em;" data-key="soon">COMING SOON</p>
-        </div>
-    </section>
-
-    <footer style="padding: 5rem 0; text-align: center;">
-        <p class="serif">BETA BEATRISE</p>
-        <p style="font-size: 10px; color: var(--muted);">beta.beatrise@gmail.com</p>
+    <footer style="padding: 4rem 0; text-align: center; font-size: 10px; letter-spacing: 0.1em; color: var(--muted);">
+        <p class="serif" style="font-size: 1.2rem; color: var(--text); letter-spacing: 0;">BB</p>
+        <p>© 2026 — BETA BEATRISE FINE ART</p>
+        <p>beta.beatrise@gmail.com</p>
     </footer>
-
-    <div id="lightbox">
-        <span class="lb-close">&times;</span>
-        <img id="lb-img" src="">
-    </div>
 
     <script>
         const texts = {
             nl: { 
-                heroSub: "Abstracte composities. Zware texturen. Glinsteringen van bladgoud.",
-                collTitle: "Golden Circle of Life",
-                aboutTitle: "Achter het Doek",
-                aboutText: "Beta Beatrise verkent de spanning tussen ruw materiaal en verfijnde elegantie. Met een gespecialiseerde alchemie van texturen en echt metaalblad vangt zij het spel van licht.",
-                commTitle: "Uw Visie",
-                commText: "Op zoek naar een kunstwerk op maat? Ik verwelkom persoonlijke aanvragen. Laat me uw gewenste stijl of kleurenpalet weten.",
-                intQ: "WIST U DAT?",
-                interiorTitle: "Ik bied ook Interieurontwerp aan.",
+                heroSub: "Abstracte composities. Diepe texturen. Glinsteringen van goud.",
+                tagColl: "Nieuwe Collectie",
+                tagAbout: "De Filosofie",
+                aboutTitle: "Elegantie in de Ruwe Vorm",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren die door iedereen kunnen worden genoten en geïnterpreteerd.</p><p>Haar werken zijn ontworpen zonder vaste oriëntatie; u wordt uitgenodigd om het doek te draaien en nieuwe inspiraties en ideeën te vinden terwijl het licht de textuur vanuit verschillende hoeken raakt.</p>",
+                interiorTitle: "Wist u dat ik ook diensten voor interieurontwerp aanbied?",
                 soon: "BINNENKORT BESCHIKBAAR",
-                btnSend: "Aanvragen",
-                pName: "Naam",
-                pMsg: "Beschrijf uw idee..."
-            },
-            fr: { 
-                heroSub: "Compositions abstraites. Textures lourdes. Éclats de feuille d'or.",
-                collTitle: "Cercle de Vie Doré",
-                aboutTitle: "Au-delà de la Toile",
-                aboutText: "Beta Beatrise explore la tension entre le matériau brut et l'élégance raffinée. Utilisant une alchimie de textures multicouches et de feuilles de métal, son œuvre capture les jeux de lumière.",
-                commTitle: "Votre Vision",
-                commText: "Vous recherchez une œuvre sur mesure ? Je reçois vos demandes personnelles. Faites-moi part de votre style ou palette de couleurs.",
-                intQ: "SAVIEZ-VOUS ?",
-                interiorTitle: "Je propose également des services de Design d'Intérieur.",
-                soon: "BIENTÔT DISPONIBLE",
-                btnSend: "Demander",
-                pName: "Nom",
-                pMsg: "Décrivez votre idée..."
+                tagInq: "Contact",
+                inqTitle: "Start een Opdracht",
+                inqSub: "Deel uw visie of stijlvoorkeur voor een uniek werk.",
+                btnSend: "Aanvragen", pName: "Naam", pMsg: "Uw idee, stijl of kleurenpalet..."
             },
             en: { 
-                heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
-                collTitle: "Golden Circle of Life",
-                aboutTitle: "Beyond the Canvas",
-                aboutText: "Beta Beatrise explores the tension between raw material and refined elegance. Using a specialized alchemy of multi-layered textures and genuine metal leaf.",
-                commTitle: "Your Vision",
-                commText: "Looking for a custom artwork? I welcome personal inquiries. Let me know your desired style, color palette, or specific room.",
-                intQ: "DID YOU KNOW?",
-                interiorTitle: "I also provide Interior Design services.",
+                heroSub: "Abstract compositions. Deep textures. Glimmers of gold.",
+                tagColl: "New Collection",
+                tagAbout: "The Philosophy",
+                aboutTitle: "Elegance in the Raw",
+                aboutText: "<p>Beta Beatrise explores the connection between raw material and refined elegance. Her art uses multi-layered textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p><p>Her works are designed without a fixed orientation; you are invited to rotate the canvas, finding new inspirations and ideas as the light hits the texture from different angles.</p>",
+                interiorTitle: "Did you know I also provide interior design services?",
                 soon: "COMING SOON",
-                btnSend: "Inquire",
-                pName: "Name",
-                pMsg: "Describe your idea..."
+                tagInq: "Contact",
+                inqTitle: "Start a Commission",
+                inqSub: "Share your vision or style preference for a custom piece.",
+                btnSend: "Inquire", pName: "Name", pMsg: "Your idea, style, or color palette..."
+            },
+            fr: { 
+                heroSub: "Compositions abstraites. Textures profondes. Éclats d'or.",
+                tagColl: "Nouvelle Collection",
+                tagAbout: "La Philosophie",
+                aboutTitle: "L'élégance à l'état brut",
+                aboutText: "<p>Beta Beatrise explore le lien entre le matériau brut et l'élégance raffinée. Son art utilise des textures multicouches et des éléments dorés pour créer des peintures abstraites luxueuses qui peuvent être appréciées et interprétées par tous.</p><p>Ses œuvres sont conçues sans orientation fixe ; vous êtes invités à faire pivoter la toile, trouvant de nouvelles inspirations et idées.</p>",
+                interiorTitle: "Saviez-vous que je propose également des services de design d'intérieur ?",
+                soon: "BIENTÔT DISPONIBLE",
+                tagInq: "Contact",
+                inqTitle: "Commander une œuvre",
+                inqSub: "Partagez votre vision ou votre préférence de style.",
+                btnSend: "Demander", pName: "Nom", pMsg: "Votre idée, style ou palette de couleurs..."
             }
         };
 
-        function setLang(l, el) {
-            document.querySelectorAll('.lang-link').forEach(link => link.classList.remove('active'));
-            el.classList.add('active');
+        function setLang(l) {
+            document.getElementById('current-lang').innerText = l;
             document.querySelectorAll('[data-key]').forEach(item => {
-                item.innerText = texts[l][item.getAttribute('data-key')];
+                const key = item.getAttribute('data-key');
+                item.innerHTML = texts[l][key];
             });
             document.querySelectorAll('[data-placeholder]').forEach(item => {
-                item.placeholder = texts[l][item.getAttribute('data-placeholder')];
+                const key = item.getAttribute('data-placeholder');
+                item.placeholder = texts[l][key];
             });
         }
 
@@ -201,17 +216,12 @@
         const gal = document.getElementById('gallery');
         collection.forEach(p => {
             gal.innerHTML += `
-                <div class="card reveal" onclick="openLightbox('${p.img}')">
+                <div class="reveal">
                     <div class="img-wrap"><img src="${p.img}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'"></div>
-                    <h3 class="serif italic" style="margin:0">${p.title}</h3>
+                    <h3 class="serif italic" style="margin-top:1.5rem; font-size:1.5rem;">${p.title}</h3>
                 </div>
             `;
         });
-
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-        function openLightbox(src) { lbImg.src = src; lb.style.display = 'flex'; }
-        lb.onclick = () => lb.style.display = 'none';
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
