@@ -1,19 +1,204 @@
-/* UPDATED IOS-FRIENDLY FOG EFFECT */
-.reveal {
-    opacity: 0;
-    -webkit-filter: blur(15px); /* Added for iPhone */
-    filter: blur(15px);
-    transform: translateY(30px);
-    transition: opacity 1.2s ease, 
-                filter 1.2s ease, 
-                -webkit-filter 1.2s ease, 
-                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, filter, transform; /* Tells iOS to prepare for animation */
-}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Beta Beatrise — Artist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff; --text: #1a1a1a; --muted: #71717a; --accent: #c2b5a3; --border: #eeeeee; --card: #f9f9f8;
+        }
 
-.reveal.active {
-    opacity: 1;
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    transform: translateY(0);
-}
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; z-index: 2000; padding: 1.5rem 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .lang-menu { display: flex; gap: 1rem; font-size: 10px; font-weight: 600; }
+        .lang-link { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s; cursor: pointer; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .lang-link.active { color: var(--text); border-bottom: 1px solid var(--text); }
+
+        /* FOG REVEAL EFFECT - iOS Optimized */
+        .reveal {
+            opacity: 0;
+            -webkit-filter: blur(15px);
+            filter: blur(15px);
+            transform: translateY(30px);
+            transition: opacity 1.2s ease, filter 1.2s ease, -webkit-filter 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, filter, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            -webkit-filter: blur(0px);
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 5rem; }
+        .hero-title { font-size: clamp(3.5rem, 10vw, 8rem); line-height: 0.85; margin: 0; font-weight: 400; }
+        .hero-title span { color: var(--accent); font-style: normal !important; } /* Beatrise Fix */
+
+        /* Gallery */
+        .section-header { margin: 8rem 0 4rem 0; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4rem; }
+        .card { cursor: pointer; text-decoration: none; color: inherit; }
+        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f7f7f7; margin-bottom: 1.5rem; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+        .card:hover img { transform: scale(1.03); }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98);
+            display: none; justify-content: center; align-items: center; z-index: 3000;
+        }
+        #lightbox img { max-height: 80vh; max-width: 90vw; object-fit: contain; }
+        .lb-close { position: absolute; top: 30px; right: 40px; font-size: 35px; cursor: pointer; color: var(--text); }
+        .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; cursor: pointer; padding: 20px; color: var(--accent); user-select: none; z-index: 3100; }
+        .lb-prev { left: 10px; } .lb-next { right: 10px; }
+
+        /* Sections */
+        .content-section { padding: 8rem 0; }
+        .bg-card { background-color: var(--card); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1rem 0; margin-bottom: 2rem; outline: none; font-family: inherit; font-size: 1rem; background: transparent; }
+        .btn { background: var(--text); color: white; border: none; padding: 1rem 3rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; transition: opacity 0.3s; }
+        .btn:hover { opacity: 0.8; }
+
+        @media (max-width: 768px) { 
+            .grid-2 { grid-template-columns: 1fr; }
+            .hero-title { font-size: 4rem; }
+            .lb-arrow { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo serif">BETA BEATRISE</div>
+            <div class="lang-menu">
+                <div class="lang-link active" onclick="setLang('nl', this)">NL</div>
+                <div class="lang-link" onclick="setLang('fr', this)">FR</div>
+                <div class="lang-link" onclick="setLang('en', this)">EN</div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero container reveal">
+        <div>
+            <span class="hero-tag" data-key="tag">Riga — België</span>
+            <h1 class="hero-title serif">Beta<br><span style="font-style: normal;">Beatrise</span></h1>
+            <p style="max-width: 400px; margin-top: 2rem; color: var(--muted);" data-key="heroSub">Verkenning van de gouden cirkel van het leven.</p>
+        </div>
+    </section>
+
+    <section class="container content-section">
+        <div class="section-header reveal">
+            <h2 class="serif" style="font-size: 3rem; margin: 0;" data-key="collTitle">Golden Circle of Life</h2>
+            <p style="color: var(--muted); font-size: 11px; letter-spacing: 0.2em;">COLLECTION 2025–2026</p>
+        </div>
+        <div class="gallery-grid" id="gallery"></div>
+    </section>
+
+    <section id="about" class="bg-card content-section">
+        <div class="container grid-2 reveal">
+            <div class="img-wrap" style="aspect-ratio: 4/5;"><img src="paintings/p2.png" alt="Artist"></div>
+            <div>
+                <h2 class="serif italic" style="font-size: 2.5rem;" data-key="aboutTitle">Over de Kunstenaar</h2>
+                <p style="line-height: 1.8; color: var(--muted);" data-key="aboutText">Beta Beatrise brengt de Baltische ziel naar het hart van België. Haar werk is een dialoog tussen textuur en bladgoud, geïnspireerd door de cyclus van de natuur.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="commissions" class="content-section">
+        <div class="container grid-2 reveal">
+            <div>
+                <h2 class="serif" style="font-size: 3rem;" data-key="commTitle">Opdrachten</h2>
+                <p style="color: var(--muted);" data-key="commText">Neem contact op voor gepersonaliseerde kunstwerken voor uw interieur.</p>
+            </div>
+            <form>
+                <input type="text" data-placeholder="pName" placeholder="Naam">
+                <input type="email" data-placeholder="pEmail" placeholder="Email">
+                <textarea rows="4" data-placeholder="pMsg" placeholder="Bericht"></textarea>
+                <button type="button" class="btn" data-key="btnSend">Verzenden</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="interior" style="background:#1a1816; color:white; text-align:center; padding: 12rem 0;">
+        <div class="container reveal">
+            <h2 class="serif italic" style="font-size: 3rem;" data-key="interiorTitle">Interieur Curatie</h2>
+            <p style="color: var(--accent); letter-spacing: 0.2em; font-size: 10px;" data-key="soon">BINNENKORT BESCHIKBAAR</p>
+        </div>
+    </section>
+
+    <footer style="padding: 5rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <p class="serif">BETA BEATRISE</p>
+        <p style="font-size: 10px; color: var(--muted);">beta.beatrise@gmail.com</p>
+    </footer>
+
+    <div id="lightbox">
+        <span class="lb-close">&times;</span>
+        <span class="lb-arrow lb-prev">&#8249;</span>
+        <img id="lb-img" src="">
+        <span class="lb-arrow lb-next">&#8250;</span>
+    </div>
+
+    <script>
+        const texts = {
+            nl: { tag: "Riga — België", collTitle: "Golden Circle of Life", heroSub: "Verkenning van de gouden cirkel van het leven.", aboutTitle: "Over de Kunstenaar", aboutText: "Beta Beatrise brengt de Baltische ziel naar België. Haar werk is een dialoog tussen textuur en bladgoud.", commTitle: "Opdrachten", commText: "Contacteer mij voor werk op maat.", interiorTitle: "Interieur Curatie", soon: "BINNENKORT", btnSend: "Verzenden", pName: "Naam", pEmail: "Email", pMsg: "Bericht" },
+            fr: { tag: "Riga — Belgique", collTitle: "Cercle de Vie Doré", heroSub: "Exploration du cercle doré de la vie.", aboutTitle: "À Propos", aboutText: "Beta Beatrise apporte l'âme balte en Belgique. Son travail est un dialogue entre texture et feuille d'or.", commTitle: "Commandes", commText: "Contactez-moi pour des œuvres personnalisées.", interiorTitle: "Curation d'Intérieur", soon: "BIENTÔT", btnSend: "Envoyer", pName: "Nom", pEmail: "Email", pMsg: "Message" },
+            en: { tag: "Riga — Belgium", collTitle: "Golden Circle of Life", heroSub: "Exploring the golden circle of life.", aboutTitle: "About the Artist", aboutText: "Beta Beatrise brings the Baltic soul to Belgium. Her work is a dialogue between texture and gold leaf.", commTitle: "Commissions", commText: "Get in touch for bespoke artworks.", interiorTitle: "Interior Curation", soon: "COMING SOON", btnSend: "Send", pName: "Name", pEmail: "Email", pMsg: "Message" }
+        };
+
+        function setLang(l, el) {
+            document.querySelectorAll('.lang-link').forEach(link => link.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('[data-key]').forEach(item => {
+                const key = item.getAttribute('data-key');
+                item.innerText = texts[l][key];
+            });
+            document.querySelectorAll('[data-placeholder]').forEach(item => {
+                const key = item.getAttribute('data-placeholder');
+                item.placeholder = texts[l][key];
+            });
+        }
+
+        const collection = [
+            { id: 0, img: "paintings/p1.png", title: "Circle I" },
+            { id: 1, img: "paintings/p2.png", title: "Circle II" },
+            { id: 2, img: "paintings/p3.png", title: "Circle III" },
+            { id: 3, img: "paintings/p4.png", title: "Circle IV" }
+        ];
+
+        const gal = document.getElementById('gallery');
+        collection.forEach(p => {
+            gal.innerHTML += `
+                <div class="card reveal" onclick="openLightbox(${p.id})">
+                    <div class="img-wrap"><img src="${p.img}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'"></div>
+                    <h3 class="serif italic" style="margin:0">${p.title}</h3>
+                </div>
+            `;
+        });
+
+        let currentIdx = 0;
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        function openLightbox(id) { currentIdx = id; lbImg.src = collection[id].img; lb.style.display = 'flex'; }
+        document.querySelector('.lb-close').onclick = () => lb.style.display = 'none';
+        document.querySelector('.lb-next').onclick = (e) => { e.stopPropagation(); currentIdx = (currentIdx + 1) % collection.length; lbImg.src = collection[currentIdx].img; };
+        document.querySelector('.lb-prev').onclick = (e) => { e.stopPropagation(); currentIdx = (currentIdx - 1 + collection.length) % collection.length; lbImg.src = collection[currentIdx].img; };
+        lb.onclick = () => lb.style.display = 'none';
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.05 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
