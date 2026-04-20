@@ -18,7 +18,7 @@
         }
 
         /* Prevent flash and force scroll to top on load */
-        html { visibility: hidden; scroll-behavior: auto !important; }
+        html { visibility: hidden; }
         * { box-sizing: border-box; }
         
         body { 
@@ -114,6 +114,7 @@
     </style>
 </head>
 <body>
+    <div id="top" style="position: absolute; top: 0; left: 0; height: 1px; width: 1px; visibility: hidden;"></div>
 
     <nav>
         <div class="container nav-content">
@@ -134,7 +135,7 @@
         </div>
     </nav>
 
-    <section class="hero" id="top">
+    <section class="hero">
         <div class="container reveal">
             <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
             <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
@@ -156,8 +157,8 @@
             <span class="section-tag" data-key="tagAbout">The Connection</span>
             <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
             <div style="font-size: 1.15rem; line-height: 2; font-weight: 300; margin-top: 2rem;" data-key="aboutText">
-                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings.</p>
-                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>
+                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements.</p>
+                <p>Her works are designed to be intuitive; you are invited to rotate the canvas.</p>
             </div>
         </div>
     </section>
@@ -166,7 +167,6 @@
         <div class="container reveal">
             <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
             <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
-            <p style="max-width: 500px; margin: 0 auto; font-size: 1.05rem; color: var(--muted);" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.</p>
             <form class="form-container">
                 <input type="text" data-placeholder="pName" placeholder="Name">
                 <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your vision."></textarea>
@@ -184,18 +184,27 @@
     </section>
 
     <script>
-        // Force scroll to top on refresh
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.onbeforeunload = function () { window.scrollTo(0, 0); };
-        
-        window.onload = () => {
-            window.scrollTo(0, 0);
-            document.documentElement.style.visibility = 'visible';
-            document.body.style.scrollBehavior = 'smooth';
-            initReveal();
-        };
+        // TRIPLE-LOCK SCROLL TO TOP
+        if ('scrollRestoration' in history) { 
+            history.scrollRestoration = 'manual'; 
+        }
 
-        // Scroll Blur / Reveal Observer
+        window.scrollTo(0, 0);
+
+        window.addEventListener('load', () => {
+            // Immediate scroll
+            window.scrollTo(0, 0);
+            
+            // Delayed scroll to overwrite browser memory
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.documentElement.style.visibility = 'visible';
+                document.body.style.scrollBehavior = 'smooth';
+                initReveal();
+            }, 10);
+        });
+
+        // REVEAL LOGIC
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -216,21 +225,15 @@
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
                 aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien.</p>",
-                tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
-                inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten?",
-                interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
-                soon: "BINNENKORT BESCHIKBAAR", btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee."
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie.</p>",
+                btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee."
             },
             EN: { 
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas.</p>",
-                tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
-                inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire.",
-                interiorTitle: "Did you know I also provide interior design services?",
-                soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision."
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance.</p>",
+                btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision."
             }
         };
 
@@ -250,8 +253,8 @@
                         <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
                     <h3 class="serif italic" style="font-size: 1.6rem; margin-top:1.5rem;">${art.title}</h3>
-                    <span class="price" style="font-weight: 600; font-size: 0.9rem;">${art.price}</span>
-                    <p class="desc" style="color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem;">${art.desc}</p>
+                    <span class="price">${art.price}</span>
+                    <p class="desc">${art.desc}</p>
                 </div>
             `;
         });
