@@ -17,7 +17,7 @@
             --border: #eeeeee;
         }
 
-        /* THE iOS SNAP FIX: ALL SNAP LOGIC ON HTML ONLY */
+        /* THE iOS SNAP FIX */
         html { 
             scroll-behavior: smooth; 
             scroll-snap-type: y mandatory;
@@ -75,7 +75,7 @@
             align-items: center;
             justify-content: center;
             scroll-snap-align: start; 
-            scroll-snap-stop: always; /* Force the snap */
+            scroll-snap-stop: always;
             text-align: center;
             position: relative;
         }
@@ -86,7 +86,6 @@
         .section-title { font-size: clamp(2.2rem, 6vw, 3rem); margin-bottom: 1.5rem; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
-        /* ARROW */
         .scroll-arrow {
             margin-top: 2rem;
             font-size: 1.5rem;
@@ -138,7 +137,7 @@
         }
         .c-prev { left: 8px; } .c-next { right: 8px; }
 
-        /* FORM */
+        /* CONTACT FORM */
         .form-container { width: 100%; max-width: 500px; margin-top: 1.5rem; text-align: left; }
         input, textarea { 
             width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1rem; 
@@ -182,7 +181,7 @@
                 <h2 class="section-title serif">Golden Circle of Life</h2>
                 <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
             </div>
-            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('#gallery-root').scrollIntoView({behavior: 'smooth'});">↓</div>
+            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('.artwork-page').scrollIntoView({behavior: 'smooth'});">↓</div>
         </div>
     </section>
 
@@ -223,10 +222,11 @@
     </section>
 
     <script>
+        // FULL LIST OF ALL 18 IMAGES RESTORED
         const artworks = [
-            { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
-            { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg"] },
-            { title: "Golden Circle III", price: "€ 1.950", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg"] },
+            { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
+            { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { title: "Golden Circle III", price: "€ 1.950", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
             { title: "Golden Circle IV", price: "€ 2.400", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg"] }
         ];
 
