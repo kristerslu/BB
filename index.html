@@ -17,7 +17,6 @@
             --border: #eeeeee;
         }
 
-        /* SCROLL SNAPPING */
         html { 
             scroll-behavior: smooth; 
             scroll-snap-type: y mandatory; 
@@ -37,7 +36,7 @@
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION RESTORED */
+        /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -49,7 +48,7 @@
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
 
-        /* SECTION STYLING RESTORED */
+        /* FULL PAGE SECTIONS */
         section, .artwork-page { 
             height: 100vh; 
             width: 100%;
@@ -60,6 +59,7 @@
             scroll-snap-align: start; 
             scroll-snap-stop: always;
             text-align: center;
+            position: relative;
         }
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
@@ -68,7 +68,24 @@
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 4rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* ARTWORK PAGES - NO CROP FIX */
+        /* SCROLL ARROW ANIMATION */
+        .scroll-arrow {
+            margin-top: 3rem;
+            font-size: 2rem;
+            color: var(--accent);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .scroll-arrow:hover { color: var(--black); }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* ARTWORK PAGES */
         .artwork-container {
             width: 100%;
             max-width: 800px;
@@ -106,7 +123,7 @@
             position: absolute;
             opacity: 0; 
             transition: opacity 0.6s ease-in-out;
-            object-fit: contain; /* Prevents cropping */
+            object-fit: contain;
         }
 
         .carousel-track img.active-slide { opacity: 1; position: relative; }
@@ -115,11 +132,10 @@
             position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
             background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
             z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .c-prev { left: 10px; } .c-next { right: 10px; }
 
-        /* FORM RESTORED */
+        /* FORM */
         .form-container { width: 100%; max-width: 550px; margin-top: 3rem; text-align: left; }
         input, textarea { 
             width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1.5rem; 
@@ -127,7 +143,6 @@
         }
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
 
-        /* LAST SECTION RESTORED */
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
         @media (max-width: 600px) {
@@ -162,6 +177,7 @@
             <span class="section-tag">Beschikbaar Werk</span>
             <h2 class="section-title serif">Golden Circle of Life</h2>
             <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
+            <div class="scroll-arrow" onclick="window.scrollBy(0, window.innerHeight);">↓</div>
         </div>
     </section>
 
