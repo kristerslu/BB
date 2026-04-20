@@ -35,29 +35,48 @@
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity;
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .reveal-delay { transition-delay: 0.4s; }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-        .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION - STABILIZED FOR IOS */
+        /* NAVIGATION - CENTERED LOGIC */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 1rem 0; border-bottom: 1px solid var(--border); 
+            padding: 1.2rem 0; border-bottom: 1px solid var(--border); 
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { text-decoration: none; color: var(--black); font-size: 1.4rem; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 1.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-        
-        /* LANG BUTTON - IOS BLUE FIX */
-        .lang-btn { 
-            background: none; border: 1px solid var(--black); padding: 4px 8px; font-size: 9px; 
-            cursor: pointer; font-weight: 700; color: var(--black) !important; 
-            -webkit-appearance: none; border-radius: 0; outline: none;
+        .nav-content { 
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
+            align-items: center; 
+            width: 100%;
         }
 
+        .logo { text-decoration: none; color: var(--black); font-size: 1.4rem; letter-spacing: 2px; justify-self: start; }
+        
+        .nav-links { display: flex; gap: 2rem; justify-self: center; }
+        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+        
+        /* DROPDOWN STYLING */
+        .lang-dropdown { position: relative; justify-self: end; display: inline-block; }
+        .lang-trigger { 
+            background: none; border: 1px solid var(--black); padding: 5px 12px; font-size: 9px; 
+            cursor: pointer; font-weight: 700; color: var(--black) !important; 
+            text-transform: uppercase; border-radius: 0; -webkit-appearance: none;
+        }
+        .dropdown-content {
+            display: none; position: absolute; right: 0; background-color: var(--white);
+            min-width: 80px; border: 1px solid var(--border); box-shadow: 0px 8px 16px rgba(0,0,0,0.05); z-index: 1;
+        }
+        .dropdown-content button {
+            color: var(--black); padding: 10px 12px; text-decoration: none; display: block;
+            width: 100%; border: none; background: none; font-size: 10px; font-weight: 600;
+            text-align: left; cursor: pointer; border-bottom: 1px solid var(--border);
+        }
+        .dropdown-content button:hover { background-color: var(--hero-bg); }
+        .lang-dropdown:hover .dropdown-content, .lang-dropdown:focus-within .dropdown-content { display: block; }
+
+        /* SECTIONS */
         section, .artwork-page { 
             height: 100vh; width: 100%; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; scroll-snap-align: start; 
@@ -66,11 +85,7 @@
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
         .hero-title { font-size: clamp(3.5rem, 12vw, 7.5rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
-        .section-title { font-size: clamp(2.2rem, 6vw, 3rem); margin-bottom: 1.5rem; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
-
-        .scroll-arrow { margin-top: 2rem; font-size: 1.5rem; color: var(--accent); cursor: pointer; display: inline-block; transition: transform 0.3s; }
-        .scroll-arrow:active { transform: scale(0.9); }
 
         .artwork-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; height: 75vh; justify-content: center; }
         .carousel { position: relative; width: 100%; height: 55vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; padding: 15px; }
@@ -81,15 +96,16 @@
         .c-prev { left: 8px; } .c-next { right: 8px; }
 
         .form-container { width: 100%; max-width: 500px; margin-top: 1.5rem; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--black); border-radius: 0; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; width: 100%; cursor: pointer; border-radius: 0; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; border-radius: 0; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; width: 100%; cursor: pointer; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        .bg-dark .section-tag { border-color: var(--accent); color: var(--accent); }
 
-        @media (max-width: 600px) {
-            .nav-links { gap: 0.6rem; }
-            .nav-links a { font-size: 8px; letter-spacing: 0.05em; }
+        @media (max-width: 768px) {
+            .nav-content { grid-template-columns: auto 1fr auto; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 8px; }
+            .logo { font-size: 1.1rem; }
             .carousel { height: 42vh; }
         }
     </style>
@@ -103,7 +119,14 @@
                 <a href="#collection" data-key="nav-coll">Collectie</a>
                 <a href="#about" data-key="nav-phil">Filosofie</a>
                 <a href="#inquire" data-key="nav-inq">Aanvraag</a>
-                <button class="lang-btn" id="langToggle">FR</button>
+            </div>
+            <div class="lang-dropdown">
+                <button class="lang-trigger" id="langCurrent">NL</button>
+                <div class="dropdown-content">
+                    <button onclick="setLang('nl')">NL</button>
+                    <button onclick="setLang('fr')">FR</button>
+                    <button onclick="setLang('en')">EN</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -122,13 +145,12 @@
                 <h2 class="section-title serif">Golden Circle of Life</h2>
                 <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc">Scroll naar beneden om de collectie te bekijken</p>
             </div>
-            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('.artwork-page').scrollIntoView({behavior: 'smooth'});">↓</div>
         </div>
     </section>
 
     <div id="gallery-root"></div>
 
-    <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
         <div class="container reveal" style="max-width: 650px;">
             <span class="section-tag" data-key="about-tag">De Verbinding</span>
             <h2 class="section-title serif">Elegance in the Raw</h2>
@@ -193,12 +215,7 @@
             }
         };
 
-        const langOrder = ['nl', 'fr', 'en'];
-        let currentLangIdx = 0; // Starts at Dutch
-        const langToggle = document.getElementById('langToggle');
-
-        function updateLanguage() {
-            const lang = langOrder[currentLangIdx];
+        function setLang(lang) {
             document.querySelectorAll('[data-key]').forEach(el => {
                 el.innerText = translations[lang][el.getAttribute('data-key')];
             });
@@ -206,18 +223,10 @@
                 const key = 'p-' + el.getAttribute('data-p');
                 el.placeholder = translations[lang][key] || el.getAttribute('data-p');
             });
-            
-            // Show the NEXT language in the sequence on the button
-            const nextIdx = (currentLangIdx + 1) % langOrder.length;
-            langToggle.innerText = langOrder[nextIdx].toUpperCase();
+            document.getElementById('langCurrent').innerText = lang.toUpperCase();
         }
 
-        langToggle.addEventListener('click', () => {
-            currentLangIdx = (currentLangIdx + 1) % langOrder.length;
-            updateLanguage();
-        });
-
-        // Gallery Data
+        // Gallery Construction
         const artworks = [
             { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
             { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
@@ -261,7 +270,8 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        updateLanguage();
+        // Default init
+        setLang('nl');
     </script>
 </body>
 </html>
