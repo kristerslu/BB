@@ -30,8 +30,8 @@
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
 
-        /* Kill iOS Blue Links/Buttons */
-        a, button, input, textarea { 
+        /* Kill iOS Blue Links/Interactive Elements */
+        a, button, input, textarea, span { 
             color: inherit; 
             text-decoration: none; 
             -webkit-tap-highlight-color: transparent;
@@ -55,12 +55,12 @@
         .nav-links { display: flex; gap: 2rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--black); }
         
-        /* DROPDOWN - BLUE TEXT FIX */
+        /* DROPDOWN */
         .lang-dropdown { position: relative; justify-self: end; }
         .lang-trigger { 
             background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; 
             cursor: pointer; font-weight: 700; text-transform: uppercase; 
-            color: var(--black) !important; /* Forces black on iOS */
+            color: var(--black) !important;
         }
         .dropdown-content {
             display: none; position: absolute; right: 0; background-color: var(--white);
@@ -84,7 +84,6 @@
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
 
-        /* INTERIOR SECTION FIX (Centered) */
         .interior-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         /* ARTWORK CAROUSEL */
@@ -96,6 +95,16 @@
         
         .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; z-index: 10; cursor: pointer; font-size: 20px; color: var(--black); }
         .c-prev { left: 10px; } .c-next { right: 10px; }
+
+        /* PRICE STYLING - UPDATED FOR LESS BOLDNESS */
+        .price-tag { 
+            font-weight: 400; 
+            font-size: 1rem; 
+            color: #888; 
+            display: block; 
+            margin-top: 0.5rem; 
+            letter-spacing: 0.05em;
+        }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
         .bg-dark .section-tag { border-color: var(--muted); }
@@ -229,7 +238,7 @@
 
         const root = document.getElementById('gallery-root');
         artworks.forEach((art, idx) => {
-            root.insertAdjacentHTML('beforeend', `<div class="artwork-page"><div class="artwork-container reveal"><div class="carousel" onclick="move(${idx}, 1)"><button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button><div class="carousel-track" id="t-${idx}">${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}</div><button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button></div><div style="margin-top: 2rem;"><h3 class="serif" style="font-size: 1.6rem; margin: 0;" data-key="${art.id}"></h3><span style="font-weight:600; font-size: 1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span></div></div></div>`);
+            root.insertAdjacentHTML('beforeend', `<div class="artwork-page"><div class="artwork-container reveal"><div class="carousel" onclick="move(${idx}, 1)"><button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button><div class="carousel-track" id="t-${idx}">${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}</div><button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button></div><div style="margin-top: 2rem;"><h3 class="serif" style="font-size: 1.6rem; margin: 0;" data-key="${art.id}"></h3><span class="price-tag">${art.price}</span></div></div></div>`);
         });
 
         function move(idx, dir) {
