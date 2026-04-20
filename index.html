@@ -17,30 +17,25 @@
             --border: #eeeeee;
         }
 
-        /* iOS FIX: Prevent horizontal drifting and white edges */
-        html, body { 
-            margin: 0; 
-            padding: 0;
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden; 
-            position: relative;
-            -webkit-text-size-adjust: 100%;
-        }
-
+        /* SCROLL SNAP FIX */
         html { 
             scroll-behavior: smooth; 
             scroll-snap-type: y mandatory;
             height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
         
         body { 
+            margin: 0; 
+            padding: 0;
+            width: 100%;
             font-family: 'Inter', sans-serif; 
             background: var(--white); 
             color: var(--black); 
             line-height: 1.6; 
-            -webkit-font-smoothing: antialiased; 
-            min-height: 100%;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Prevent horizontal drift */
         }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
@@ -65,7 +60,6 @@
         .nav-links { display: flex; gap: 2.5rem; justify-self: center; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         
-        /* LANGUAGE DROPDOWN (Click-based) */
         .lang-dropdown { position: relative; justify-self: end; display: inline-block; }
         .lang-trigger { 
             background: none; border: 1px solid var(--black); padding: 6px 14px; font-size: 11px; 
@@ -84,11 +78,19 @@
             text-align: left; cursor: pointer; border-bottom: 1px solid var(--border);
         }
 
-        /* SECTIONS */
+        /* SECTIONS - Snap points must be defined here */
         section, .artwork-page { 
-            height: 100vh; width: 100%; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; scroll-snap-align: start; 
-            scroll-snap-stop: always; text-align: center; position: relative; box-sizing: border-box;
+            height: 100vh; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            scroll-snap-align: start; 
+            scroll-snap-stop: always; 
+            text-align: center; 
+            position: relative; 
+            box-sizing: border-box;
         }
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
@@ -96,7 +98,6 @@
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* ARTWORK CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; height: 75vh; justify-content: center; padding: 0 1rem; box-sizing: border-box; }
         .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; padding: 20px; box-sizing: border-box; }
         .carousel-track { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
@@ -106,7 +107,6 @@
         .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(255,255,255,0.7); border: none; border-radius: 50%; z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .c-prev { left: 10px; } .c-next { right: 10px; }
 
-        /* FORM */
         .form-container { width: 100%; max-width: 550px; margin-top: 2rem; text-align: left; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.2rem 0; margin-bottom: 1.2rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; border-radius: 0; }
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; }
