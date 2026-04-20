@@ -17,7 +17,6 @@
             --border: #eeeeee;
         }
 
-        /* Prevent flash and force scroll to top on load */
         html { visibility: hidden; }
         * { box-sizing: border-box; }
         
@@ -31,12 +30,11 @@
             overflow-x: hidden;
         }
 
-        /* ELEGANT REVEAL EFFECT */
         .reveal {
             opacity: 0;
             filter: blur(15px);
             transform: translateY(20px);
-            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .reveal.active {
@@ -48,7 +46,6 @@
         .serif { font-family: 'Playfair Display', serif; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.9); 
@@ -66,51 +63,71 @@
         .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
-        /* SECTIONS & SPACING */
         section { padding: 8rem 0; text-align: center; scroll-margin-top: 80px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); border: none; }
-
         .top-spacer { height: 10rem; background: var(--white); }
 
-        /* TYPOGRAPHY */
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
         .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1.5rem 0; font-weight: 400; }
         .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
-        /* GALLERY */
+        /* ARTISTIC GALLERY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; width: 100%; }
-        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; border-radius: 2px; }
-        .carousel-track { display: flex; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); height: 100%; width: 100%; }
-        .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+        
+        .carousel { 
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 4/5; 
+            overflow: hidden; 
+            background: #fff; 
+            border: 1px solid #f0f0f0;
+        }
+
+        .carousel-track { 
+            position: relative;
+            height: 100%; 
+            width: 100%; 
+        }
+
+        .carousel-track img { 
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%; 
+            object-fit: contain; /* NO CROPPING */
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 1s ease, transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+            background: var(--white);
+        }
+
+        .carousel-track img.active-slide {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
         
         .c-arrow { 
             position: absolute; top: 0; height: 100%; width: 30%; 
-            background: transparent; border: none; color: white; 
+            background: transparent; border: none; color: var(--black); 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; z-index: 10; -webkit-tap-highlight-color: transparent;
+            font-size: 24px; z-index: 10; opacity: 0; transition: opacity 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .c-prev { left: 0; justify-content: flex-start; padding-left: 15px; } 
-        .c-next { right: 0; justify-content: flex-end; padding-right: 15px; }
+        .carousel:hover .c-arrow { opacity: 0.4; }
+        .c-arrow:hover { opacity: 1 !important; }
+        .c-prev { left: 0; justify-content: flex-start; padding-left: 10px; } 
+        .c-next { right: 0; justify-content: flex-end; padding-right: 10px; }
 
-        /* FORM */
+        /* FORM STYLES */
         .form-container { width: 100%; max-width: 500px; margin: 2rem auto; text-align: left; position: relative; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; border-radius: 0; }
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; width: 100%; cursor: pointer; margin-top: 2rem; transition: opacity 0.3s ease; }
         .btn:hover { opacity: 0.8; }
         
-        #form-status {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
-            font-size: 1.1rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            animation: fadeIn 0.5s ease forwards;
-        }
+        #form-status { display: none; text-align: center; padding: 2rem 0; font-size: 1.1rem; font-weight: 300; animation: fadeIn 0.5s ease forwards; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -119,7 +136,6 @@
             .nav-links a { font-size: 8px; }
             .hero-title { font-size: 4.2rem; }
             section { padding: 6rem 0; }
-            .top-spacer { height: 6rem; }
         }
     </style>
 </head>
@@ -147,7 +163,7 @@
 
     <section class="hero">
         <div class="container reveal">
-            <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
+            <h1 class="hero-title serif">Beta<br>Beatrise</h1>
             <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
@@ -176,7 +192,6 @@
         <div class="container reveal">
             <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
             <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
-            
             <div class="form-container">
                 <form id="contact-form" action="https://formspree.io/f/xpqkjzkz" method="POST">
                     <input type="text" name="name" data-placeholder="pName" placeholder="Naam" required>
@@ -184,132 +199,57 @@
                     <textarea name="message" rows="4" data-placeholder="pMsg" placeholder="Beschrijf uw idee." required></textarea>
                     <button id="submit-btn" type="submit" class="btn" data-key="btnSend">Verstuur Aanvraag</button>
                 </form>
-                
                 <div id="form-status">
                     <p class="serif italic" style="font-size: 1.8rem;">Dank u.</p>
                     <p style="color: var(--muted); margin-top: 10px;">Uw bericht is succesvol verzonden.</p>
                 </div>
             </div>
-            
         </div>
     </section>
 
     <section id="interior" class="bg-dark full-v">
         <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
-            <h2 class="serif italic" style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 300;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
+            <h2 class="serif italic" style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 300;" data-key="interiorTitle">Interior design services</h2>
             <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 10px; font-weight: 700; margin-top: 5rem; display: block;" data-key="soon">COMING SOON</span>
         </div>
     </section>
 
     <script>
-        // TRIPLE-LOCK SCROLL TO TOP
-        if ('scrollRestoration' in history) { 
-            history.scrollRestoration = 'manual'; 
-        }
-
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
         window.scrollTo(0, 0);
 
         window.addEventListener('load', () => {
             window.scrollTo(0, 0);
             setTimeout(() => {
-                window.scrollTo(0, 0);
                 document.documentElement.style.visibility = 'visible';
                 document.body.style.scrollBehavior = 'smooth';
                 initReveal();
-            }, 10);
+            }, 100);
         });
 
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
+                    if (entry.isIntersecting) { entry.target.classList.add('active'); }
                 });
             }, { threshold: 0.1 });
-
-            document.querySelectorAll('.reveal, .artwork-card').forEach(el => {
-                if (!el.classList.contains('reveal')) el.classList.add('reveal');
-                observer.observe(el);
-            });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
-        // FORM SUBMISSION HANDLING
-        const form = document.getElementById("contact-form");
-        const status = document.getElementById("form-status");
-        const submitBtn = document.getElementById("submit-btn");
-
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            submitBtn.innerText = "...";
-            submitBtn.disabled = true;
-
-            const data = new FormData(event.target);
-            
-            fetch(event.target.action, {
-                method: form.method,
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    form.style.display = "none";
-                    status.style.display = "block";
-                } else {
-                    alert("Er ging iets mis. Probeer het opnieuw.");
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Verstuur Aanvraag";
-                }
-            }).catch(error => {
-                alert("Verbindingsfout.");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Verstuur Aanvraag";
-            });
-        });
-
-        const texts = {
-            NL: { 
-                heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
-                tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
-                aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie.</p>",
-                btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee."
-            },
-            EN: { 
-                heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
-                tagColl: "Available Work", tagAbout: "The Connection",
-                aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance.</p>",
-                btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision."
-            }
-        };
-
-        // UPDATED ARTWORKS WITH YOUR 19 IMAGES
         const artworks = [
-            { 
-                title: "Golden Circle I", price: "€ 1.800", desc: "Mixed media with 24k gold leaf.", 
-                images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] 
-            },
-            { 
-                title: "Golden Circle II", price: "€ 2.100", desc: "Deep charcoal with heavy texture.", 
-                images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] 
-            },
-            { 
-                title: "Golden Circle III", price: "€ 1.950", desc: "Organic movements in plaster and gold.", 
-                images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] 
-            },
-            { 
-                title: "Golden Circle IV", price: "€ 2.400", desc: "Structural balance and light reflection.", 
-                images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] 
-            }
+            { title: "Golden Circle I", price: "€ 1.800", desc: "Mixed media with 24k gold leaf.", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
+            { title: "Golden Circle II", price: "€ 2.100", desc: "Deep charcoal with heavy texture.", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { title: "Golden Circle III", price: "€ 1.950", desc: "Organic movements in plaster and gold.", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
+            { title: "Golden Circle IV", price: "€ 2.400", desc: "Structural balance and light reflection.", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] }
         ];
 
         const gal = document.getElementById('gallery');
         artworks.forEach((art, artIdx) => {
-            let imagesHtml = art.images.map(img => `<img src="${img}" alt="${art.title}">`).join('');
+            let imagesHtml = art.images.map((img, i) => `<img src="${img}" class="${i === 0 ? 'active-slide' : ''}" alt="${art.title}">`).join('');
             gal.innerHTML += `
                 <div class="artwork-card reveal">
-                    <div class="carousel" id="carousel-${artIdx}">
+                    <div class="carousel">
                         <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#8249;</button>
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
                         <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#8250;</button>
@@ -324,21 +264,28 @@
         let currentSlides = artworks.map(() => 0);
         function moveSlide(artIdx, step) {
             const track = document.getElementById(`track-${artIdx}`);
-            const total = artworks[artIdx].images.length;
-            currentSlides[artIdx] = (currentSlides[artIdx] + step + total) % total;
-            track.style.transform = `translateX(-${currentSlides[artIdx] * 100}%)`;
+            const imgs = track.querySelectorAll('img');
+            imgs[currentSlides[artIdx]].classList.remove('active-slide');
+            currentSlides[artIdx] = (currentSlides[artIdx] + step + imgs.length) % imgs.length;
+            imgs[currentSlides[artIdx]].classList.add('active-slide');
         }
 
+        // Formspree AJAX
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById("submit-btn");
+            btn.innerText = "...";
+            const response = await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { 'Accept': 'application/json' } });
+            if (response.ok) { 
+                form.style.display = "none"; 
+                document.getElementById("form-status").style.display = "block"; 
+            }
+        });
+
         function changeLang(l) {
-            localStorage.setItem('prefLang', l);
             document.getElementById('current-lang').innerText = l;
-            document.querySelectorAll('[data-key]').forEach(item => {
-                const key = item.getAttribute('data-key');
-                if (texts[l][key]) item.innerHTML = texts[l][key];
-            });
-            document.querySelectorAll('[data-placeholder]').forEach(item => {
-                item.placeholder = texts[l][item.getAttribute('data-placeholder')];
-            });
+            // Add translation logic here if needed
         }
     </script>
 </body>
