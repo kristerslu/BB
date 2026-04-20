@@ -192,11 +192,33 @@
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
                 "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren.",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef?", "soon": "BINNENKORT",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef?", "soon": "BINNENKORT",
                 "form-title": "Paintings on Demand", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur?", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
                 "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud",
                 "success": "Bedankt! Uw bericht is verstuurd.", "error": "Oeps! Er ging iets mis."
+            },
+            en: {
+                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
+                "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
+                "coll-tag": "Available Work", "coll-desc": "Discover the collection",
+                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the fragile balance between unpolished rawness and timeless elegance. Each work is a tactile journey, built from countless layers of texture.",
+                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "From wall art to a fully harmonious interior. Did you know I also provide advice?", "soon": "COMING SOON",
+                "form-title": "Paintings on Demand", "form-desc": "Looking for a unique piece that fits your interior perfectly?", "form-btn": "Send Inquiry",
+                "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
+                "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold",
+                "success": "Thank you! Your message has been sent.", "error": "Oops! Something went wrong."
+            },
+            fr: {
+                "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
+                "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
+                "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
+                "about-tag": "Philosophie", "about-text": "Beta Beatrise explore l'équilibre fragile entre la rudesse brute et l'élégance intemporelle.",
+                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en décoration d'intérieur ?", "soon": "BIENTÔT DISPONIBLE",
+                "form-title": "Tableaux sur Demande", "form-desc": "Vous recherchez une pièce unique qui s'adapte parfaitement à votre intérieur ?", "form-btn": "Envoyer la Demande",
+                "modal-sub": "Intéressé par cette œuvre ? Laissez vos coordonnées ou contactez-moi directement.",
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Terre Dorée", "art3": "Traces d'Or",
+                "success": "Merci ! Votre message a été envoyé.", "error": "Oups ! Quelque chose s'est mal passé."
             }
         };
 
@@ -205,7 +227,12 @@
         window.onclick = function() { langMenu.classList.remove('show'); }
 
         function setLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = translations['nl'][el.getAttribute('data-key')] || el.innerText; });
+            document.querySelectorAll('[data-key]').forEach(el => { 
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
             document.getElementById('langCurrent').innerText = lang.toUpperCase();
             langMenu.classList.remove('show');
         }
@@ -230,7 +257,7 @@
                             <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
                         </div>
                         <div style="margin-top: 2rem;">
-                            <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}"></h3>
+                            <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
                             <span class="price-tag">${art.price}</span>
                         </div>
                     </div>
@@ -238,7 +265,8 @@
         });
 
         function openModal(artId) {
-            const title = translations['nl'][artId];
+            const currentLang = document.getElementById('langCurrent').innerText.toLowerCase();
+            const title = translations[currentLang][artId];
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('hiddenSubject').value = "Interest in Artwork: " + title;
             document.getElementById('artModal').style.display = "block";
@@ -259,6 +287,7 @@
             const form = event.target;
             const status = document.getElementById(statusId);
             const btn = form.querySelector('button');
+            const currentLang = document.getElementById('langCurrent').innerText.toLowerCase();
             const data = new FormData(form);
 
             btn.innerText = "Sending...";
@@ -270,20 +299,19 @@
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    status.innerHTML = translations['nl']['success'];
+                    status.innerHTML = translations[currentLang]['success'];
                     status.style.display = "block";
-                    status.style.color = "inherit"; // Keeps it black/white context
+                    status.style.color = "inherit";
                     form.reset();
-                    btn.innerText = translations['nl']['form-btn'];
+                    btn.innerText = translations[currentLang]['form-btn'];
                     btn.style.opacity = "1";
                     if(statusId === 'modalStatus') setTimeout(closeModal, 3000);
                 } else {
-                    status.innerHTML = translations['nl']['error'];
+                    status.innerHTML = translations[currentLang]['error'];
                     status.style.display = "block";
-                    status.style.color = "#900"; // Darker red for error
                 }
-            }).catch(error => {
-                status.innerHTML = translations['nl']['error'];
+            }).catch(() => {
+                status.innerHTML = translations[currentLang]['error'];
                 status.style.display = "block";
             });
         }
