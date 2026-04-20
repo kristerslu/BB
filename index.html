@@ -4,86 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Beta Beatrise — Fine Art</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
             --white: #ffffff;
-            --black: #1a1a1a;
+            --black: #000000;
             --muted: #666666;
             --accent: #c2b5a3;
-            --hero-bg: #f5f2ee; /* Warm Title Page */
-            --sand: #fbfaf8;    /* Very light philosophy bg */
-            --dark: #1a1816;    /* Dark Interior bg */
-            --border: #e5e5e5;
+            --hero-bg: #f5f2ee;
+            --sand: #fbfaf8;
+            --dark: #1a1816;
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); line-height: 1.6; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); }
         .serif { font-family: 'Playfair Display', serif; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* RELIABLE NAVIGATION */
+        /* FIXED NAVIGATION - Guaranteed Visibility on iOS */
         nav { 
-            position: fixed; top: 0; width: 100%; z-index: 10000; 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 10000; 
             background: #ffffff; 
-            border-bottom: 2px solid var(--hero-bg);
-            padding: 1.2rem 0;
+            height: 80px; 
+            display: flex; 
+            align-items: center;
+            border-bottom: 2px solid var(--black);
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--black); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        
+        /* The Quick Access Menu */
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: #000; 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            font-weight: 700;
+            padding: 5px 0;
+        }
 
-        .lang-dropdown { position: relative; }
-        .dropbtn { background: var(--black); color: white; border: none; padding: 6px 14px; font-size: 10px; cursor: pointer; border-radius: 2px; }
-        .dropdown-content { display: none; position: absolute; right: 0; background: white; border: 1px solid var(--black); min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .dropdown-content div { padding: 10px; font-size: 10px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); }
+        .lang-dropdown { position: relative; margin-left: 10px; }
+        .dropbtn { background: #000; color: #fff; border: none; padding: 8px 12px; font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        .dropdown-content { display: none; position: absolute; right: 0; background: #fff; border: 2px solid #000; min-width: 70px; }
+        .dropdown-content div { padding: 10px; font-size: 10px; cursor: pointer; color: #000; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid #eee; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
-        /* SECTIONS */
-        section { padding: 10rem 0; text-align: center; }
-        .hero { 
-            min-height: 100vh; display: flex; align-items: center; text-align: left;
-            background: var(--hero-bg); 
-            padding-top: 5rem;
-        }
+        section { padding: 8rem 0; text-align: center; border-bottom: 1px solid #eee; }
+        .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); padding-top: 80px; border: none; }
         .bg-sand { background-color: var(--sand); }
-        .bg-dark { background-color: var(--dark); color: var(--white); padding: 12rem 0; }
+        .bg-dark { background-color: var(--dark); color: #fff; border: none; }
 
-        /* TYPOGRAPHY */
-        .hero-title { font-size: clamp(3.5rem, 12vw, 8.5rem); line-height: 0.85; margin: 0; }
-        .hero-title span { color: var(--accent); font-style: normal !important; }
+        /* BOLD TITLES */
+        .hero-title { font-size: clamp(3.5rem, 12vw, 9rem); line-height: 0.85; margin: 0; font-weight: 700; }
+        .section-title { font-size: clamp(2.8rem, 7vw, 5rem); margin: 0 0 1rem 0; font-weight: 700; text-transform: uppercase; letter-spacing: -2px; }
+        .section-tag { font-size: 13px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem; display: block; }
+
+        /* CAROUSEL GALLERY */
+        .gallery-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; }
+        .artwork-card { text-align: left; position: relative; }
+        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f0f0f0; border: 1px solid #eee; }
+        .carousel-track { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
+        .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
         
-        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); margin: 0 0 1rem 0; font-weight: 400; }
-        .section-tag { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 1.5rem; display: block; }
+        .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; border: 2px solid #000; width: 35px; height: 35px; cursor: pointer; z-index: 10; font-size: 18px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+        .c-prev { left: 10px; }
+        .c-next { right: 10px; }
 
-        /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 5rem; text-align: left; }
-        .card { cursor: pointer; }
-        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #eee; margin-bottom: 1.5rem; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .card:hover img { transform: scale(1.04); }
-        .price { font-size: 1rem; font-weight: 600; color: var(--black); margin-top: 0.5rem; display: block; }
-        .desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.4; }
+        .price { font-size: 1.2rem; font-weight: 700; display: block; margin: 1.5rem 0 0.5rem 0; }
+        .desc { font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
 
-        /* FORM */
-        .form-container { max-width: 600px; margin: 4rem auto 0 auto; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1.2rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 1rem; color: inherit; }
-        .btn-wrap { text-align: center; padding-top: 2rem; margin-bottom: 2rem; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem 4rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: var(--accent); }
+        /* INQUIRY FORM */
+        .form-container { max-width: 600px; margin: 3rem auto 0 auto; text-align: left; }
+        input, textarea { width: 100%; border: none; border-bottom: 2px solid #000; padding: 1.2rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; }
+        .btn { background: #000; color: #fff; border: none; padding: 1.5rem 4rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 2rem; }
 
-        /* LIGHTBOX */
-        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 20000; }
-        #lightbox img { max-height: 65vh; max-width: 90vw; object-fit: contain; }
-        .lb-close { position: absolute; top: 30px; right: 30px; font-size: 40px; cursor: pointer; }
-        .lb-nav { position: absolute; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; }
-        .lb-arrow { font-size: 50px; cursor: pointer; color: var(--accent); user-select: none; }
-
-        @media (max-width: 768px) { 
-            section { padding: 8rem 0; }
+        @media (max-width: 600px) { 
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 8px; }
+            .hero-title { font-size: 4.2rem; text-align: center; }
             .hero { text-align: center; }
-            .hero-title { font-size: 4.5rem; }
-            .nav-links { display: none; } /* On mobile, we rely on the logo/lang only */
+            section { padding: 6rem 0; }
         }
     </style>
 </head>
@@ -91,9 +92,8 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="logo serif" style="font-weight: 600; font-size: 1.4rem; letter-spacing: -1px;">BB</div>
+            <div class="logo serif" style="font-size: 1.5rem; font-weight: 900;">BB</div>
             <div class="nav-links">
-                <a href="#">Home</a>
                 <a href="#collection">Gallery</a>
                 <a href="#about">Philosophy</a>
                 <a href="#inquire">Inquiry</a>
@@ -101,9 +101,9 @@
             <div class="lang-dropdown">
                 <button class="dropbtn" id="current-lang">NL</button>
                 <div class="dropdown-content">
-                    <div onclick="setLang('nl')">NL</div>
-                    <div onclick="setLang('fr')">FR</div>
-                    <div onclick="setLang('en')">EN</div>
+                    <div onclick="changeLang('NL')">NL</div>
+                    <div onclick="changeLang('EN')">EN</div>
+                    <div onclick="changeLang('FR')">FR</div>
                 </div>
             </div>
         </div>
@@ -111,26 +111,22 @@
 
     <section class="hero">
         <div class="container">
-            <h1 class="hero-title serif">Beta<br><span style="font-style: normal;">Beatrise</span></h1>
-            <p style="max-width: 500px; margin-top: 3rem; font-size: 1.2rem; color: var(--muted); font-weight: 300;" data-key="heroSub">
-                Abstract compositions. Heavy textures. Glimmers of 24k gold.
-            </p>
+            <h1 class="hero-title serif">Beta<br><span style="color:var(--accent); font-style:normal;">Beatrise</span></h1>
+            <p style="max-width: 500px; margin-top: 3rem; font-size: 1.3rem; font-weight: 300;" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
         </div>
     </section>
 
     <section id="collection" class="container">
         <span class="section-tag" data-key="tagColl">Available Work</span>
         <h2 class="section-title serif">Golden Circle of Life</h2>
-        <p style="color: var(--muted); font-size: 12px; letter-spacing: 0.2em;">COLLECTION 2025 — 2026</p>
-        
-        <div class="gallery-grid" id="gallery"></div>
+        <div class="gallery-container" id="gallery"></div>
     </section>
 
     <section id="about" class="bg-sand">
-        <div class="container" style="max-width: 850px;">
+        <div class="container" style="max-width: 900px;">
             <span class="section-tag" data-key="tagAbout">The Connection</span>
             <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
-            <div style="font-size: 1.2rem; line-height: 1.9; font-weight: 300; margin-top: 3rem;" data-key="aboutText">
+            <div style="font-size: 1.3rem; line-height: 1.9; margin-top: 3rem;" data-key="aboutText">
                 <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
                 <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas, allowing the art to be a personal reflection for every viewer.</p>
             </div>
@@ -138,123 +134,106 @@
     </section>
 
     <section id="inquire" class="container">
-        <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
+        <span class="section-tag" data-key="tagInq">Inquiry</span>
         <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
-        <p style="color: var(--muted); max-width: 550px; margin: 1.5rem auto 0 auto; font-size: 1.1rem;" data-key="inqSub">
-            If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.
-        </p>
-
+        <p style="max-width: 600px; margin: 1.5rem auto 0 auto; font-size: 1.1rem;" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.</p>
         <form class="form-container">
             <input type="text" data-placeholder="pName" placeholder="Name">
-            <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your idea or desired style..."></textarea>
-            <div class="btn-wrap"><button type="button" class="btn" data-key="btnSend">Send Inquiry</button></div>
+            <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your vision..."></textarea>
+            <button type="button" class="btn" data-key="btnSend">Send Inquiry</button>
         </form>
     </section>
 
     <section id="interior" class="bg-dark">
         <div class="container">
-            <span class="section-tag" style="color: var(--accent);">Creative Services</span>
-            <h2 class="serif italic" style="font-size: clamp(2rem, 6vw, 3.5rem); max-width: 800px; margin: 0 auto;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
-            <p style="color: var(--accent); letter-spacing: 0.3em; font-size: 11px; margin-top: 4rem; font-weight: 600;" data-key="soon">COMING SOON</p>
+            <span class="section-tag" style="color:var(--accent);">Design</span>
+            <h2 class="serif" style="font-size: 3rem;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
+            <p style="color: var(--accent); letter-spacing: 0.3em; font-weight: 700; margin-top: 3rem;" data-key="soon">COMING SOON</p>
         </div>
     </section>
 
-    <footer style="padding: 5rem 0; text-align: center; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border);">
-        <p class="serif" style="font-size: 1.5rem; color: var(--black); margin-bottom: 1rem;">BB</p>
-        <p>© 2026 — BETA BEATRISE FINE ART</p>
-        <p>beta.beatrise@gmail.com</p>
-    </footer>
-
-    <div id="lightbox">
-        <span class="lb-close" onclick="closeLightbox()">&times;</span>
-        <div class="lb-nav">
-            <span class="lb-arrow" onclick="changeImg(-1)">&#8249;</span>
-            <span class="lb-arrow" onclick="changeImg(1)">&#8250;</span>
-        </div>
-        <img id="lb-img" src="">
-        <div id="lb-caption" style="margin-top: 30px; text-align: center; padding: 0 20px;">
-            <h3 class="serif italic" id="lb-title" style="font-size: 1.8rem; margin:0"></h3>
-            <p id="lb-info" style="font-size: 1rem; color: var(--muted); margin-top: 10px;"></p>
-        </div>
-    </div>
-
     <script>
         const texts = {
-            nl: { 
+            NL: { 
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
                 aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal...</p>",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren die door iedereen kunnen worden genoten en geïnterpreteerd.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien en het vanuit verschillende perspectieven te bekijken. Door de oriëntatie te veranderen, onthult het licht nieuwe inspiraties en ideeën.</p>",
                 tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
                 inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten? Neem contact op voor een creatie op maat.",
                 interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
                 soon: "BINNENKORT BESCHIKBAAR", btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee..."
             },
-            en: { 
+            EN: { 
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance...</p>",
-                tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas.</p>",
+                tagInq: "Inquiry", inqTitle: "Start a Conversation",
                 inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.",
                 interiorTitle: "Did you know I also provide interior design services?",
                 soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your idea..."
+            },
+            FR: { 
+                heroSub: "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
+                tagColl: "Œuvres Disponibles", tagAbout: "La Connexion",
+                aboutTitle: "L'élégance à l'état brut",
+                aboutText: "<p>Beta Beatrise explore le lien entre le matériau brut et l'élégance raffinée. Son art utilise des textures multicouches et des éléments dorés pour créer des peintures abstraites luxueuses qui peuvent être appréciées par tous.</p>",
+                tagInq: "Demande", inqTitle: "Entamer une Conversation",
+                inqSub: "Si vous avez une idée spécifique, une pièce ou une palette de couleurs en tête, n'hésitez pas à demander une création sur mesure.",
+                interiorTitle: "Saviez-vous que je propose également des services de design d'intérieur ?",
+                soon: "BIENTÔT DISPONIBLE", btnSend: "Envoyer", pName: "Nom", pMsg: "Décrivez votre idée..."
             }
         };
 
-        const collection = [
-            { id: 0, img: "paintings/p1.png", title: "Circle I", price: "€ 1.200", desc: "Mixed media with 24k gold leaf on canvas." },
-            { id: 1, img: "paintings/p2.png", title: "Circle II", price: "€ 1.450", desc: "Heavy texture oil painting exploring rotation." },
-            { id: 2, img: "paintings/p3.png", title: "Circle III", price: "€ 1.100", desc: "Natural pigments and metallic elements." },
-            { id: 3, img: "paintings/p4.png", title: "Circle IV", price: "€ 1.800", desc: "Large scale abstract study of light." }
+        const artworks = [
+            { title: "Circle I", price: "€ 1.200", desc: "Gold leaf on heavy texture.", images: ["paintings/p1.png", "paintings/p1_alt.png"] },
+            { title: "Circle II", price: "€ 1.450", desc: "Deep charcoal with 24k gold.", images: ["paintings/p2.png", "paintings/p2_alt.png"] },
+            { title: "Circle III", price: "€ 1.100", desc: "Metallic accents on layered textures.", images: ["paintings/p3.png", "paintings/p3_alt.png"] },
+            { title: "Circle IV", price: "€ 1.800", desc: "Large scale study of light and form.", images: ["paintings/p4.png", "paintings/p4_alt.png"] }
         ];
 
         const gal = document.getElementById('gallery');
-        collection.forEach((p, index) => {
+        artworks.forEach((art, artIdx) => {
+            let imagesHtml = art.images.map(img => `<img src="${img}" onerror="this.src='https://via.placeholder.com/600x800'">`).join('');
             gal.innerHTML += `
-                <div class="card" onclick="openLightbox(${index})">
-                    <div class="img-wrap"><img src="${p.img}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'"></div>
-                    <h3 class="serif italic" style="margin:0; font-size: 1.5rem;">${p.title}</h3>
-                    <span class="price">${p.price}</span>
-                    <p class="desc">${p.desc}</p>
+                <div class="artwork-card">
+                    <div class="carousel" id="carousel-${artIdx}">
+                        <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#10094;</button>
+                        <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
+                        <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#10095;</button>
+                    </div>
+                    <h3 class="serif" style="font-size: 1.8rem; margin-top:1.5rem; font-weight:700;">${art.title}</h3>
+                    <span class="price">${art.price}</span>
+                    <p class="desc">${art.desc}</p>
                 </div>
             `;
         });
 
-        let currentIdx = 0;
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lb-img');
-        const lbTitle = document.getElementById('lb-title');
-        const lbInfo = document.getElementById('lb-info');
-
-        function openLightbox(idx) {
-            currentIdx = idx;
-            lbImg.src = collection[idx].img;
-            lbTitle.innerText = collection[idx].title;
-            lbInfo.innerText = collection[idx].price + " — " + collection[idx].desc;
-            lb.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        let currentSlides = artworks.map(() => 0);
+        function moveSlide(artIdx, step) {
+            const track = document.getElementById(`track-${artIdx}`);
+            const total = artworks[artIdx].images.length;
+            currentSlides[artIdx] = (currentSlides[artIdx] + step + total) % total;
+            track.style.transform = `translateX(-${currentSlides[artIdx] * 100}%)`;
         }
 
-        function closeLightbox() {
-            lb.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function changeImg(step) {
-            currentIdx = (currentIdx + step + collection.length) % collection.length;
-            lbImg.src = collection[currentIdx].img;
-            lbTitle.innerText = collection[currentIdx].title;
-            lbInfo.innerText = collection[currentIdx].price + " — " + collection[currentIdx].desc;
-        }
-
-        function setLang(l) {
+        function changeLang(l) {
+            localStorage.setItem('preferredLang', l);
             document.getElementById('current-lang').innerText = l;
             document.querySelectorAll('[data-key]').forEach(item => {
                 const key = item.getAttribute('data-key');
                 if (texts[l][key]) item.innerHTML = texts[l][key];
             });
+            document.querySelectorAll('[data-placeholder]').forEach(item => {
+                item.placeholder = texts[l][item.getAttribute('data-placeholder')];
+            });
         }
+
+        window.onload = () => {
+            const saved = localStorage.getItem('preferredLang') || 'NL';
+            changeLang(saved.toUpperCase());
+        };
     </script>
 </body>
 </html>
