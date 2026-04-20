@@ -55,7 +55,7 @@
 
         section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
 
-        /* CAROUSEL & ART TITLES */
+        /* CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; overflow: hidden; }
         .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 15px; box-sizing: border-box; }
@@ -65,20 +65,19 @@
         .c-arrow:hover { color: rgba(0,0,0,0.2); }
         .c-prev { left: 0; } .c-next { right: 0; }
 
-        /* CLICKABLE TITLES */
+        /* ART TITLES */
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; }
         .art-title-btn:hover { opacity: 0.6; }
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #999; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
 
         /* FORM STYLING */
         .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
-        .contact-info a { text-decoration: underline; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; }
 
-        /* MODAL POPUP */
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
-        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; }
+        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; text-align: left; }
         .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
@@ -155,30 +154,11 @@
 
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
         <div class="reveal" style="max-width: 600px; padding: 0 1.5rem;">
-            <span class="section-tag" data-key="about-tag">De Verbinding</span>
+            <span class="section-tag" data-key="about-tag">Filosofie</span>
             <h2 class="serif" style="font-size: 2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text">
-                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie.
+                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.
             </p>
-        </div>
-    </section>
-
-    <section id="inquire">
-        <div class="reveal" style="width: 100%; padding: 0 1.5rem; max-width: 500px; box-sizing: border-box;">
-            <span class="section-tag" data-key="nav-inq">Aanvraag</span>
-            <h2 class="serif" style="font-size: 2rem; margin-bottom: 1rem;" data-key="form-title">Start een gesprek</h2>
-            
-            <div class="contact-info">
-                info@betabeatrise.com | +31 6 12345678
-            </div>
-
-            <form action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
-                <input type="text" name="name" placeholder="Naam" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Telefoonnummer (Optioneel)">
-                <textarea name="message" rows="2" placeholder="Bericht" required></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-            </form>
         </div>
     </section>
 
@@ -191,14 +171,36 @@
         </div>
     </section>
 
+    <section id="inquire">
+        <div class="reveal" style="width: 100%; padding: 0 1.5rem; max-width: 500px; box-sizing: border-box;">
+            <span class="section-tag" data-key="nav-inq">Aanvraag</span>
+            <h2 class="serif" style="font-size: 2rem; margin-bottom: 1rem;" data-key="form-title">Paintings on Demand</h2>
+            <p style="font-weight: 300; color: var(--muted); margin-bottom: 1.5rem;" data-key="form-desc">Interesse in een werk op maat? Laat je gegevens achter of contacteer mij direct.</p>
+            
+            <div class="contact-info">
+                info@betabeatrise.com | +31 6 12345678
+            </div>
+
+            <form action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
+                <input type="hidden" name="Subject" value="Paintings on Demand Inquiry">
+                <input type="text" name="name" placeholder="Naam" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Telefoonnummer (Optioneel)">
+                <textarea name="message" rows="2" placeholder="Uw wensen (formaat, kleuren, etc.)" required></textarea>
+                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur Aanvraag</button>
+            </form>
+        </div>
+    </section>
+
     <script>
         const translations = {
             nl: {
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
-                "form-title": "Start een gesprek", "form-btn": "Verstuur", "soon": "BINNENKORT",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook interieuradvies geef?",
+                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook interieuradvies geef?", "soon": "BINNENKORT",
+                "form-title": "Paintings on Demand", "form-desc": "Interesse in een werk op maat? Laat je gegevens achter of contacteer mij direct.", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
                 "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud"
             },
@@ -206,8 +208,9 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
-                "form-title": "Start a Conversation", "form-btn": "Send Inquiry", "soon": "COMING SOON",
-                "int-tag": "Interior", "int-title": "Interior design", "int-desc": "Did you know I also give interior advice?",
+                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance.",
+                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also give interior advice?", "soon": "COMING SOON",
+                "form-title": "Paintings on Demand", "form-desc": "Interested in a custom piece? Leave your details or contact me directly.", "form-btn": "Send Inquiry",
                 "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
                 "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold"
             }
@@ -251,7 +254,8 @@
         });
 
         function openModal(artId) {
-            const title = translations[document.getElementById('langCurrent').innerText.toLowerCase()][artId];
+            const lang = document.getElementById('langCurrent').innerText.toLowerCase();
+            const title = translations[lang][artId];
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('hiddenSubject').value = "Interest in Artwork: " + title;
             document.getElementById('artModal').style.display = "block";
