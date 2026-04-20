@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Beta Beatrise — Fine Art</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -17,11 +17,12 @@
             --border: #eeeeee;
         }
 
-        /* IOS SMOOTH SNAPPING FIX */
+        /* IOS SMOOTHING FIX */
         html { 
             scroll-behavior: smooth; 
             height: 100%;
-            overflow: hidden; /* Prevent double scrollbars */
+            /* Adds a buffer for the fixed header so snapping feels more accurate */
+            scroll-padding-top: 80px; 
         }
         
         body { 
@@ -31,10 +32,10 @@
             color: var(--black); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
-            height: 100vh;
+            min-height: 100vh;
+            /* Changed to proximity for a less 'aggressive' snap on mobile */
+            scroll-snap-type: y proximity;
             overflow-y: scroll;
-            /* The Snap magic for iOS */
-            scroll-snap-type: y mandatory;
             -webkit-overflow-scrolling: touch; 
         }
 
@@ -43,17 +44,15 @@
         /* REVEAL SYSTEM */
         .reveal { 
             opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+            transform: translateY(20px); 
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             will-change: transform, opacity;
         }
         .reveal.active { 
             opacity: 1; 
             transform: translateY(0); 
         }
-        .reveal-delay { 
-            transition-delay: 0.4s; 
-        }
+        .reveal-delay { transition-delay: 0.3s; }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
@@ -62,13 +61,13 @@
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 1.5rem 0; border-bottom: 1px solid var(--border); 
+            padding: 1.2rem 0; border-bottom: 1px solid var(--border); 
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
-        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
+        .logo { text-decoration: none; color: var(--black); font-size: 1.6rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .lang-btn { background:none; border:1px solid #000; padding:4px 10px; font-size:11px; cursor:pointer; font-weight: 600; }
 
         /* SECTION LOGIC */
         section, .artwork-page { 
@@ -79,29 +78,28 @@
             align-items: center;
             justify-content: center;
             scroll-snap-align: start; 
-            scroll-snap-stop: always;
+            /* Softened for iOS */
+            scroll-snap-stop: normal; 
             text-align: center;
             position: relative;
-            overflow: hidden;
+            padding-top: 60px;
         }
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
-        .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
+        .hero-title { font-size: clamp(3.5rem, 12vw, 7.5rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         
-        .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
-        .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
+        .section-title { font-size: clamp(2.2rem, 6vw, 3rem); margin-bottom: 1.5rem; }
+        .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
         /* ARROW */
         .scroll-arrow {
             margin-top: 2rem;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--accent);
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
             display: inline-block;
-            font-weight: 300;
         }
-        .scroll-arrow:hover { color: var(--black); transform: translateY(5px); }
 
         /* ARTWORK DISPLAY */
         .artwork-container {
@@ -110,62 +108,55 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 80vh;
+            height: 75vh;
             justify-content: center;
         }
 
         .carousel { 
             position: relative; 
             width: 100%; 
-            height: 60vh; 
+            height: 55vh; 
             display: flex;
             justify-content: center; 
             align-items: center;
             border: 1px solid var(--border);
             background: #fff;
-            padding: 20px;
+            padding: 15px;
         }
         
         .carousel-track { 
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center; position: relative;
         }
 
         .carousel-track img { 
-            max-width: 100%; 
-            max-height: 100%; 
-            position: absolute;
-            opacity: 0; 
-            transition: opacity 0.6s ease-in-out;
-            object-fit: contain;
+            max-width: 100%; max-height: 100%; position: absolute;
+            opacity: 0; transition: opacity 0.5s ease-in-out; object-fit: contain;
         }
 
         .carousel-track img.active-slide { opacity: 1; position: relative; }
 
         .c-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
+            position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px;
             background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
             z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
-        .c-prev { left: 10px; } .c-next { right: 10px; }
+        .c-prev { left: 8px; } .c-next { right: 8px; }
 
         /* FORM */
-        .form-container { width: 100%; max-width: 550px; margin-top: 2rem; text-align: left; }
+        .form-container { width: 100%; max-width: 500px; margin-top: 1.5rem; text-align: left; }
         input, textarea { 
-            width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.2rem 0; margin-bottom: 1.2rem; 
+            width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1rem; 
             outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; 
         }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; width: 100%; cursor: pointer; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
         @media (max-width: 600px) {
             .nav-links { display: none; }
-            .carousel { height: 45vh; }
+            .carousel { height: 40vh; }
+            section, .artwork-page { padding-top: 80px; }
         }
     </style>
 </head>
@@ -186,7 +177,7 @@
     <section id="top" class="hero">
         <div class="container reveal">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
-            <p style="max-width: 480px; margin-top: 2.5rem; font-size: 1.25rem; font-weight: 300; color: var(--muted);">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
+            <p style="max-width: 450px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300; color: var(--muted);">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
 
@@ -204,10 +195,10 @@
     <div id="gallery-root"></div>
 
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-        <div class="container reveal" style="max-width: 700px;">
+        <div class="container reveal" style="max-width: 650px;">
             <span class="section-tag">De Verbinding</span>
             <h2 class="section-title serif">Elegance in the Raw</h2>
-            <p style="font-size: 1.2rem; line-height: 1.8; font-weight: 300;">
+            <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;">
                 Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.
             </p>
         </div>
@@ -231,9 +222,9 @@
     <section id="interior" class="bg-dark">
         <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
-            <h2 class="serif" style="font-size: clamp(2rem, 5vw, 3rem);">Interior design services</h2>
-            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;">Did you know I also provide curated interior advice?</p>
-            <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 11px; font-weight: 700; margin-top: 5rem; display: block;">COMING SOON</span>
+            <h2 class="serif" style="font-size: clamp(2rem, 5vw, 2.5rem);">Interior design services</h2>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;">Curated interior advice and styling.</p>
+            <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 10px; font-weight: 700; margin-top: 4rem; display: block;">COMING SOON</span>
         </div>
     </section>
 
@@ -257,9 +248,9 @@
                             </div>
                             <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
                         </div>
-                        <div style="margin-top: 2.5rem;">
-                            <h3 class="serif" style="font-size: 1.8rem; margin: 0;">${art.title}</h3>
-                            <span style="font-weight:600; font-size: 1.1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
+                        <div style="margin-top: 2rem;">
+                            <h3 class="serif" style="font-size: 1.6rem; margin: 0;">${art.title}</h3>
+                            <span style="font-weight:600; font-size: 1rem; color: var(--muted); display: block; margin-top: 0.4rem;">${art.price}</span>
                         </div>
                     </div>
                 </div>
