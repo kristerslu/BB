@@ -8,7 +8,7 @@
     <style>
         :root {
             --white: #ffffff;
-            --black: #000000; /* Solid Black */
+            --black: #000000;
             --muted: #777777;
             --accent: #c2b5a3;
             --hero-bg: #f9f7f4;
@@ -19,15 +19,40 @@
 
         html { visibility: hidden; }
         * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--white); 
+            color: var(--black); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ATMOSPHERIC FOG EFFECT */
+        /* This creates a soft fade-out at the bottom of the screen without a solid block */
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 0; left: 0; width: 100%; height: 15vh;
+            background: linear-gradient(to top, var(--white), transparent);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
         .serif { font-family: 'Playfair Display', serif; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
         /* NAVIGATION */
-        nav { position: fixed; top: 0; width: 100%; z-index: 10000; background: #ffffff; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        nav { 
+            position: fixed; top: 0; width: 100%; z-index: 10000; 
+            background: rgba(255,255,255,0.95); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 0; border-bottom: 1px solid var(--border); 
+        }
         .nav-content { display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
         .logo { text-decoration: none; color: var(--black); font-size: 1.2rem; font-weight: 400; cursor: pointer; }
-        .nav-links { display: flex; gap: 1rem; margin: 0 auto; }
+        .nav-links { display: flex; gap: 1.5rem; margin: 0 auto; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
 
         .lang-dropdown { position: relative; }
@@ -36,48 +61,31 @@
         .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
-        /* SECTION SIZING */
-        section { padding: 6rem 0; text-align: center; scroll-margin-top: 100px; }
+        /* SECTION SIZING & ALIGNMENT */
+        /* scroll-margin-top ensures the menu doesn't overlap the title when jumping */
+        section { padding: 8rem 0; text-align: center; scroll-margin-top: 60px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
-        .bg-sand { background-color: var(--sand); }
+        .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        .transition-spacer { height: 120px; background: transparent; width: 100%; }
+        /* Spacers adjusted for cleaner landing */
+        .transition-spacer { height: 100px; background: transparent; width: 100%; }
 
         /* TYPOGRAPHY */
-        .hero-title { 
-            font-size: clamp(3rem, 10vw, 7rem); 
-            line-height: 0.9; 
-            margin: 0; 
-            font-weight: 400; 
-            letter-spacing: -2px; 
-            color: var(--black); /* Set color directly here */
-        }
-        .hero-title span {
-            color: var(--black); /* Ensures Beatrise is also black */
-        }
+        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
+        .hero-title span { color: var(--black); }
+        
         .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1rem 0; font-weight: 400; }
         .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
         /* GALLERY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; width: 100%; }
         .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; border-radius: 2px; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); height: 100%; width: 100%; }
+        .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
         
-        .carousel-track { 
-            display: flex; 
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
-            height: 100%; 
-            width: 100%;
-        }
-        .carousel-track img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            flex-shrink: 0; 
-        }
-        
-        /* SLEEK ARROWS WITH BIG TAP AREA */
         .c-arrow { 
             position: absolute; top: 0; height: 100%; width: 60px; 
             background: transparent; border: none; color: white; 
@@ -85,8 +93,7 @@
             font-size: 30px; z-index: 10; -webkit-tap-highlight-color: transparent;
             text-shadow: 0 0 15px rgba(0,0,0,0.4);
         }
-        .c-prev { left: 0; } 
-        .c-next { right: 0; }
+        .c-prev { left: 0; } .c-next { right: 0; }
 
         /* FORM */
         .form-container { width: 100%; max-width: 500px; margin: 2rem auto; text-align: left; }
@@ -97,6 +104,7 @@
             .nav-links { gap: 0.7rem; }
             .nav-links a { font-size: 7.5px; }
             .hero-title { font-size: 4rem; }
+            section { padding: 5rem 0; }
         }
     </style>
 </head>
@@ -128,15 +136,13 @@
         </div>
     </section>
 
-    <div class="transition-spacer"></div>
-
+    <div id="collection-anchor" style="position: relative; top: -60px;"></div>
+    
     <section id="collection" class="container">
         <span class="section-tag" data-key="tagColl">Available Work</span>
         <h2 class="section-title serif">Golden Circle of Life</h2>
         <div class="gallery-grid" id="gallery"></div>
     </section>
-
-    <div class="transition-spacer" style="background: var(--white);"></div>
 
     <section id="about" class="bg-sand full-v">
         <div class="container" style="max-width: 800px;">
@@ -209,18 +215,8 @@
         };
 
         const artworks = [
-            { 
-                title: "Circle I", 
-                price: "€ 1.200", 
-                desc: "Gold leaf on heavy texture.", 
-                images: ["https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800", "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800"] 
-            },
-            { 
-                title: "Circle II", 
-                price: "€ 1.450", 
-                desc: "Deep charcoal with 24k gold.", 
-                images: ["https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800", "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800"] 
-            }
+            { title: "Circle I", price: "€ 1.200", desc: "Gold leaf on heavy texture.", images: ["https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800", "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800"] },
+            { title: "Circle II", price: "€ 1.450", desc: "Deep charcoal with 24k gold.", images: ["https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800", "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800"] }
         ];
 
         const gal = document.getElementById('gallery');
