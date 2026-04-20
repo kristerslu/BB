@@ -17,21 +17,30 @@
             --border: #eeeeee;
         }
 
-        /* SCROLL SNAPPING */
+        /* IOS SMOOTH SNAPPING FIX */
         html { 
             scroll-behavior: smooth; 
-            scroll-snap-type: y mandatory; 
-            overflow-y: scroll;
+            height: 100%;
+            overflow: hidden; /* Prevent double scrollbars */
         }
-        
-        * { box-sizing: border-box; }
         
         body { 
-            margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
-            line-height: 1.6; -webkit-font-smoothing: antialiased;
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--white); 
+            color: var(--black); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            height: 100vh;
+            overflow-y: scroll;
+            /* The Snap magic for iOS */
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch; 
         }
 
-        /* REVEAL SYSTEM - Optimized for Snapping */
+        * { box-sizing: border-box; }
+
+        /* REVEAL SYSTEM */
         .reveal { 
             opacity: 0; 
             transform: translateY(30px); 
@@ -59,7 +68,7 @@
         .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; }
         .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
-        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
+        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
 
         /* SECTION LOGIC */
         section, .artwork-page { 
@@ -188,7 +197,7 @@
                 <h2 class="section-title serif">Golden Circle of Life</h2>
                 <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
             </div>
-            <div class="scroll-arrow reveal reveal-delay" onclick="window.scrollBy(0, window.innerHeight);">↓</div>
+            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('#gallery-root').scrollIntoView();">↓</div>
         </div>
     </section>
 
@@ -268,22 +277,14 @@
             imgs[next].classList.add('active-slide');
         }
 
-        // IMPROVED OBSERVER
-        const observerOptions = {
-            root: null,
-            threshold: 0.01, // Trigger as soon as 1% is visible
-            rootMargin: '0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.05 });
 
-        // Apply to all elements with .reveal
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
