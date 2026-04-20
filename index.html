@@ -52,7 +52,6 @@
         }
 
         .logo { text-decoration: none; color: var(--black); font-size: 1.6rem; letter-spacing: 2px; justify-self: start; }
-        
         .nav-links { display: flex; gap: 2.5rem; justify-self: center; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         
@@ -72,7 +71,7 @@
             width: 100%; border: none; background: none; font-size: 11px; font-weight: 600;
             text-align: left; cursor: pointer; border-bottom: 1px solid var(--border);
         }
-        .lang-dropdown:hover .dropdown-content, .lang-dropdown:focus-within .dropdown-content { display: block; }
+        .lang-dropdown:hover .dropdown-content { display: block; }
 
         section, .artwork-page { 
             height: 100vh; width: 100%; display: flex; flex-direction: column; 
@@ -85,6 +84,7 @@
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
+        /* ARTWORK */
         .artwork-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; height: 75vh; justify-content: center; }
         .carousel { position: relative; width: 100%; height: 55vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; padding: 20px; }
         .carousel-track { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -191,6 +191,7 @@
                 "about-tag": "De Verbinding", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.",
                 "form-title": "Start een gesprek", "form-btn": "Verstuur Aanvraag", "soon": "BINNENKORT",
                 "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook interieuradvies geef?",
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud",
                 "p-Name": "Naam", "p-Email": "Email", "p-Describe your idea.": "Beschrijf uw idee."
             },
             fr: {
@@ -199,7 +200,8 @@
                 "coll-tag": "Œuvres Disponibles", "coll-desc": "Défilez pour voir la collection",
                 "about-tag": "La Connexion", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Son art utilise des textures et des éléments dorés.",
                 "form-title": "Commencer une conversation", "form-btn": "Envoyer", "soon": "BIENTÔT",
-                "int-tag": "Intérieur", "int-title": "Design d'intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en interieur?",
+                "int-tag": "Intérieur", "int-title": "Design d'intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en intérieur ?",
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Terre Dorée", "art3": "Traces d'Or",
                 "p-Name": "Nom", "p-Email": "E-mail", "p-Describe your idea.": "Décrivez votre idée."
             },
             en: {
@@ -209,6 +211,7 @@
                 "about-tag": "The Connection", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her art uses textures and gold elements.",
                 "form-title": "Start a Conversation", "form-btn": "Send Inquiry", "soon": "COMING SOON",
                 "int-tag": "Interior", "int-title": "Interior design", "int-desc": "Did you know I also give interior advice?",
+                "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold",
                 "p-Name": "Name", "p-Email": "Email", "p-Describe your idea.": "Describe your idea."
             }
         };
@@ -225,10 +228,10 @@
         }
 
         const artworks = [
-            { title: "Golden Circle I", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
-            { title: "Golden Circle II", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
-            { title: "Golden Circle III", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
-            { title: "Golden Circle IV", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg"] }
+            { id: "art0", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
+            { id: "art1", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { id: "art2", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
+            { id: "art3", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg"] }
         ];
 
         const root = document.getElementById('gallery-root');
@@ -239,12 +242,12 @@
                         <div class="carousel" onclick="move(${idx}, 1)">
                             <button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button>
                             <div class="carousel-track" id="t-${idx}">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="${art.title}">`).join('')}
+                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Fine Art">`).join('')}
                             </div>
                             <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
                         </div>
                         <div style="margin-top: 2.5rem;">
-                            <h3 class="serif" style="font-size: 1.8rem; margin: 0;">${art.title}</h3>
+                            <h3 class="serif" style="font-size: 1.8rem; margin: 0;" data-key="${art.id}"></h3>
                             <span style="font-weight:600; font-size: 1.1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
                         </div>
                     </div>
