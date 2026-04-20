@@ -32,7 +32,7 @@
         .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
 
         /* NAVIGATION */
         nav { 
@@ -40,43 +40,67 @@
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 1.5rem 0; border-bottom: 1px solid var(--border); 
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 2rem; margin: 0 auto; }
+        .nav-links { display: flex; gap: 2rem; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
-        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
+        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
 
-        /* TITLES & SPACING */
-        section { padding: 9rem 0; text-align: center; scroll-margin-top: 100px; }
+        /* SECTIONS */
+        section { padding: 8rem 0; text-align: center; scroll-margin-top: 100px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        /* LIGHTWEIGHT HERO TITLE */
         .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* PRODUCT CARDS */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 4rem; margin-top: 5rem; }
+        /* STACKED VERTICAL GALLERY (1 COLUMN) */
+        .gallery-stack { display: flex; flex-direction: column; gap: 6rem; margin-top: 4rem; width: 100%; }
         
         .artwork-card { 
-            padding: 1.5rem; 
+            padding: 2.5rem; 
             border: 1px solid var(--border); 
             background: #fff;
-            text-align: left;
+            text-align: center; /* Center-align the text below images */
+            width: 100%;
         }
 
-        .carousel { position: relative; width: 100%; overflow: hidden; cursor: pointer; }
-        .carousel-track { display: grid; grid-template-areas: "stack"; width: 100%; }
-        .carousel-track img { grid-area: stack; width: 100%; height: auto; opacity: 0; transition: opacity 0.7s ease-in-out; }
+        .carousel { 
+            position: relative; 
+            width: 100%; 
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            overflow: hidden; 
+            cursor: pointer;
+            min-height: 400px; /* Ensures a consistent feel */
+        }
+        
+        .carousel-track { 
+            display: grid; 
+            grid-template-areas: "stack"; 
+            width: 100%;
+            justify-items: center; /* Centers images horizontally */
+        }
+
+        .carousel-track img { 
+            grid-area: stack; 
+            max-width: 100%; 
+            height: auto; 
+            max-height: 80vh; /* Prevents images from being too tall for the screen */
+            opacity: 0; 
+            transition: opacity 0.7s ease-in-out; 
+        }
+
         .carousel-track img.active-slide { opacity: 1; z-index: 2; }
 
         .c-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px;
-            background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
-            z-index: 10; opacity: 0; transition: opacity 0.3s; cursor: pointer;
+            position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
+            background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
+            z-index: 10; opacity: 0; transition: opacity 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
         .carousel:hover .c-arrow { opacity: 1; }
         .c-prev { left: 10px; } .c-next { right: 10px; }
@@ -91,6 +115,7 @@
         @media (max-width: 600px) {
             section { padding: 6rem 0; }
             .nav-links { display: none; }
+            .artwork-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -120,11 +145,11 @@
             <span class="section-tag">Beschikbaar Werk</span>
             <h2 class="section-title serif">Golden Circle of Life</h2>
         </div>
-        <div class="gallery-grid" id="gallery"></div>
+        <div class="gallery-stack" id="gallery"></div>
     </section>
 
     <section id="about" class="bg-sand full-v">
-        <div class="container reveal" style="max-width: 800px;">
+        <div class="container reveal" style="max-width: 700px;">
             <span class="section-tag">De Verbinding</span>
             <h2 class="section-title serif">Elegance in the Raw</h2>
             <p style="font-size: 1.2rem; line-height: 1.8; font-weight: 300; margin-top: 2rem;">
@@ -187,9 +212,9 @@
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
                         <button class="c-arrow c-next" onclick="event.stopPropagation(); moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
-                    <div style="margin-top: 1.5rem;">
-                        <h3 class="serif" style="font-size: 1.4rem; margin: 0;">${art.title}</h3>
-                        <span style="font-weight:600; font-size: 0.9rem; color: var(--muted); display: block; margin-top: 0.3rem;">${art.price}</span>
+                    <div style="margin-top: 2rem;">
+                        <h3 class="serif" style="font-size: 1.6rem; margin: 0;">${art.title}</h3>
+                        <span style="font-weight:600; font-size: 1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
                     </div>
                 </div>
             `;
