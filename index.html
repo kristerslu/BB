@@ -17,7 +17,7 @@
             --border: #eeeeee;
         }
 
-        html { visibility: hidden; }
+        html { visibility: hidden; scroll-behavior: smooth; }
         * { box-sizing: border-box; }
         
         body { 
@@ -46,64 +46,42 @@
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
 
-        /* SECTIONS - ADDED BREATHING ROOM */
-        section { padding: 12rem 0; text-align: center; scroll-margin-top: 120px; }
+        /* REFINED SECTION SPACING */
+        section { padding: 14rem 0; text-align: center; scroll-margin-top: 80px; }
+        
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); padding: 0; }
-        .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .bg-dark { background-color: var(--dark); color: var(--white); }
+        
+        /* Available Work Section */
+        #collection { background-color: var(--white); padding-top: 16rem; }
+        
+        /* Philosophy Section */
+        #about { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 16rem; }
+        
+        /* Inquiry Section */
+        #inquire { background-color: var(--white); padding-top: 16rem; padding-bottom: 18rem; /* Extra space before dark section */ }
+        
+        /* Interior Section */
+        #interior { background-color: var(--dark); color: var(--white); padding: 14rem 0; }
 
         .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 4rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* STACKED VERTICAL GALLERY */
+        /* GALLERY */
         .gallery-stack { display: flex; flex-direction: column; gap: 8rem; margin-top: 5rem; width: 100%; }
-        
-        .artwork-card { 
-            padding: 3rem 2rem; 
-            border: 1px solid var(--border); 
-            background: #fff;
-            text-align: center;
-            width: 100%;
-        }
+        .artwork-card { padding: 3rem 2rem; border: 1px solid var(--border); background: #fff; text-align: center; width: 100%; }
 
         .carousel { 
-            position: relative; 
-            width: 100%; 
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-            overflow: hidden; 
-            cursor: pointer;
-            min-height: 500px; /* Base height to ensure vertical centering space */
+            position: relative; width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; cursor: pointer; min-height: 550px; 
         }
-        
-        .carousel-track { 
-            display: grid; 
-            grid-template-areas: "stack"; 
-            width: 100%;
-            height: 100%;
-            align-items: center;    /* VERTICAL CENTER */
-            justify-items: center;  /* HORIZONTAL CENTER */
-        }
-
-        .carousel-track img { 
-            grid-area: stack; 
-            max-width: 100%; 
-            height: auto; 
-            max-height: 75vh; 
-            opacity: 0; 
-            transition: opacity 0.7s ease-in-out; 
-            display: block;
-        }
-
+        .carousel-track { display: grid; grid-template-areas: "stack"; width: 100%; height: 100%; align-items: center; justify-items: center; }
+        .carousel-track img { grid-area: stack; max-width: 100%; height: auto; max-height: 75vh; opacity: 0; transition: opacity 0.7s ease-in-out; display: block; }
         .carousel-track img.active-slide { opacity: 1; z-index: 2; }
 
         .c-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
             background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
             z-index: 10; opacity: 0; transition: opacity 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .carousel:hover .c-arrow { opacity: 1; }
         .c-prev { left: 15px; } .c-next { right: 15px; }
@@ -111,14 +89,16 @@
         /* FORM */
         .form-container { width: 100%; max-width: 550px; margin: 4rem auto 0; text-align: left; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; border-radius: 0; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 2rem; transition: background 0.3s; }
+        .btn:hover { background: #333; }
         
         #form-status { display: none; text-align: center; padding: 3rem 0; }
 
         @media (max-width: 600px) {
-            section { padding: 8rem 0; }
-            .nav-links { display: none; }
-            .carousel { min-height: 350px; }
+            section { padding: 10rem 0; }
+            #collection, #about, #inquire { padding-top: 12rem; }
+            #inquire { padding-bottom: 12rem; }
+            .carousel { min-height: 380px; }
         }
     </style>
 </head>
@@ -143,15 +123,17 @@
         </div>
     </section>
 
-    <section id="collection" class="container">
-        <div class="reveal">
-            <span class="section-tag">Beschikbaar Werk</span>
-            <h2 class="section-title serif">Golden Circle of Life</h2>
+    <section id="collection">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Beschikbaar Werk</span>
+                <h2 class="section-title serif">Golden Circle of Life</h2>
+            </div>
+            <div class="gallery-stack" id="gallery"></div>
         </div>
-        <div class="gallery-stack" id="gallery"></div>
     </section>
 
-    <section id="about" class="bg-sand">
+    <section id="about">
         <div class="container reveal" style="max-width: 700px;">
             <span class="section-tag">De Verbinding</span>
             <h2 class="section-title serif">Elegance in the Raw</h2>
@@ -161,26 +143,28 @@
         </div>
     </section>
 
-    <section id="inquire" class="container">
-        <div class="reveal">
-            <span class="section-tag">Inquiry</span>
-            <h2 class="section-title serif">Start a Conversation</h2>
-            <div class="form-container">
-                <form id="contact-form" action="https://formspree.io/f/xpqkjzkz" method="POST">
-                    <input type="text" name="name" placeholder="Naam" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <textarea name="message" rows="4" placeholder="Beschrijf uw idee." required></textarea>
-                    <button id="submit-btn" type="submit" class="btn">Verstuur Aanvraag</button>
-                </form>
-                <div id="form-status">
-                    <p class="serif" style="font-size: 2rem;">Dank u.</p>
-                    <p style="color: var(--muted);">Uw bericht is succesvol verzonden.</p>
+    <section id="inquire">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Inquiry</span>
+                <h2 class="section-title serif">Start a Conversation</h2>
+                <div class="form-container">
+                    <form id="contact-form" action="https://formspree.io/f/xpqkjzkz" method="POST">
+                        <input type="text" name="name" placeholder="Naam" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <textarea name="message" rows="4" placeholder="Beschrijf uw idee." required></textarea>
+                        <button id="submit-btn" type="submit" class="btn">Verstuur Aanvraag</button>
+                    </form>
+                    <div id="form-status">
+                        <p class="serif" style="font-size: 2rem;">Dank u.</p>
+                        <p style="color: var(--muted);">Uw bericht is succesvol verzonden.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="interior" class="bg-dark">
+    <section id="interior">
         <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
             <h2 class="serif" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.5rem;">Interior design services</h2>
