@@ -74,13 +74,10 @@
         .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); border: none; }
 
-        /* The Gap before Available Work */
         .top-spacer { height: 10rem; background: var(--white); }
 
         /* TYPOGRAPHY */
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
-        .hero-title span { color: var(--black); }
-        
         .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1.5rem 0; font-weight: 400; }
         .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
@@ -105,7 +102,6 @@
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; width: 100%; cursor: pointer; margin-top: 2rem; transition: opacity 0.3s ease; }
         .btn:hover { opacity: 0.8; }
         
-        /* Success Message styling */
         #form-status {
             display: none;
             text-align: center;
@@ -224,7 +220,6 @@
             }, 10);
         });
 
-        // REVEAL LOGIC
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -240,13 +235,13 @@
             });
         }
 
-        // --- SILENT FORM SUBMISSION (AJAX) ---
+        // FORM SUBMISSION HANDLING
         const form = document.getElementById("contact-form");
         const status = document.getElementById("form-status");
         const submitBtn = document.getElementById("submit-btn");
 
         form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // Stop the page from redirecting
+            event.preventDefault();
             submitBtn.innerText = "...";
             submitBtn.disabled = true;
 
@@ -258,17 +253,15 @@
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    form.style.display = "none"; // Hide form
-                    status.style.display = "block"; // Show success message
+                    form.style.display = "none";
+                    status.style.display = "block";
                 } else {
-                    response.json().then(data => {
-                        alert("Error: " + data.errors.map(error => error.message).join(", "));
-                        submitBtn.disabled = false;
-                        submitBtn.innerText = "Verstuur Aanvraag";
-                    });
+                    alert("Er ging iets mis. Probeer het opnieuw.");
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Verstuur Aanvraag";
                 }
             }).catch(error => {
-                alert("Oeps! Er is een probleem opgetreden.");
+                alert("Verbindingsfout.");
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Verstuur Aanvraag";
             });
@@ -291,9 +284,24 @@
             }
         };
 
+        // UPDATED ARTWORKS WITH YOUR 19 IMAGES
         const artworks = [
-            { title: "Circle I", price: "€ 1.200", desc: "Gold leaf on heavy texture.", images: ["https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800", "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800"] },
-            { title: "Circle II", price: "€ 1.450", desc: "Deep charcoal with 24k gold.", images: ["https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800", "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800"] }
+            { 
+                title: "Golden Circle I", price: "€ 1.800", desc: "Mixed media with 24k gold leaf.", 
+                images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] 
+            },
+            { 
+                title: "Golden Circle II", price: "€ 2.100", desc: "Deep charcoal with heavy texture.", 
+                images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] 
+            },
+            { 
+                title: "Golden Circle III", price: "€ 1.950", desc: "Organic movements in plaster and gold.", 
+                images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] 
+            },
+            { 
+                title: "Golden Circle IV", price: "€ 2.400", desc: "Structural balance and light reflection.", 
+                images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] 
+            }
         ];
 
         const gal = document.getElementById('gallery');
