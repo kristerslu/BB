@@ -17,19 +17,14 @@
             --border: #eeeeee;
         }
 
-        /* Prevent flash of wrong scroll position */
         html { visibility: hidden; }
-
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         .serif { font-family: 'Playfair Display', serif; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
         /* NAVIGATION */
-        nav { 
-            position: fixed; top: 0; width: 100%; z-index: 10000; 
-            background: #ffffff; padding: 1rem 0; border-bottom: 1px solid var(--border);
-        }
+        nav { position: fixed; top: 0; width: 100%; z-index: 10000; background: #ffffff; padding: 1rem 0; border-bottom: 1px solid var(--border); }
         .nav-content { display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
         .logo { text-decoration: none; color: var(--black); font-size: 1.2rem; font-weight: 400; cursor: pointer; }
         .nav-links { display: flex; gap: 1rem; margin: 0 auto; }
@@ -44,27 +39,41 @@
         /* SECTION SIZING */
         section { padding: 6rem 0; text-align: center; scroll-margin-top: 100px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        /* Transition Spacers */
         .transition-spacer { height: 120px; background: transparent; width: 100%; }
-        #collection { padding-top: 0; } /* Spacing handled by spacer */
 
         /* TYPOGRAPHY */
         .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
         .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1rem 0; font-weight: 400; }
         .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
-        /* GALLERY */
+        /* GALLERY & LARGE CAROUSEL BUTTONS */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; width: 100%; }
-        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; }
+        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; border-radius: 2px; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); height: 100%; }
         .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
-        .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.15); border: none; color: white; width: 35px; height: 35px; border-radius: 50%; z-index: 10; cursor: pointer; }
-        .c-prev { left: 10px; } .c-next { right: 10px; }
+        
+        /* Updated Big Buttons */
+        .c-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3); 
+            color: white; 
+            width: 50px; height: 50px; /* Bigger hit area */
+            border-radius: 50%; z-index: 10; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; /* Larger icons */
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .c-arrow:active { background: rgba(255, 255, 255, 0.4); transform: translateY(-50%) scale(0.95); }
+        .c-prev { left: 15px; } 
+        .c-next { right: 15px; }
 
         /* FORM */
         .form-container { width: 100%; max-width: 500px; margin: 2rem auto; text-align: left; }
@@ -78,6 +87,7 @@
             .nav-links { gap: 0.7rem; }
             .nav-links a { font-size: 7.5px; }
             .hero-title { font-size: 4rem; }
+            .c-arrow { width: 45px; height: 45px; font-size: 20px; } /* Perfectly sized for mobile thumbs */
         }
     </style>
 </head>
@@ -152,7 +162,6 @@
     </section>
 
     <script>
-        // Force Top Scroll & Visibility
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
         window.scrollTo(0, 0);
         document.documentElement.style.visibility = 'visible';
@@ -162,7 +171,7 @@
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
                 aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien en het vanuit verschillende perspectieven te bekijken.</p>",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren.</p>",
                 tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
                 inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten? Neem contact op voor een creatie op maat.",
                 interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
@@ -172,7 +181,7 @@
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>",
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings...</p>",
                 tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
                 inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.",
                 interiorTitle: "Did you know I also provide interior design services?",
