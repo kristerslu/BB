@@ -42,7 +42,7 @@
         .dropdown-content.show { display: block; }
         .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
 
-        /* HERO & SECTIONS */
+        /* HERO */
         .hero { 
             background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
             background-size: cover; background-position: center; text-align: left; align-items: flex-start; 
@@ -55,22 +55,21 @@
 
         section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
 
-        /* CAROUSEL */
+        /* GALLERY CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; overflow: hidden; }
         .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 15px; box-sizing: border-box; }
         .carousel-track img.active-slide { opacity: 1; position: relative; }
-        
         .c-arrow { position: absolute; top: 0; bottom: 0; width: 25%; background: transparent; border: none; z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: rgba(0,0,0,0.03); transition: color 0.3s ease; }
         .c-arrow:hover { color: rgba(0,0,0,0.2); }
         .c-prev { left: 0; } .c-next { right: 0; }
 
-        /* ART TITLES */
+        /* TITLES */
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; }
         .art-title-btn:hover { opacity: 0.6; }
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #999; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
 
-        /* FORM STYLING */
+        /* FORMS */
         .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; }
@@ -98,12 +97,7 @@
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
             <p style="margin-bottom: 1.5rem; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.</p>
-            
-            <div class="contact-info">
-                info@betabeatrise.com<br>
-                +31 6 12345678
-            </div>
-
+            <div class="contact-info">info@betabeatrise.com<br>+31 6 12345678</div>
             <form action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" placeholder="Naam" required>
@@ -153,21 +147,12 @@
     <div id="gallery-root"></div>
 
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
-        <div class="reveal" style="max-width: 600px; padding: 0 1.5rem;">
+        <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="about-tag">Filosofie</span>
-            <h2 class="serif" style="font-size: 2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
+            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text">
-                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.
+                Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren. Door het gebruik van 24-karaats goud en natuurlijke pigmenten ontstaat een dialoog tussen materie en ruimte, waarbij imperfectie juist wordt gevierd als de hoogste vorm van schoonheid.
             </p>
-        </div>
-    </section>
-
-    <section id="interior" class="bg-dark">
-        <div class="reveal">
-            <span class="section-tag" data-key="int-tag">Interieur</span>
-            <h2 class="serif" style="font-size: 2.2rem;" data-key="int-title">Interieuradvies</h2>
-            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Wist je dat ik ook interieuradvies geef?</p>
-            <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon">BINNENKORT</span>
         </div>
     </section>
 
@@ -175,20 +160,25 @@
         <div class="reveal" style="width: 100%; padding: 0 1.5rem; max-width: 500px; box-sizing: border-box;">
             <span class="section-tag" data-key="nav-inq">Aanvraag</span>
             <h2 class="serif" style="font-size: 2rem; margin-bottom: 1rem;" data-key="form-title">Paintings on Demand</h2>
-            <p style="font-weight: 300; color: var(--muted); margin-bottom: 1.5rem;" data-key="form-desc">Interesse in een werk op maat? Laat je gegevens achter of contacteer mij direct.</p>
-            
-            <div class="contact-info">
-                info@betabeatrise.com | +31 6 12345678
-            </div>
-
+            <p style="font-weight: 300; color: var(--muted); margin-bottom: 1.5rem;" data-key="form-desc">Op zoek naar een uniek werk dat perfect past bij uw interieur? Ik werk graag in opdracht om uw visie te vertalen naar het canvas.</p>
+            <div class="contact-info">info@betabeatrise.com | +31 6 12345678</div>
             <form action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
                 <input type="hidden" name="Subject" value="Paintings on Demand Inquiry">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="tel" name="phone" placeholder="Telefoonnummer (Optioneel)">
-                <textarea name="message" rows="2" placeholder="Uw wensen (formaat, kleuren, etc.)" required></textarea>
+                <textarea name="message" rows="2" placeholder="Beschrijf uw wensen (formaat, kleurenpalet, etc.)" required></textarea>
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur Aanvraag</button>
             </form>
+        </div>
+    </section>
+
+    <section id="interior" class="bg-dark">
+        <div class="reveal">
+            <span class="section-tag" data-key="int-tag">Interieur</span>
+            <h2 class="serif" style="font-size: 2.2rem;" data-key="int-title">Interieuradvies</h2>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef om jouw ruimte tot leven te brengen?</p>
+            <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon">BINNENKORT</span>
         </div>
     </section>
 
@@ -198,9 +188,9 @@
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
-                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook interieuradvies geef?", "soon": "BINNENKORT",
-                "form-title": "Paintings on Demand", "form-desc": "Interesse in een werk op maat? Laat je gegevens achter of contacteer mij direct.", "form-btn": "Verstuur Aanvraag",
+                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren. Door het gebruik van 24-karaats goud en natuurlijke pigmenten ontstaat een dialoog tussen materie en ruimte, waarbij imperfectie juist wordt gevierd als de hoogste vorm van schoonheid.",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef om jouw ruimte tot leven te brengen?", "soon": "BINNENKORT",
+                "form-title": "Paintings on Demand", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur? Ik werk graag in opdracht om uw visie te vertalen naar het canvas.", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
                 "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud"
             },
@@ -208,9 +198,9 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
-                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance.",
-                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also give interior advice?", "soon": "COMING SOON",
-                "form-title": "Paintings on Demand", "form-desc": "Interested in a custom piece? Leave your details or contact me directly.", "form-btn": "Send Inquiry",
+                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the fragile balance between unpolished rawness and timeless elegance. Each work is a tactile journey, built from countless layers of texture that capture and transform light. Using 24-karat gold and natural pigments, a dialogue is created between matter and space, where imperfection is celebrated as the highest form of beauty.",
+                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "From art on the wall to a fully harmonious interior. Did you know I also give advice to bring your space to life?", "soon": "COMING SOON",
+                "form-title": "Paintings on Demand", "form-desc": "Looking for a unique piece that fits your interior perfectly? I love working on commission to translate your vision to canvas.", "form-btn": "Send Inquiry",
                 "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
                 "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold"
             }
