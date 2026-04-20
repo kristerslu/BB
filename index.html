@@ -9,12 +9,12 @@
         :root {
             --white: #ffffff;
             --black: #1a1a1a;
-            --muted: #888888;
+            --muted: #666666;
             --accent: #c2b5a3;
-            --hero-bg: #f9f7f4; /* New separate color for Title page */
-            --sand: #f4f1ee;
-            --dark: #1a1816;
-            --border: #eeeeee;
+            --hero-bg: #f5f2ee; /* Warm Title Page */
+            --sand: #fbfaf8;    /* Very light philosophy bg */
+            --dark: #1a1816;    /* Dark Interior bg */
+            --border: #e5e5e5;
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
@@ -22,70 +22,68 @@
         .serif { font-family: 'Playfair Display', serif; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
-        /* FIXED NAVIGATION - iOS Fix */
+        /* RELIABLE NAVIGATION */
         nav { 
-            position: fixed; top: 0; width: 100%; z-index: 9999; 
-            padding: 1rem 0; 
-            background: #ffffff !important; /* Force solid white for iOS visibility */
-            border-bottom: 1px solid var(--border); 
+            position: fixed; top: 0; width: 100%; z-index: 10000; 
+            background: #ffffff; 
+            border-bottom: 2px solid var(--hero-bg);
+            padding: 1.2rem 0;
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .nav-links { display: flex; gap: 1.5rem; }
-        .nav-links a { text-decoration: none; color: var(--black); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--black); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
 
-        /* LANG DROPDOWN */
-        .lang-dropdown { position: relative; display: inline-block; }
-        .dropbtn { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; }
-        .dropdown-content { display: none; position: absolute; right: 0; background: white; border: 1px solid var(--border); min-width: 60px; }
-        .dropdown-content div { padding: 8px; font-size: 10px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); }
+        .lang-dropdown { position: relative; }
+        .dropbtn { background: var(--black); color: white; border: none; padding: 6px 14px; font-size: 10px; cursor: pointer; border-radius: 2px; }
+        .dropdown-content { display: none; position: absolute; right: 0; background: white; border: 1px solid var(--black); min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .dropdown-content div { padding: 10px; font-size: 10px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
         /* SECTIONS */
-        section { padding: 10rem 0; }
+        section { padding: 10rem 0; text-align: center; }
         .hero { 
-            min-height: 100vh; display: flex; align-items: center; 
-            background: var(--hero-bg); /* Distinct background for Title Page */
+            min-height: 100vh; display: flex; align-items: center; text-align: left;
+            background: var(--hero-bg); 
             padding-top: 5rem;
         }
         .bg-sand { background-color: var(--sand); }
-        .bg-dark { background-color: var(--dark); color: var(--white); }
-
-        .reveal { opacity: 0; transform: translateY(15px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .bg-dark { background-color: var(--dark); color: var(--white); padding: 12rem 0; }
 
         /* TYPOGRAPHY */
-        .hero-title { font-size: clamp(3.5rem, 12vw, 8.5rem); line-height: 0.8; margin: 0; }
+        .hero-title { font-size: clamp(3.5rem, 12vw, 8.5rem); line-height: 0.85; margin: 0; }
         .hero-title span { color: var(--accent); font-style: normal !important; }
-        .section-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: block; }
+        
+        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); margin: 0 0 1rem 0; font-weight: 400; }
+        .section-tag { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 1.5rem; display: block; }
 
-        /* GALLERY & CARDS */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 4rem; margin-top: 3rem; }
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 5rem; text-align: left; }
         .card { cursor: pointer; }
-        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #eee; margin-bottom: 1rem; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
-        .price { font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem; display: block; }
-        .desc { font-size: 0.85rem; margin-top: 0.5rem; font-style: italic; opacity: 0.8; }
-
-        /* LIGHTBOX GALLERY */
-        #lightbox { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(255,255,255,0.98); display: none; 
-            flex-direction: column; justify-content: center; align-items: center; z-index: 10000; 
-        }
-        #lightbox img { max-height: 70vh; max-width: 90vw; object-fit: contain; }
-        .lb-close { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; }
-        .lb-nav { position: absolute; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; box-sizing: border-box; }
-        .lb-arrow { font-size: 40px; cursor: pointer; color: var(--accent); user-select: none; }
+        .img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #eee; margin-bottom: 1.5rem; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card:hover img { transform: scale(1.04); }
+        .price { font-size: 1rem; font-weight: 600; color: var(--black); margin-top: 0.5rem; display: block; }
+        .desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.4; }
 
         /* FORM */
-        .form-container { max-width: 600px; margin: 0 auto; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; color: inherit; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1rem 3rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; margin-top: 2rem; }
+        .form-container { max-width: 600px; margin: 4rem auto 0 auto; text-align: left; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 1.2rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 1rem; color: inherit; }
+        .btn-wrap { text-align: center; padding-top: 2rem; margin-bottom: 2rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem 4rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: var(--accent); }
+
+        /* LIGHTBOX */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 20000; }
+        #lightbox img { max-height: 65vh; max-width: 90vw; object-fit: contain; }
+        .lb-close { position: absolute; top: 30px; right: 30px; font-size: 40px; cursor: pointer; }
+        .lb-nav { position: absolute; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; }
+        .lb-arrow { font-size: 50px; cursor: pointer; color: var(--accent); user-select: none; }
 
         @media (max-width: 768px) { 
-            section { padding: 6rem 0; }
-            .hero-title { font-size: 4rem; }
-            .nav-links { display: none; } /* Hide text links on mobile to save space */
+            section { padding: 8rem 0; }
+            .hero { text-align: center; }
+            .hero-title { font-size: 4.5rem; }
+            .nav-links { display: none; } /* On mobile, we rely on the logo/lang only */
         }
     </style>
 </head>
@@ -93,7 +91,7 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="logo serif" style="font-weight: 600;">BB</div>
+            <div class="logo serif" style="font-weight: 600; font-size: 1.4rem; letter-spacing: -1px;">BB</div>
             <div class="nav-links">
                 <a href="#">Home</a>
                 <a href="#collection">Gallery</a>
@@ -112,63 +110,71 @@
     </nav>
 
     <section class="hero">
-        <div class="container reveal">
+        <div class="container">
             <h1 class="hero-title serif">Beta<br><span style="font-style: normal;">Beatrise</span></h1>
-            <p style="max-width: 500px; margin-top: 2rem; font-size: 1.1rem; color: var(--muted);" data-key="heroSub">
+            <p style="max-width: 500px; margin-top: 3rem; font-size: 1.2rem; color: var(--muted); font-weight: 300;" data-key="heroSub">
                 Abstract compositions. Heavy textures. Glimmers of 24k gold.
             </p>
         </div>
     </section>
 
     <section id="collection" class="container">
-        <div class="reveal">
-            <span class="section-tag" data-key="tagColl">Available Work</span>
-            <h2 class="serif" style="font-size: 3rem; margin: 0;">Golden Circle of Life</h2>
-        </div>
+        <span class="section-tag" data-key="tagColl">Available Work</span>
+        <h2 class="section-title serif">Golden Circle of Life</h2>
+        <p style="color: var(--muted); font-size: 12px; letter-spacing: 0.2em;">COLLECTION 2025 — 2026</p>
+        
         <div class="gallery-grid" id="gallery"></div>
     </section>
 
     <section id="about" class="bg-sand">
-        <div class="container reveal" style="text-align: center; max-width: 800px;">
+        <div class="container" style="max-width: 850px;">
             <span class="section-tag" data-key="tagAbout">The Connection</span>
-            <h2 class="serif italic" style="font-size: 2.8rem; margin-bottom: 2rem;" data-key="aboutTitle">Elegance in the Raw</h2>
-            <div style="font-size: 1.1rem;" data-key="aboutText">
+            <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
+            <div style="font-size: 1.2rem; line-height: 1.9; font-weight: 300; margin-top: 3rem;" data-key="aboutText">
                 <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
-                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas.</p>
+                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas, allowing the art to be a personal reflection for every viewer.</p>
             </div>
         </div>
     </section>
 
     <section id="inquire" class="container">
-        <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
-            <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
-            <h2 class="serif" style="font-size: 3rem; margin: 0;" data-key="inqTitle">Start a Conversation</h2>
-        </div>
-        <form class="reveal form-container">
+        <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
+        <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
+        <p style="color: var(--muted); max-width: 550px; margin: 1.5rem auto 0 auto; font-size: 1.1rem;" data-key="inqSub">
+            If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.
+        </p>
+
+        <form class="form-container">
             <input type="text" data-placeholder="pName" placeholder="Name">
-            <textarea rows="3" data-placeholder="pMsg" placeholder="Your vision..."></textarea>
-            <div style="text-align: center;"><button type="button" class="btn" data-key="btnSend">Send</button></div>
+            <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your idea or desired style..."></textarea>
+            <div class="btn-wrap"><button type="button" class="btn" data-key="btnSend">Send Inquiry</button></div>
         </form>
     </section>
 
     <section id="interior" class="bg-dark">
-        <div class="container reveal" style="text-align: center;">
-            <span class="section-tag">Creative Services</span>
-            <h2 class="serif italic" style="font-size: 2.5rem;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
-            <p style="color: var(--accent); letter-spacing: 0.2em; font-size: 10px; margin-top: 2rem;" data-key="soon">COMING SOON</p>
+        <div class="container">
+            <span class="section-tag" style="color: var(--accent);">Creative Services</span>
+            <h2 class="serif italic" style="font-size: clamp(2rem, 6vw, 3.5rem); max-width: 800px; margin: 0 auto;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
+            <p style="color: var(--accent); letter-spacing: 0.3em; font-size: 11px; margin-top: 4rem; font-weight: 600;" data-key="soon">COMING SOON</p>
         </div>
     </section>
 
+    <footer style="padding: 5rem 0; text-align: center; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border);">
+        <p class="serif" style="font-size: 1.5rem; color: var(--black); margin-bottom: 1rem;">BB</p>
+        <p>© 2026 — BETA BEATRISE FINE ART</p>
+        <p>beta.beatrise@gmail.com</p>
+    </footer>
+
     <div id="lightbox">
-        <span class="lb-close">&times;</span>
+        <span class="lb-close" onclick="closeLightbox()">&times;</span>
         <div class="lb-nav">
             <span class="lb-arrow" onclick="changeImg(-1)">&#8249;</span>
             <span class="lb-arrow" onclick="changeImg(1)">&#8250;</span>
         </div>
         <img id="lb-img" src="">
-        <div id="lb-caption" style="margin-top: 20px; text-align: center;">
-            <h3 class="serif italic" id="lb-title" style="margin:0"></h3>
-            <p id="lb-desc" style="font-size: 0.9rem; color: var(--muted);"></p>
+        <div id="lb-caption" style="margin-top: 30px; text-align: center; padding: 0 20px;">
+            <h3 class="serif italic" id="lb-title" style="font-size: 1.8rem; margin:0"></h3>
+            <p id="lb-info" style="font-size: 1rem; color: var(--muted); margin-top: 10px;"></p>
         </div>
     </div>
 
@@ -176,25 +182,23 @@
         const texts = {
             nl: { 
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
-                tagColl: "Beschikbaar Werk",
-                tagAbout: "De Verbinding",
+                tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
                 aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie...</p>",
-                tagInq: "Persoonlijke Aanvraag",
-                inqTitle: "Begin een Gesprek",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal...</p>",
+                tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
+                inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten? Neem contact op voor een creatie op maat.",
                 interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
-                soon: "BINNENKORT", btnSend: "Verstuur", pName: "Naam", pMsg: "Uw visie..."
+                soon: "BINNENKORT BESCHIKBAAR", btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee..."
             },
             en: { 
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
-                tagColl: "Available Work",
-                tagAbout: "The Connection",
+                tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
                 aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance...</p>",
-                tagInq: "Personal Inquiry",
-                inqTitle: "Start a Conversation",
+                tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
+                inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.",
                 interiorTitle: "Did you know I also provide interior design services?",
-                soon: "COMING SOON", btnSend: "Send", pName: "Name", pMsg: "Your vision..."
+                soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your idea..."
             }
         };
 
@@ -208,9 +212,9 @@
         const gal = document.getElementById('gallery');
         collection.forEach((p, index) => {
             gal.innerHTML += `
-                <div class="card reveal" onclick="openLightbox(${index})">
+                <div class="card" onclick="openLightbox(${index})">
                     <div class="img-wrap"><img src="${p.img}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'"></div>
-                    <h3 class="serif italic" style="margin:0">${p.title}</h3>
+                    <h3 class="serif italic" style="margin:0; font-size: 1.5rem;">${p.title}</h3>
                     <span class="price">${p.price}</span>
                     <p class="desc">${p.desc}</p>
                 </div>
@@ -221,36 +225,36 @@
         const lb = document.getElementById('lightbox');
         const lbImg = document.getElementById('lb-img');
         const lbTitle = document.getElementById('lb-title');
-        const lbDesc = document.getElementById('lb-desc');
+        const lbInfo = document.getElementById('lb-info');
 
         function openLightbox(idx) {
             currentIdx = idx;
-            updateLightbox();
+            lbImg.src = collection[idx].img;
+            lbTitle.innerText = collection[idx].title;
+            lbInfo.innerText = collection[idx].price + " — " + collection[idx].desc;
             lb.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
-        function updateLightbox() {
-            lbImg.src = collection[currentIdx].img;
-            lbTitle.innerText = collection[currentIdx].title;
-            lbDesc.innerText = collection[currentIdx].price + " — " + collection[currentIdx].desc;
+        function closeLightbox() {
+            lb.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         function changeImg(step) {
             currentIdx = (currentIdx + step + collection.length) % collection.length;
-            updateLightbox();
+            lbImg.src = collection[currentIdx].img;
+            lbTitle.innerText = collection[currentIdx].title;
+            lbInfo.innerText = collection[currentIdx].price + " — " + collection[currentIdx].desc;
         }
-
-        document.querySelector('.lb-close').onclick = () => lb.style.display = 'none';
 
         function setLang(l) {
             document.getElementById('current-lang').innerText = l;
-            // Simplified for this demo - you can add the full text maps here
+            document.querySelectorAll('[data-key]').forEach(item => {
+                const key = item.getAttribute('data-key');
+                if (texts[l][key]) item.innerHTML = texts[l][key];
+            });
         }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
