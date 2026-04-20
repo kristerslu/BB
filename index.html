@@ -17,7 +17,7 @@
             --border: #eeeeee;
         }
 
-        /* RESET & IOS FIXES */
+        /* RESET & SNAP FIXES */
         html { overflow: hidden; height: 100%; }
         
         body { 
@@ -41,7 +41,7 @@
         /* NAVIGATION */
         nav { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box;
         }
         .nav-content { 
@@ -64,15 +64,22 @@
             position: relative; box-sizing: border-box; text-align: center;
         }
 
-        .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
+        /* TITLE PAGE WITH BACKGROUND CROP */
+        .hero { 
+            background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('public/Paintings/1.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: left; 
+            align-items: flex-start; 
+        }
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
 
-        /* SCROLL INDICATOR */
+        /* CENTERED SCROLL INDICATOR */
         .scroll-down {
-            margin-top: 3rem;
-            width: 20px;
-            height: 20px;
+            margin: 3rem auto 0 auto; /* Added auto margins to center */
+            width: 18px;
+            height: 18px;
             border-right: 1px solid var(--muted);
             border-bottom: 1px solid var(--muted);
             transform: rotate(45deg);
@@ -84,33 +91,44 @@
             60% {transform: translateY(-5px) rotate(45deg);}
         }
 
-        /* INVISIBLE CAROUSEL BUTTONS */
-        .carousel { position: relative; width: 100%; height: 45vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; box-sizing: border-box; overflow: hidden; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 10px; }
+        /* ARTWORK CAROUSEL - NO CROPPING */
+        .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; box-sizing: border-box; overflow: hidden; }
+        .carousel-track { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
+        
+        .carousel-track img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            position: absolute; 
+            opacity: 0; 
+            transition: opacity 0.4s ease; 
+            object-fit: contain; /* CRITICAL: Fixes cropping */
+            padding: 15px;
+            box-sizing: border-box;
+        }
         .carousel-track img.active-slide { opacity: 1; position: relative; }
         
-        /* The buttons are now transparent and only show a hint on interaction */
+        /* INVISIBLE BUTTONS */
         .c-arrow { 
-            position: absolute; top: 0; bottom: 0; width: 20%; 
+            position: absolute; top: 0; bottom: 0; width: 25%; 
             background: transparent; border: none; z-index: 10; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; color: rgba(0,0,0,0.05); /* Barely visible */
+            font-size: 24px; color: rgba(0,0,0,0.03); 
             transition: color 0.3s ease;
         }
-        .c-arrow:hover, .c-arrow:active { color: rgba(0,0,0,0.3); }
+        .c-arrow:hover, .c-arrow:active { color: rgba(0,0,0,0.2); }
         .c-prev { left: 0; } .c-next { right: 0; }
 
-        .price-tag { font-weight: 400; font-size: 1rem; color: #999; display: block; margin-top: 0.5rem; letter-spacing: 0.05em; }
+        .price-tag { font-weight: 400; font-size: 0.95rem; color: #999; display: block; margin-top: 0.5rem; letter-spacing: 0.05em; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        .interior-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         @media (max-width: 768px) {
             .nav-content { grid-template-columns: auto 1fr auto; }
             .nav-links { gap: 0.8rem; }
             .nav-links a { font-size: 8px; }
             .hero { padding-left: 1.5rem; }
-            .c-arrow { width: 30%; } /* Larger tap area for mobile */
+            .carousel { height: 45vh; }
         }
     </style>
 </head>
@@ -138,12 +156,12 @@
     <section id="top" class="hero">
         <div class="reveal" style="width: 100%; box-sizing: border-box;">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
-            <p style="max-width: 400px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300; color: var(--muted);" data-key="hero-desc">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
+            <p style="max-width: 400px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300; color: #444;" data-key="hero-desc">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
 
     <section id="collection">
-        <div class="reveal">
+        <div class="reveal" style="display: flex; flex-direction: column; align-items: center;">
             <span class="section-tag" data-key="coll-tag">Beschikbaar Werk</span>
             <h2 class="serif" style="font-size: 2.5rem;">Golden Circle of Life</h2>
             <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc">Ontdek de collectie</p>
@@ -177,7 +195,7 @@
     </section>
 
     <section id="interior" class="bg-dark">
-        <div class="interior-content reveal">
+        <div class="reveal" style="display: flex; flex-direction: column; align-items: center;">
             <span class="section-tag" data-key="int-tag">Interieur</span>
             <h2 class="serif" style="font-size: 2.2rem;" data-key="int-title">Interieuradvies</h2>
             <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Wist je dat ik ook interieuradvies geef?</p>
@@ -235,7 +253,22 @@
 
         const root = document.getElementById('gallery-root');
         artworks.forEach((art, idx) => {
-            root.insertAdjacentHTML('beforeend', `<div class="artwork-page"><div class="artwork-container reveal"><div class="carousel" onclick="move(${idx}, 1)"><button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button><div class="carousel-track" id="t-${idx}">${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}</div><button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button></div><div style="margin-top: 2rem;"><h3 class="serif" style="font-size: 1.6rem; margin: 0;" data-key="${art.id}"></h3><span class="price-tag">${art.price}</span></div></div></div>`);
+            root.insertAdjacentHTML('beforeend', `
+                <div class="artwork-page">
+                    <div class="artwork-container reveal">
+                        <div class="carousel" onclick="move(${idx}, 1)">
+                            <button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button>
+                            <div class="carousel-track" id="t-${idx}">
+                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
+                            </div>
+                            <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
+                        </div>
+                        <div style="margin-top: 2rem;">
+                            <h3 class="serif" style="font-size: 1.6rem; margin: 0;" data-key="${art.id}"></h3>
+                            <span class="price-tag">${art.price}</span>
+                        </div>
+                    </div>
+                </div>`);
         });
 
         function move(idx, dir) {
