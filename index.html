@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art Gallery | Official Site</title>
     <style>
-        /* Modern Reset & Base Styles */
+        /* --- RESTORING YOUR ORIGINAL LUXURY STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background: #fff; }
         
-        /* Force Scroll to Top Logic */
-        html { scroll-behavior: auto; }
+        html { 
+            scroll-behavior: auto; 
+            background-color: #ffffff;
+        }
 
-        /* Hero Section */
+        body { 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #000; 
+            background: #fff; 
+        }
+
+        /* Hero Section - Keeping your Black Titles */
         header {
             height: 100vh;
             display: flex;
@@ -20,164 +28,230 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: #f4f4f4; /* Placeholder for your hero bg */
+            background: #ffffff; 
         }
-        h1 { font-size: 4rem; color: #000; text-transform: uppercase; letter-spacing: 5px; }
-        p.subtitle { font-size: 1.2rem; color: #000; margin-top: 10px; }
+        
+        h1 { 
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            color: #000; 
+            text-transform: uppercase; 
+            letter-spacing: 12px; 
+            font-weight: 900;
+        }
 
-        /* Gallery Grid */
+        .subtitle { 
+            font-size: 1.1rem; 
+            color: #000; 
+            margin-top: 20px; 
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Gallery - Restoring the clean grid */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 40px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 80px 40px;
+            max-width: 1400px;
             margin: 0 auto;
         }
+
         .art-card {
             cursor: pointer;
-            overflow: hidden;
-            border: 1px solid #eee;
-            transition: transform 0.3s ease;
+            transition: opacity 0.4s ease;
         }
-        .art-card:hover { transform: translateY(-5px); }
-        .art-card img { width: 100%; height: 400px; object-fit: cover; display: block; }
-        .art-info { padding: 15px; text-align: center; }
-        .art-title { font-weight: bold; font-size: 1.1rem; }
-        .art-price { color: #666; margin-top: 5px; }
 
-        /* Modal (Pop-up) Styles */
+        .art-card:hover { opacity: 0.8; }
+
+        .art-card img { 
+            width: 100%; 
+            aspect-ratio: 3/4; 
+            object-fit: cover; 
+            display: block; 
+        }
+
+        .art-info { 
+            padding: 20px 0; 
+            text-align: left; 
+            border-bottom: 1px solid #000;
+        }
+
+        .art-title { 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            text-transform: uppercase;
+        }
+
+        .art-price { 
+            color: #555; 
+            margin-top: 5px; 
+            font-size: 1rem;
+        }
+
+        /* --- NEW MODAL STYLES (With Background Blur) --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            display: none; /* Hidden by default */
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(15px); /* The blur you asked for */
+            -webkit-backdrop-filter: blur(15px);
+            display: none; 
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            padding: 20px;
+            z-index: 10000;
         }
+
         .modal-content {
             background: #fff;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            width: 95%;
+            max-width: 1100px;
+            height: 80vh;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             position: relative;
-            animation: fadeIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
+
         .close-btn {
             position: absolute;
-            top: 15px; right: 20px;
-            font-size: 2rem;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
             cursor: pointer;
-            z-index: 10;
+            z-index: 11;
+            font-weight: 200;
         }
-        .modal-image img { width: 100%; height: 100%; object-fit: cover; }
-        .modal-details { padding: 40px; }
-        
-        /* Form Styles */
-        form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        input, textarea {
-            padding: 12px;
-            border: 1px solid #ddd;
+
+        .modal-image-container {
             width: 100%;
-            font-size: 1rem;
+            height: 100%;
+            background: #f9f9f9;
         }
-        button {
+
+        .modal-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+        }
+
+        .modal-details {
+            padding: 60px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-details h2 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Form styling to match your minimal aesthetic */
+        form { margin-top: 30px; display: flex; flex-direction: column; gap: 15px; }
+        
+        input, textarea {
             padding: 15px;
+            border: 1px solid #000;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        button {
+            padding: 20px;
             background: #000;
             color: #fff;
             border: none;
             cursor: pointer;
             text-transform: uppercase;
+            letter-spacing: 2px;
             font-weight: bold;
             transition: 0.3s;
         }
+
         button:hover { background: #333; }
 
-        @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; }
-            h1 { font-size: 2.5rem; }
+        @media (max-width: 900px) {
+            .modal-content { grid-template-columns: 1fr; height: 95vh; }
+            .modal-image-container { height: 40%; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>ART PIECE NAME</h1>
-        <p class="subtitle">Fine Art Collection</p>
+        <h1>YOUR NAME</h1>
+        <p class="subtitle">Selected Works 2024</p>
     </header>
 
     <div class="gallery">
-        <div class="art-card" onclick="openModal('Artwork One', '€1,200', 'https://via.placeholder.com/600x800?text=Art+1')">
-            <img src="https://via.placeholder.com/600x800?text=Art+1" alt="Art 1">
+        <div class="art-card" onclick="openModal('Artwork Name One', '€1,800', 'YOUR_IMAGE_URL_1')">
+            <img src="YOUR_IMAGE_URL_1" alt="Art 1">
             <div class="art-info">
-                <div class="art-title">Artwork One</div>
-                <div class="art-price">€1,200</div>
+                <div class="art-title">Artwork Name One</div>
+                <div class="art-price">€1,800</div>
             </div>
         </div>
 
-        <div class="art-card" onclick="openModal('Shadows of Blue', '€2,500', 'https://via.placeholder.com/600x800?text=Art+2')">
-            <img src="https://via.placeholder.com/600x800?text=Art+2" alt="Art 2">
+        <div class="art-card" onclick="openModal('Second Masterpiece', '€2,400', 'YOUR_IMAGE_URL_2')">
+            <img src="YOUR_IMAGE_URL_2" alt="Art 2">
             <div class="art-info">
-                <div class="art-title">Shadows of Blue</div>
-                <div class="art-price">€2,500</div>
+                <div class="art-title">Second Masterpiece</div>
+                <div class="art-price">€2,400</div>
             </div>
         </div>
-    </div>
+        
+        </div>
 
-    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeModal(event)">&times;</span>
-            <div class="modal-image">
-                <img id="modalImg" src="" alt="Selected Art">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-image-container">
+                <img id="modalImg" src="" alt="Art Preview">
             </div>
+
             <div class="modal-details">
-                <h2 id="modalTitle">Art Title</h2>
-                <p id="modalPrice" style="font-size: 1.5rem; margin-bottom: 20px;">Price</p>
-                <hr>
-                <p style="margin-top: 20px; font-weight: bold;">Interested in this piece?</p>
-                <p>Leave your details and I will contact you shortly.</p>
+                <h2 id="modalTitle">TITLE</h2>
+                <p id="modalPrice">PRICE</p>
                 
-                <form action="https://formspree.io/f/YOUR_ENDPOINT_HERE" method="POST">
-                    <input type="hidden" name="_subject" id="formSubject" value="Inquiry">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="tel" name="phone" placeholder="Phone Number">
-                    <textarea name="message" rows="4" placeholder="Message (Optional)"></textarea>
-                    <button type="submit">Send Inquiry</button>
+                <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
+                    <input type="hidden" name="_subject" id="formSubject" value="New Inquiry">
+                    <input type="text" name="name" placeholder="FULL NAME" required>
+                    <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
+                    <input type="tel" name="phone" placeholder="PHONE NUMBER">
+                    <textarea name="message" rows="4" placeholder="HOW CAN I HELP YOU?"></textarea>
+                    <button type="submit">REQUEST INFORMATION</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        // Triple-Lock Scroll to Top on Refresh
+        // --- TRIPLE-LOCK SCROLL FIX ---
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.scrollTo(0, 0);
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
 
-        // Modal Functions
-        function openModal(title, price, imgSrc) {
+        // --- MODAL LOGIC ---
+        function openModal(title, price, img) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalPrice').innerText = price;
-            document.getElementById('modalImg').src = imgSrc;
-            document.getElementById('formSubject').value = "Inquiry for: " + title;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('formSubject').value = "Inquiry: " + title;
+            
             document.getElementById('modalOverlay').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Stop background scroll
+            document.body.style.overflow = 'hidden'; // Lock background scroll
         }
 
-        function closeModal(e) {
+        function closeModal() {
             document.getElementById('modalOverlay').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Re-enable scroll
+            document.body.style.overflow = 'auto'; // Restore scroll
         }
     </script>
+
 </body>
 </html>
