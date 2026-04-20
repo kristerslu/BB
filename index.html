@@ -17,12 +17,13 @@
             --border: #eeeeee;
         }
 
-        /* IOS SMOOTHING FIX */
+        /* THE iOS SNAP FIX: ALL SNAP LOGIC ON HTML ONLY */
         html { 
             scroll-behavior: smooth; 
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
             height: 100%;
-            /* Adds a buffer for the fixed header so snapping feels more accurate */
-            scroll-padding-top: 80px; 
         }
         
         body { 
@@ -32,11 +33,7 @@
             color: var(--black); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            /* Changed to proximity for a less 'aggressive' snap on mobile */
-            scroll-snap-type: y proximity;
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch; 
+            min-height: 100%;
         }
 
         * { box-sizing: border-box; }
@@ -45,14 +42,14 @@
         .reveal { 
             opacity: 0; 
             transform: translateY(20px); 
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
             will-change: transform, opacity;
         }
         .reveal.active { 
             opacity: 1; 
             transform: translateY(0); 
         }
-        .reveal-delay { transition-delay: 0.3s; }
+        .reveal-delay { transition-delay: 0.4s; }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
@@ -78,11 +75,9 @@
             align-items: center;
             justify-content: center;
             scroll-snap-align: start; 
-            /* Softened for iOS */
-            scroll-snap-stop: normal; 
+            scroll-snap-stop: always; /* Force the snap */
             text-align: center;
             position: relative;
-            padding-top: 60px;
         }
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
@@ -156,7 +151,6 @@
         @media (max-width: 600px) {
             .nav-links { display: none; }
             .carousel { height: 40vh; }
-            section, .artwork-page { padding-top: 80px; }
         }
     </style>
 </head>
@@ -188,7 +182,7 @@
                 <h2 class="section-title serif">Golden Circle of Life</h2>
                 <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
             </div>
-            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('#gallery-root').scrollIntoView();">↓</div>
+            <div class="scroll-arrow reveal reveal-delay" onclick="document.querySelector('#gallery-root').scrollIntoView({behavior: 'smooth'});">↓</div>
         </div>
     </section>
 
@@ -274,7 +268,7 @@
                     entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
