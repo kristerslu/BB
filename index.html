@@ -17,6 +17,7 @@
             --border: #eeeeee;
         }
 
+        /* SCROLL SNAPPING SETUP */
         html { 
             scroll-behavior: smooth; 
             scroll-snap-type: y mandatory; 
@@ -30,13 +31,24 @@
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* REVEAL ANIMATIONS */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal-delay { 
+            transition-delay: 0.5s; 
+        }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION */
+        /* NAVIGATION RESTORED */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -48,7 +60,7 @@
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
 
-        /* FULL PAGE SECTIONS */
+        /* SECTION LOGIC */
         section, .artwork-page { 
             height: 100vh; 
             width: 100%;
@@ -68,24 +80,22 @@
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 4rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* SCROLL ARROW ANIMATION */
+        /* THE GRADUAL REVEAL ARROW */
         .scroll-arrow {
             margin-top: 3rem;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--accent);
-            animation: bounce 2s infinite;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+            font-weight: 300;
         }
-        .scroll-arrow:hover { color: var(--black); }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+        .scroll-arrow:hover { 
+            color: var(--black); 
+            transform: translateY(5px);
         }
 
-        /* ARTWORK PAGES */
+        /* ARTWORK DISPLAY - NO CROP */
         .artwork-container {
             width: 100%;
             max-width: 800px;
@@ -135,12 +145,13 @@
         }
         .c-prev { left: 10px; } .c-next { right: 10px; }
 
-        /* FORM */
+        /* FORM STYLING RESTORED */
         .form-container { width: 100%; max-width: 550px; margin-top: 3rem; text-align: left; }
         input, textarea { 
             width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1.5rem; 
             outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; 
         }
+        textarea { resize: none; }
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
@@ -148,6 +159,7 @@
         @media (max-width: 600px) {
             .nav-links { display: none; }
             .carousel { height: 45vh; }
+            .hero-title { font-size: 3.5rem; }
         }
     </style>
 </head>
@@ -173,11 +185,13 @@
     </section>
 
     <section id="collection">
-        <div class="container reveal">
-            <span class="section-tag">Beschikbaar Werk</span>
-            <h2 class="section-title serif">Golden Circle of Life</h2>
-            <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
-            <div class="scroll-arrow" onclick="window.scrollBy(0, window.innerHeight);">↓</div>
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Beschikbaar Werk</span>
+                <h2 class="section-title serif">Golden Circle of Life</h2>
+                <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
+            </div>
+            <div class="scroll-arrow reveal reveal-delay" onclick="window.scrollBy(0, window.innerHeight);">↓</div>
         </div>
     </section>
 
@@ -188,7 +202,7 @@
             <span class="section-tag">De Verbinding</span>
             <h2 class="section-title serif">Elegance in the Raw</h2>
             <p style="font-size: 1.2rem; line-height: 1.8; font-weight: 300;">
-                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie.
+                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.
             </p>
         </div>
     </section>
@@ -218,6 +232,7 @@
     </section>
 
     <script>
+        // Gallery Content Configuration
         const artworks = [
             { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
             { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg"] },
@@ -247,6 +262,7 @@
             root.insertAdjacentHTML('beforeend', html);
         });
 
+        // Carousel Logic
         let states = artworks.map(() => 0);
         function move(idx, dir) {
             const track = document.getElementById(`t-${idx}`);
@@ -256,9 +272,15 @@
             imgs[states[idx]].classList.add('active-slide');
         }
 
+        // Intersection Observer for Reveal Effect
         const observer = new IntersectionObserver(ents => {
-            ents.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            ents.forEach(e => { 
+                if(e.isIntersecting) {
+                    e.target.classList.add('active');
+                }
+            });
         }, { threshold: 0.1 });
+        
         document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
     </script>
 </body>
