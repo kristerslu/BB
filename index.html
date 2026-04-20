@@ -42,15 +42,16 @@
         .lang-dropdown:hover .dropdown-content { display: block; }
 
         /* SECTION SIZING */
-        section { padding: 6rem 0; text-align: center; scroll-margin-top: 70px; }
+        section { padding: 6rem 0; text-align: center; scroll-margin-top: 100px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        /* Transition Spacer for Philosophy */
-        .transition-spacer { height: 100px; background: var(--white); width: 100%; }
+        /* Transition Spacers */
+        .transition-spacer { height: 120px; background: transparent; width: 100%; }
+        #collection { padding-top: 0; } /* Spacing handled by spacer */
 
         /* TYPOGRAPHY */
         .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
@@ -108,13 +109,15 @@
         </div>
     </section>
 
+    <div class="transition-spacer"></div>
+
     <section id="collection" class="container">
         <span class="section-tag" data-key="tagColl">Available Work</span>
         <h2 class="section-title serif">Golden Circle of Life</h2>
         <div class="gallery-grid" id="gallery"></div>
     </section>
 
-    <div class="transition-spacer"></div>
+    <div class="transition-spacer" style="background: var(--white);"></div>
 
     <section id="about" class="bg-sand full-v">
         <div class="container" style="max-width: 800px;">
@@ -169,7 +172,7 @@
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings...</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>",
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>",
                 tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
                 inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.",
                 interiorTitle: "Did you know I also provide interior design services?",
