@@ -72,7 +72,8 @@
         /* FORMS */
         .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
-        .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; }
+        .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; }
+        .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
@@ -98,12 +99,13 @@
             <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
             <p style="margin-bottom: 1.5rem; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.</p>
             <div class="contact-info">info@betabeatrise.com</div>
-            <form action="https://formspree.io/f/xpqkjzkz" method="POST">
+            <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="message" rows="2" placeholder="Bericht"></textarea>
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
+                <div class="status-msg" id="modalStatus"></div>
             </form>
         </div>
     </div>
@@ -161,12 +163,13 @@
             <h2 class="serif" style="font-size: 2rem; margin-bottom: 1rem;" data-key="form-title">Paintings on Demand</h2>
             <p style="font-weight: 300; color: var(--muted); margin-bottom: 1.5rem;" data-key="form-desc">Op zoek naar een uniek werk dat perfect past bij uw interieur?</p>
             <div class="contact-info">info@betabeatrise.com</div>
-            <form action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
+            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
                 <input type="hidden" name="Subject" value="Paintings on Demand Inquiry">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="message" rows="2" placeholder="Beschrijf uw wensen (formaat, kleurenpalet, etc.)" required></textarea>
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur Aanvraag</button>
+                <div class="status-msg" id="mainStatus"></div>
             </form>
         </div>
     </section>
@@ -186,21 +189,12 @@
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
-                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren. Door het gebruik van 24-karaats goud en natuurlijke pigmenten ontstaat een dialoog tussen materie en ruimte, waarbij imperfectie juist wordt gevierd als de hoogste vorm van schoonheid.",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef om jouw ruimte tot leven te brengen?", "soon": "BINNENKORT",
+                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren.",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef?", "soon": "BINNENKORT",
                 "form-title": "Paintings on Demand", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur?", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
-                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud"
-            },
-            en: {
-                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
-                "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
-                "coll-tag": "Available Work", "coll-desc": "Discover the collection",
-                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the fragile balance between unpolished rawness and timeless elegance. Each work is a tactile journey, built from countless layers of texture that capture and transform light. Using 24-karat gold and natural pigments, a dialogue is created between matter and space, where imperfection is celebrated as the highest form of beauty.",
-                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "From art on the wall to a fully harmonious interior. Did you know I also give advice to bring your space to life?", "soon": "COMING SOON",
-                "form-title": "Paintings on Demand", "form-desc": "Looking for a unique piece that fits your interior perfectly?", "form-btn": "Send Inquiry",
-                "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
-                "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold"
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud",
+                "success": "Bedankt! Uw bericht is verstuurd.", "error": "Oeps! Er ging iets mis."
             }
         };
 
@@ -209,7 +203,7 @@
         window.onclick = function() { langMenu.classList.remove('show'); }
 
         function setLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = translations[lang][el.getAttribute('data-key')]; });
+            document.querySelectorAll('[data-key]').forEach(el => { el.innerText = translations['nl'][el.getAttribute('data-key')] || el.innerText; });
             document.getElementById('langCurrent').innerText = lang.toUpperCase();
             langMenu.classList.remove('show');
         }
@@ -242,13 +236,11 @@
         });
 
         function openModal(artId) {
-            const lang = document.getElementById('langCurrent').innerText.toLowerCase();
-            const title = translations[lang][artId];
+            const title = translations['nl'][artId];
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('hiddenSubject').value = "Interest in Artwork: " + title;
             document.getElementById('artModal').style.display = "block";
         }
-
         function closeModal() { document.getElementById('artModal').style.display = "none"; }
 
         function move(idx, dir) {
@@ -259,6 +251,44 @@
             imgs[current].classList.remove('active-slide');
             imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
         }
+
+        // AJAX FORM HANDLING
+        async function handleSubmit(event, statusId) {
+            event.preventDefault();
+            const form = event.target;
+            const status = document.getElementById(statusId);
+            const btn = form.querySelector('button');
+            const data = new FormData(form);
+
+            btn.innerText = "Sending...";
+            btn.style.opacity = "0.5";
+
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = translations['nl']['success'];
+                    status.style.display = "block";
+                    status.style.color = "green";
+                    form.reset();
+                    btn.innerText = translations['nl']['form-btn'];
+                    btn.style.opacity = "1";
+                    if(statusId === 'modalStatus') setTimeout(closeModal, 2000);
+                } else {
+                    status.innerHTML = translations['nl']['error'];
+                    status.style.display = "block";
+                    status.style.color = "red";
+                }
+            }).catch(error => {
+                status.innerHTML = translations['nl']['error'];
+                status.style.display = "block";
+            });
+        }
+
+        document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
+        document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
