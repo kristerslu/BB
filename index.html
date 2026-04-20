@@ -30,11 +30,8 @@
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
 
-        /* Kill iOS Blue Links/Interactive Elements */
         a, button, input, textarea, span { 
-            color: inherit; 
-            text-decoration: none; 
-            -webkit-tap-highlight-color: transparent;
+            color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent;
         }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
@@ -51,27 +48,14 @@
             display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; 
             max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; 
         }
-        .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; color: var(--black); font-weight: 400; }
+        .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; color: var(--black); }
         .nav-links { display: flex; gap: 2rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--black); }
         
-        /* DROPDOWN */
-        .lang-dropdown { position: relative; justify-self: end; }
-        .lang-trigger { 
-            background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; 
-            cursor: pointer; font-weight: 700; text-transform: uppercase; 
-            color: var(--black) !important;
-        }
-        .dropdown-content {
-            display: none; position: absolute; right: 0; background-color: var(--white);
-            min-width: 80px; border: 1px solid var(--border); z-index: 10001;
-        }
+        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; color: var(--black) !important; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
         .dropdown-content.show { display: block; }
-        .dropdown-content button { 
-            color: var(--black) !important; padding: 10px; display: block; width: 100%; 
-            border: none; background: none; font-size: 10px; text-align: left; 
-            cursor: pointer; border-bottom: 1px solid var(--border); 
-        }
+        .dropdown-content button { color: var(--black) !important; padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
 
         /* SECTIONS */
         section, .artwork-page { 
@@ -84,37 +68,49 @@
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
 
-        .interior-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* SCROLL INDICATOR */
+        .scroll-down {
+            margin-top: 3rem;
+            width: 20px;
+            height: 20px;
+            border-right: 1px solid var(--muted);
+            border-bottom: 1px solid var(--muted);
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);}
+            40% {transform: translateY(-10px) rotate(45deg);}
+            60% {transform: translateY(-5px) rotate(45deg);}
+        }
 
-        /* ARTWORK CAROUSEL */
-        .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        /* INVISIBLE CAROUSEL BUTTONS */
         .carousel { position: relative; width: 100%; height: 45vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; box-sizing: border-box; overflow: hidden; }
-        .carousel-track { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
         .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 10px; }
         .carousel-track img.active-slide { opacity: 1; position: relative; }
         
-        .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; z-index: 10; cursor: pointer; font-size: 20px; color: var(--black); }
-        .c-prev { left: 10px; } .c-next { right: 10px; }
-
-        /* PRICE STYLING - UPDATED FOR LESS BOLDNESS */
-        .price-tag { 
-            font-weight: 400; 
-            font-size: 1rem; 
-            color: #888; 
-            display: block; 
-            margin-top: 0.5rem; 
-            letter-spacing: 0.05em;
+        /* The buttons are now transparent and only show a hint on interaction */
+        .c-arrow { 
+            position: absolute; top: 0; bottom: 0; width: 20%; 
+            background: transparent; border: none; z-index: 10; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: rgba(0,0,0,0.05); /* Barely visible */
+            transition: color 0.3s ease;
         }
+        .c-arrow:hover, .c-arrow:active { color: rgba(0,0,0,0.3); }
+        .c-prev { left: 0; } .c-next { right: 0; }
+
+        .price-tag { font-weight: 400; font-size: 1rem; color: #999; display: block; margin-top: 0.5rem; letter-spacing: 0.05em; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        .bg-dark .section-tag { border-color: var(--muted); }
+        .interior-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         @media (max-width: 768px) {
             .nav-content { grid-template-columns: auto 1fr auto; }
             .nav-links { gap: 0.8rem; }
             .nav-links a { font-size: 8px; }
-            .carousel { height: 40vh; }
             .hero { padding-left: 1.5rem; }
+            .c-arrow { width: 30%; } /* Larger tap area for mobile */
         }
     </style>
 </head>
@@ -150,7 +146,8 @@
         <div class="reveal">
             <span class="section-tag" data-key="coll-tag">Beschikbaar Werk</span>
             <h2 class="serif" style="font-size: 2.5rem;">Golden Circle of Life</h2>
-            <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc">Scroll naar beneden om de collectie te bekijken</p>
+            <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc">Ontdek de collectie</p>
+            <div class="scroll-down"></div>
         </div>
     </section>
 
@@ -193,7 +190,7 @@
             nl: {
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
-                "coll-tag": "Beschikbaar Werk", "coll-desc": "Scroll naar beneden om de collectie te bekijken",
+                "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
                 "about-tag": "De Verbinding", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.",
                 "form-title": "Start een gesprek", "form-btn": "Verstuur Aanvraag", "soon": "BINNENKORT",
                 "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook interieuradvies geef?",
@@ -202,7 +199,7 @@
             fr: {
                 "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
-                "coll-tag": "Œuvres Disponibles", "coll-desc": "Défilez pour voir la collection",
+                "coll-tag": "Œuvres Disponibles", "coll-desc": "Découvrez la collection",
                 "about-tag": "La Connexion", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Son art utilise des textures et des éléments dorés.",
                 "form-title": "Commencer une conversation", "form-btn": "Envoyer", "soon": "BIENTÔT",
                 "int-tag": "Intérieur", "int-title": "Design d'intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en intérieur ?",
@@ -211,7 +208,7 @@
             en: {
                 "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
-                "coll-tag": "Available Work", "coll-desc": "Scroll down to view the collection",
+                "coll-tag": "Available Work", "coll-desc": "Discover the collection",
                 "about-tag": "The Connection", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her art uses textures and gold elements.",
                 "form-title": "Start a Conversation", "form-btn": "Send Inquiry", "soon": "COMING SOON",
                 "int-tag": "Interior", "int-title": "Interior design", "int-desc": "Did you know I also give interior advice?",
