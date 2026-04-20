@@ -22,33 +22,18 @@
         .serif { font-family: 'Playfair Display', serif; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION - Fixed Spacing */
+        /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
-            background: #ffffff; 
-            padding: 1rem 0; border-bottom: 1px solid var(--border);
+            background: #ffffff; padding: 1rem 0; border-bottom: 1px solid var(--border);
         }
-        .nav-content { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 0 1rem; /* Extra padding for edges */
-        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
         
-        .nav-links { 
-            display: flex; 
-            gap: 1.2rem; 
-            margin: 0 auto; /* Centers the links group between logo and lang */
-            padding: 0 10px;
-        }
-        .nav-links a { 
-            text-decoration: none; 
-            color: var(--black) !important; 
-            font-size: 9px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.12em; 
-            font-weight: 600; 
-        }
+        /* Logo Link */
+        .logo { text-decoration: none; color: var(--black); font-size: 1.2rem; font-weight: 400; cursor: pointer; }
+
+        .nav-links { display: flex; gap: 1.2rem; margin: 0 auto; padding: 0 10px; }
+        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
 
         .lang-dropdown { position: relative; }
         .dropbtn { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 9px; cursor: pointer; text-transform: uppercase; color: var(--black) !important; font-weight: 600; }
@@ -56,30 +41,19 @@
         .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
-        /* SECTIONS */
-        section { padding: 8rem 0; text-align: center; }
+        /* SECTIONS & SCROLL ALIGNMENT */
+        section { padding: 8rem 0; text-align: center; scroll-margin-top: 80px; }
         .hero { 
             min-height: 100vh; display: flex; align-items: center; text-align: left;
-            background: var(--hero-bg);
+            background: var(--hero-bg); scroll-margin-top: 0;
         }
         .bg-sand { background-color: var(--sand); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
         /* TYPOGRAPHY */
         .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
-        .section-title { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem 0; font-weight: 400; color: var(--black); }
-        
-        .section-tag { 
-            font-size: 10px; 
-            letter-spacing: 0.35em; 
-            text-transform: uppercase; 
-            color: #000; 
-            font-weight: 700; 
-            margin-bottom: 2rem; 
-            display: inline-block; 
-            border-bottom: 1px solid var(--accent); 
-            padding-bottom: 4px; 
-        }
+        .section-title { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem 0; font-weight: 400; color: inherit; }
+        .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: inherit; font-weight: 700; margin-bottom: 2rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
 
         /* CAROUSEL */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; }
@@ -91,27 +65,27 @@
             position: absolute; top: 50%; transform: translateY(-50%); 
             background: rgba(0,0,0,0.15); border: none; color: white;
             width: 32px; height: 32px; border-radius: 50%;
-            font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
         .c-prev { left: 8px; }
         .c-next { right: 8px; }
 
-        .price { font-size: 0.9rem; color: var(--black); font-weight: 600; margin-top: 1.2rem; display: block; }
+        .price { font-size: 0.9rem; font-weight: 600; margin-top: 1.2rem; display: block; }
         .desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
 
         /* INQUIRY */
         #inquire { padding-bottom: 15rem; } 
         .form-container { max-width: 550px; margin: 3rem auto 0 auto; text-align: left; }
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 0.95rem; color: inherit; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.1rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 9px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 1rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.1rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 9px; cursor: pointer; width: 100%; margin-top: 1rem; }
 
-        /* CREATIVE SERVICES - Delicate Font */
-        .services-title { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 300; line-height: 1.5; max-width: 600px; margin: 0 auto; letter-spacing: 0.01em; color: var(--white); }
-        .coming-soon { color: var(--accent); letter-spacing: 0.5em; font-size: 10px; font-weight: 700; margin-top: 3.5rem; display: block; opacity: 0.9; }
+        /* CREATIVE SERVICES */
+        .services-title { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 300; line-height: 1.5; max-width: 600px; margin: 0 auto; letter-spacing: 0.01em; }
+        .coming-soon { color: var(--accent); letter-spacing: 0.5em; font-size: 10px; font-weight: 700; margin-top: 3.5rem; display: block; }
 
         @media (max-width: 768px) { 
             section { padding: 6rem 0; }
-            .nav-links { gap: 0.8rem; } /* Tighter gap on small mobile to prevent overlap */
+            .nav-links { gap: 0.8rem; }
             .nav-links a { font-size: 8px; }
         }
     </style>
@@ -120,7 +94,7 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="logo serif" style="font-size: 1.2rem; font-weight: 400;">BB</div>
+            <a href="#top" class="logo serif">BB</a>
             <div class="nav-links">
                 <a href="#collection">Collection</a>
                 <a href="#about">Philosophy</a>
@@ -131,12 +105,13 @@
                 <div class="dropdown-content">
                     <div onclick="changeLang('NL')">NL</div>
                     <div onclick="changeLang('EN')">EN</div>
+                    <div onclick="changeLang('FR')">FR</div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero" id="top">
         <div class="container">
             <h1 class="hero-title serif">Beta<br><span style="color:var(--accent);">Beatrise</span></h1>
             <p style="max-width: 450px; margin-top: 2rem; font-size: 1rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
@@ -173,17 +148,15 @@
 
     <section id="interior" class="bg-dark">
         <div class="container">
-            <span class="section-tag" style="color:var(--accent); border-color: var(--accent);">Creative Services</span>
+            <span class="section-tag" style="border-color: var(--accent);">Creative Services</span>
             <h2 class="serif italic services-title" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
             <span class="coming-soon" data-key="soon">COMING SOON</span>
         </div>
     </section>
 
     <script>
-        // Force Top on Refresh
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0,0);
-
+        
         const texts = {
             NL: { 
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
@@ -204,6 +177,16 @@
                 inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.",
                 interiorTitle: "Did you know I also provide interior design services?",
                 soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision..."
+            },
+            FR: {
+                heroSub: "Compositions abstraites. Textures denses. Éclats d'or 24 carats.",
+                tagColl: "Œuvres Disponibles", tagAbout: "La Connexion",
+                aboutTitle: "L'élégance à l'état brut",
+                aboutText: "<p>Beta Beatrise explore le lien entre le matériau brut et l'élégance raffinée. Son art utilise des textures multicouches et des éléments dorés pour créer des peintures abstraites luxueuses.</p>",
+                tagInq: "Demande Personnelle", inqTitle: "Entamer une Conversation",
+                inqSub: "Si vous avez une idée spécifique ou une palette de couleurs en tête, n'hésitez pas à demander une création sur mesure.",
+                interiorTitle: "Saviez-vous que je propose également des services de design d'intérieur ?",
+                soon: "BIENTÔT DISPONIBLE", btnSend: "Envoyer", pName: "Nom", pMsg: "Décrivez votre vision..."
             }
         };
 
@@ -253,6 +236,7 @@
         window.onload = () => {
             const saved = localStorage.getItem('prefLang') || 'NL';
             changeLang(saved.toUpperCase());
+            window.scrollTo(0,0);
         };
     </script>
 </body>
