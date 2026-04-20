@@ -101,8 +101,9 @@
 
         /* FORM */
         .form-container { width: 100%; max-width: 500px; margin: 2rem auto; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; width: 100%; cursor: pointer; margin-top: 2rem; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; border-radius: 0; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; width: 100%; cursor: pointer; margin-top: 2rem; transition: opacity 0.3s ease; }
+        .btn:hover { opacity: 0.8; }
 
         @media (max-width: 600px) {
             .nav-links { gap: 0.9rem; }
@@ -138,7 +139,7 @@
     <section class="hero">
         <div class="container reveal">
             <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
-            <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
+            <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
 
@@ -146,7 +147,7 @@
 
     <section id="collection" class="container">
         <div class="reveal">
-            <span class="section-tag" data-key="tagColl">Available Work</span>
+            <span class="section-tag" data-key="tagColl">Beschikbaar Werk</span>
             <h2 class="section-title serif">Golden Circle of Life</h2>
         </div>
         <div class="gallery-grid" id="gallery"></div>
@@ -154,11 +155,10 @@
 
     <section id="about" class="bg-sand full-v">
         <div class="container reveal" style="max-width: 800px;">
-            <span class="section-tag" data-key="tagAbout">The Connection</span>
+            <span class="section-tag" data-key="tagAbout">De Verbinding</span>
             <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
             <div style="font-size: 1.15rem; line-height: 2; font-weight: 300; margin-top: 2rem;" data-key="aboutText">
-                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements.</p>
-                <p>Her works are designed to be intuitive; you are invited to rotate the canvas.</p>
+                <p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen.</p>
             </div>
         </div>
     </section>
@@ -167,11 +167,14 @@
         <div class="container reveal">
             <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
             <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
-            <form class="form-container">
-                <input type="text" data-placeholder="pName" placeholder="Name">
-                <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your vision."></textarea>
-                <button type="button" class="btn" data-key="btnSend">Send Inquiry</button>
+            
+            <form action="https://formspree.io/f/xpqkjzkz" method="POST" class="form-container">
+                <input type="text" name="name" data-placeholder="pName" placeholder="Naam" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="4" data-placeholder="pMsg" placeholder="Beschrijf uw idee." required></textarea>
+                <button type="submit" class="btn" data-key="btnSend">Verstuur Aanvraag</button>
             </form>
+            
         </div>
     </section>
 
@@ -192,10 +195,7 @@
         window.scrollTo(0, 0);
 
         window.addEventListener('load', () => {
-            // Immediate scroll
             window.scrollTo(0, 0);
-            
-            // Delayed scroll to overwrite browser memory
             setTimeout(() => {
                 window.scrollTo(0, 0);
                 document.documentElement.style.visibility = 'visible';
@@ -253,8 +253,8 @@
                         <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
                     <h3 class="serif italic" style="font-size: 1.6rem; margin-top:1.5rem;">${art.title}</h3>
-                    <span class="price">${art.price}</span>
-                    <p class="desc">${art.desc}</p>
+                    <span class="price" style="font-weight:600; display:block; margin-top:5px;">${art.price}</span>
+                    <p class="desc" style="color:var(--muted); font-size:0.9rem; margin-top:5px;">${art.desc}</p>
                 </div>
             `;
         });
