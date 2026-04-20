@@ -17,8 +17,9 @@
             --border: #eeeeee;
         }
 
-        html { visibility: hidden; }
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        /* Prevent flash and force scroll to top on load */
+        html { visibility: hidden; scroll-behavior: auto !important; }
+        * { box-sizing: border-box; }
         
         body { 
             margin: 0; 
@@ -27,23 +28,21 @@
             color: var(--black); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* DYNAMIC SCROLL FOG - iOS COMPATIBLE */
-        .viewport-fog {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 12vh;
-            pointer-events: none;
-            z-index: 9998;
-            background: linear-gradient(to top, var(--white) 20%, rgba(255,255,255,0));
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-            /* Mask ensures the blur itself fades out so there is no "edge" */
-            -webkit-mask-image: linear-gradient(to top, black, transparent);
-            mask-image: linear-gradient(to top, black, transparent);
+        /* ELEGANT REVEAL EFFECT */
+        .reveal {
+            opacity: 0;
+            filter: blur(15px);
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
         }
 
         .serif { font-family: 'Playfair Display', serif; }
@@ -67,16 +66,19 @@
         .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
-        /* UNIFIED SPACING */
-        section { padding: 10rem 0; text-align: center; scroll-margin-top: 80px; }
+        /* SECTIONS & SPACING */
+        section { padding: 8rem 0; text-align: center; scroll-margin-top: 80px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .bg-dark { background-color: var(--dark); color: var(--white); }
+        .bg-dark { background-color: var(--dark); color: var(--white); border: none; }
+
+        /* The Gap before Available Work */
+        .top-spacer { height: 10rem; background: var(--white); }
 
         /* TYPOGRAPHY */
-        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
+        .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
         .hero-title span { color: var(--black); }
         
         .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1.5rem 0; font-weight: 400; }
@@ -89,11 +91,10 @@
         .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
         
         .c-arrow { 
-            position: absolute; top: 0; height: 100%; width: 25%; 
+            position: absolute; top: 0; height: 100%; width: 30%; 
             background: transparent; border: none; color: white; 
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             font-size: 30px; z-index: 10; -webkit-tap-highlight-color: transparent;
-            text-shadow: 0 0 15px rgba(0,0,0,0.4);
         }
         .c-prev { left: 0; justify-content: flex-start; padding-left: 15px; } 
         .c-next { right: 0; justify-content: flex-end; padding-right: 15px; }
@@ -107,13 +108,12 @@
             .nav-links { gap: 0.9rem; }
             .nav-links a { font-size: 8px; }
             .hero-title { font-size: 4.2rem; }
-            section { padding: 8rem 0; }
+            section { padding: 6rem 0; }
+            .top-spacer { height: 6rem; }
         }
     </style>
 </head>
 <body>
-
-    <div class="viewport-fog"></div>
 
     <nav>
         <div class="container nav-content">
@@ -135,31 +135,35 @@
     </nav>
 
     <section class="hero" id="top">
-        <div class="container">
+        <div class="container reveal">
             <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
             <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
         </div>
     </section>
 
+    <div class="top-spacer"></div>
+
     <section id="collection" class="container">
-        <span class="section-tag" data-key="tagColl">Available Work</span>
-        <h2 class="section-title serif">Golden Circle of Life</h2>
+        <div class="reveal">
+            <span class="section-tag" data-key="tagColl">Available Work</span>
+            <h2 class="section-title serif">Golden Circle of Life</h2>
+        </div>
         <div class="gallery-grid" id="gallery"></div>
     </section>
 
     <section id="about" class="bg-sand full-v">
-        <div class="container" style="max-width: 800px;">
+        <div class="container reveal" style="max-width: 800px;">
             <span class="section-tag" data-key="tagAbout">The Connection</span>
             <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
             <div style="font-size: 1.15rem; line-height: 2; font-weight: 300; margin-top: 2rem;" data-key="aboutText">
-                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
-                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas.</p>
+                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings.</p>
+                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>
             </div>
         </div>
     </section>
 
     <section id="inquire" class="full-v">
-        <div class="container">
+        <div class="container reveal">
             <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
             <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
             <p style="max-width: 500px; margin: 0 auto; font-size: 1.05rem; color: var(--muted);" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.</p>
@@ -172,7 +176,7 @@
     </section>
 
     <section id="interior" class="bg-dark full-v">
-        <div class="container">
+        <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
             <h2 class="serif italic" style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 300;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
             <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 10px; font-weight: 700; margin-top: 5rem; display: block;" data-key="soon">COMING SOON</span>
@@ -180,18 +184,41 @@
     </section>
 
     <script>
+        // Force scroll to top on refresh
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-        document.documentElement.style.visibility = 'visible';
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        
+        window.onload = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.style.visibility = 'visible';
+            document.body.style.scrollBehavior = 'smooth';
+            initReveal();
+        };
+
+        // Scroll Blur / Reveal Observer
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal, .artwork-card').forEach(el => {
+                if (!el.classList.contains('reveal')) el.classList.add('reveal');
+                observer.observe(el);
+            });
+        }
 
         const texts = {
             NL: { 
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
                 aboutTitle: "Elegantie in de Ruwe Vorm",
-                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien en het vanuit verschillende perspectieven te bekijken.</p>",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien.</p>",
                 tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
-                inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten? Neem contact op voor een creatie op maat.",
+                inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten?",
                 interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
                 soon: "BINNENKORT BESCHIKBAAR", btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee."
             },
@@ -199,21 +226,11 @@
                 heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 tagColl: "Available Work", tagAbout: "The Connection",
                 aboutTitle: "Elegance in the Raw",
-                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>",
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas.</p>",
                 tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
-                inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.",
+                inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire.",
                 interiorTitle: "Did you know I also provide interior design services?",
                 soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision."
-            },
-            FR: {
-                heroSub: "Compositions abstraites. Textures denses. Éclats d'or 24 carats.",
-                tagColl: "Œuvres Disponibles", tagAbout: "La Connexion",
-                aboutTitle: "L'élégance à l'état brut",
-                aboutText: "<p>Beta Beatrise explore le lien entre le matériau brut et l'élégance raffinée.</p>",
-                tagInq: "Demande Personnelle", inqTitle: "Entamer une Conversation",
-                inqSub: "Si vous avez une idée spécifique, n'hésitez pas à demander une création sur mesure.",
-                interiorTitle: "Saviez-vous que je propose également des services de design d'intérieur ?",
-                soon: "BIENTÔT DISPONIBLE", btnSend: "Envoyer", pName: "Nom", pMsg: "Décrivez votre vision."
             }
         };
 
@@ -226,7 +243,7 @@
         artworks.forEach((art, artIdx) => {
             let imagesHtml = art.images.map(img => `<img src="${img}" alt="${art.title}">`).join('');
             gal.innerHTML += `
-                <div class="artwork-card">
+                <div class="artwork-card reveal">
                     <div class="carousel" id="carousel-${artIdx}">
                         <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#8249;</button>
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
@@ -258,11 +275,6 @@
                 item.placeholder = texts[l][item.getAttribute('data-placeholder')];
             });
         }
-
-        window.onload = () => {
-            const saved = localStorage.getItem('prefLang') || 'NL';
-            changeLang(saved.toUpperCase());
-        };
     </script>
 </body>
 </html>
