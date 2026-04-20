@@ -17,36 +17,39 @@
             --border: #eeeeee;
         }
 
-        /* 1. MANDATORY SCROLL SNAPPING */
+        /* SCROLL SNAPPING */
         html { 
             scroll-behavior: smooth; 
             scroll-snap-type: y mandatory; 
             overflow-y: scroll;
-            height: 100%;
         }
+        
+        * { box-sizing: border-box; }
         
         body { 
             margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-        .container { max-width: 850px; margin: 0 auto; padding: 0 1.5rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
 
+        /* NAVIGATION RESTORED */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
-            padding: 1rem 0; border-bottom: 1px solid var(--border); 
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 1.5rem 0; border-bottom: 1px solid var(--border); 
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { text-decoration: none; color: var(--black); font-size: 1.5rem; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { text-decoration: none; color: var(--black); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
 
-        /* 2. PAGE SECTIONS */
+        /* SECTION STYLING RESTORED */
         section, .artwork-page { 
             height: 100vh; 
             width: 100%;
@@ -56,41 +59,36 @@
             justify-content: center;
             scroll-snap-align: start; 
             scroll-snap-stop: always;
-            padding: 80px 20px 40px; /* Space for nav */
-            box-sizing: border-box;
+            text-align: center;
         }
 
         .hero { background: var(--hero-bg); text-align: left; align-items: flex-start; }
-        .bg-sand { background-color: var(--sand); }
-        .bg-dark { background-color: var(--dark); color: var(--white); }
-
-        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 1; margin: 0; }
-        .section-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
-
-        /* 3. THE ARTWORK FIX */
-        .artwork-page { background: #fff; }
+        .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         
+        .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
+        .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 4rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
+
+        /* ARTWORK PAGES - NO CROP FIX */
         .artwork-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 80vh;
             justify-content: center;
-            height: 100%;
         }
 
         .carousel { 
             position: relative; 
             width: 100%; 
-            height: 65vh; /* Limits image height to 65% of the screen */
+            height: 60vh; 
             display: flex;
             justify-content: center; 
             align-items: center;
             border: 1px solid var(--border);
             background: #fff;
-            padding: 10px;
-            overflow: hidden;
+            padding: 20px;
         }
         
         .carousel-track { 
@@ -107,83 +105,99 @@
             max-height: 100%; 
             position: absolute;
             opacity: 0; 
-            transition: opacity 0.5s ease;
-            object-fit: contain; /* CRITICAL: NO CROPPING */
+            transition: opacity 0.6s ease-in-out;
+            object-fit: contain; /* Prevents cropping */
         }
 
         .carousel-track img.active-slide { opacity: 1; position: relative; }
 
         .c-arrow { 
-            position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px;
-            background: rgba(255,255,255,0.8); border: 1px solid var(--border); border-radius: 50%; 
+            position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px;
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
             z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .c-arrow:hover { background: #fff; }
         .c-prev { left: 10px; } .c-next { right: 10px; }
 
-        .artwork-info { margin-top: 1.5rem; text-align: center; }
+        /* FORM RESTORED */
+        .form-container { width: 100%; max-width: 550px; margin-top: 3rem; text-align: left; }
+        input, textarea { 
+            width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1.5rem; 
+            outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; 
+        }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
 
-        /* FORM */
-        .form-container { width: 100%; max-width: 400px; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; background: transparent; }
-        .btn { background: #000; color: #fff; border: none; padding: 1rem; width: 100%; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+        /* LAST SECTION RESTORED */
+        .bg-dark { background-color: var(--dark); color: var(--white); }
 
         @media (max-width: 600px) {
             .nav-links { display: none; }
-            .carousel { height: 50vh; }
+            .carousel { height: 45vh; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="nav-content">
+        <div class="container nav-content">
             <a href="#" class="logo serif">BB</a>
             <div class="nav-links">
-                <a href="#collection">Works</a>
-                <a href="#about">About</a>
+                <a href="#collection">Collection</a>
+                <a href="#about">Philosophy</a>
                 <a href="#inquire">Inquiry</a>
             </div>
+            <button class="lang-btn">NL</button>
         </div>
     </nav>
 
     <section id="top" class="hero">
         <div class="container reveal">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
-            <p style="font-weight: 300; color: var(--muted);">Abstracte composities & 24k goud.</p>
+            <p style="max-width: 480px; margin-top: 2.5rem; font-size: 1.25rem; font-weight: 300; color: var(--muted);">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
 
     <section id="collection">
         <div class="container reveal">
-            <span class="section-tag">Collectie</span>
-            <h2 class="serif">Golden Circle of Life</h2>
+            <span class="section-tag">Beschikbaar Werk</span>
+            <h2 class="section-title serif">Golden Circle of Life</h2>
+            <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden om de collectie te bekijken</p>
         </div>
     </section>
 
     <div id="gallery-root"></div>
 
-    <section id="about" class="bg-sand">
-        <div class="container reveal">
-            <span class="section-tag">Philosophy</span>
-            <h2 class="serif">Elegance in the Raw</h2>
-            <p style="max-width: 500px; margin: 0 auto; font-weight: 300;">Exploratie van ruwe texturen en verfijnde luxe.</p>
+    <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container reveal" style="max-width: 700px;">
+            <span class="section-tag">De Verbinding</span>
+            <h2 class="section-title serif">Elegance in the Raw</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; font-weight: 300;">
+                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie.
+            </p>
         </div>
     </section>
 
     <section id="inquire">
         <div class="container reveal">
-            <span class="section-tag">Contact</span>
-            <h2 class="serif">Inquiry</h2>
+            <span class="section-tag">Inquiry</span>
+            <h2 class="section-title serif">Start a Conversation</h2>
             <div class="form-container">
                 <form action="https://formspree.io/f/xpqkjzkz" method="POST">
-                    <input type="text" name="name" placeholder="Naam">
-                    <input type="email" name="email" placeholder="Email">
-                    <textarea name="message" rows="3" placeholder="Uw bericht"></textarea>
-                    <button type="submit" class="btn">Verstuur</button>
+                    <input type="text" name="name" placeholder="Naam" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" rows="4" placeholder="Beschrijf uw idee." required></textarea>
+                    <button type="submit" class="btn">Verstuur Aanvraag</button>
                 </form>
             </div>
+        </div>
+    </section>
+
+    <section id="interior" class="bg-dark">
+        <div class="container reveal">
+            <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
+            <h2 class="serif" style="font-size: clamp(2rem, 5vw, 3rem);">Interior design services</h2>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;">Did you know I also provide curated interior advice?</p>
+            <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 11px; font-weight: 700; margin-top: 5rem; display: block;">COMING SOON</span>
         </div>
     </section>
 
@@ -200,16 +214,16 @@
             const html = `
                 <div class="artwork-page">
                     <div class="artwork-container reveal">
-                        <div class="carousel">
-                            <button class="c-arrow c-prev" onclick="move(${idx}, -1)">&#8249;</button>
+                        <div class="carousel" onclick="move(${idx}, 1)">
+                            <button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button>
                             <div class="carousel-track" id="t-${idx}">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}">`).join('')}
+                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="${art.title}">`).join('')}
                             </div>
-                            <button class="c-arrow c-next" onclick="move(${idx}, 1)">&#8250;</button>
+                            <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
                         </div>
-                        <div class="artwork-info">
-                            <h3 class="serif" style="margin:0">${art.title}</h3>
-                            <p style="margin:5px 0; color:var(--muted)">${art.price}</p>
+                        <div style="margin-top: 2.5rem;">
+                            <h3 class="serif" style="font-size: 1.8rem; margin: 0;">${art.title}</h3>
+                            <span style="font-weight:600; font-size: 1.1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
                         </div>
                     </div>
                 </div>
