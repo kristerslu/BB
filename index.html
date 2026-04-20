@@ -17,12 +17,18 @@
             --border: #eeeeee;
         }
 
-        html { visibility: hidden; scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            scroll-snap-type: y mandatory; 
+            overflow-y: scroll;
+            visibility: hidden;
+        }
+        
         * { box-sizing: border-box; }
         
         body { 
             margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
-            line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
 
         .reveal {
@@ -46,46 +52,53 @@
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
 
-        /* REFINED SECTION SPACING */
-        section { padding: 12rem 0; text-align: center; scroll-margin-top: 80px; }
-        .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
-        
-        #collection { background-color: var(--white); padding-top: 14rem; }
-        #about { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 14rem; }
-        #inquire { background-color: var(--white); padding-top: 14rem; padding-bottom: 16rem; }
-        #interior { background-color: var(--dark); color: var(--white); padding: 12rem 0; }
+        /* FULL PAGE SECTIONS */
+        section { 
+            height: 100vh; 
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: start; 
+            scroll-snap-stop: always;
+        }
+
+        .hero { background: var(--hero-bg); }
+        #collection-header { background: var(--white); }
+        #about { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        #inquire { background-color: var(--white); }
+        #interior { background-color: var(--dark); color: var(--white); }
 
         .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
-        .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 4rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
+        .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* COMPACT GALLERY STACK */
-        .gallery-stack { display: flex; flex-direction: column; gap: 6rem; margin-top: 4rem; width: 100%; }
-        
+        /* ARTWORK PAGE - NO CROPPING */
         .artwork-card { 
-            padding: 2rem; 
-            border: 1px solid var(--border); 
-            background: #fff;
-            text-align: center;
-            width: 100%;
-            /* Keep card height manageable */
-            max-height: 90vh; 
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 6rem 2rem;
+            background: #fff;
         }
 
         .carousel { 
             position: relative; 
             width: 100%; 
+            max-width: 800px;
+            /* Adaptive height to prevent cropping */
+            height: 60vh; 
             display: flex;
             justify-content: center; 
             align-items: center;
-            overflow: hidden; 
-            cursor: pointer;
-            /* Reduced height to fit one screen better */
-            min-height: 350px; 
-            height: 55vh; 
+            border: 1px solid var(--border); /* Soft square border moved here */
+            padding: 20px;
+            background: #fff;
         }
         
         .carousel-track { 
@@ -100,33 +113,33 @@
         .carousel-track img { 
             grid-area: stack; 
             max-width: 100%; 
-            height: auto; 
-            max-height: 100%; /* Scale to fit carousel container */
+            max-height: 100%;
             opacity: 0; 
-            transition: opacity 0.7s ease-in-out; 
+            transition: opacity 0.6s ease-in-out; 
             display: block;
-            object-fit: contain;
+            /* IMPORTANT: object-fit contain prevents cropping */
+            object-fit: contain; 
         }
 
         .carousel-track img.active-slide { opacity: 1; z-index: 2; }
 
         .c-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px;
-            background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
+            background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); border: none; border-radius: 50%; 
             z-index: 10; opacity: 0; transition: opacity 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
         .carousel:hover .c-arrow { opacity: 1; }
-        .c-prev { left: 10px; } .c-next { right: 10px; }
+        .c-prev { left: -20px; } .c-next { right: -20px; } /* Arrows slightly offset for elegance */
 
         /* FORM */
-        .form-container { width: 100%; max-width: 550px; margin: 3rem auto 0; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.2rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1.5rem; }
+        .form-container { width: 100%; max-width: 500px; margin-top: 2rem; text-align: left; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; margin-top: 1rem; }
         
         @media (max-width: 600px) {
-            section { padding: 8rem 0; }
-            .carousel { height: 45vh; min-height: 300px; }
-            .artwork-card { padding: 1.5rem; }
+            .nav-links { display: none; }
+            .carousel { height: 50vh; padding: 10px; }
+            .c-prev { left: 5px; } .c-next { right: 5px; }
         }
     </style>
 </head>
@@ -136,7 +149,7 @@
         <div class="container nav-content">
             <a href="#top" class="logo serif">BB</a>
             <div class="nav-links">
-                <a href="#collection">Collection</a>
+                <a href="#collection-header">Collection</a>
                 <a href="#about">Philosophy</a>
                 <a href="#inquire">Inquiry</a>
             </div>
@@ -151,15 +164,15 @@
         </div>
     </section>
 
-    <section id="collection">
-        <div class="container">
-            <div class="reveal">
-                <span class="section-tag">Beschikbaar Werk</span>
-                <h2 class="section-title serif">Golden Circle of Life</h2>
-            </div>
-            <div class="gallery-stack" id="gallery"></div>
+    <section id="collection-header">
+        <div class="container reveal">
+            <span class="section-tag">Beschikbaar Werk</span>
+            <h2 class="section-title serif">Golden Circle of Life</h2>
+            <p style="font-weight: 300; color: var(--muted);">Scroll naar beneden voor de collectie</p>
         </div>
     </section>
+
+    <div id="gallery-container"></div>
 
     <section id="about">
         <div class="container reveal" style="max-width: 700px;">
@@ -172,18 +185,16 @@
     </section>
 
     <section id="inquire">
-        <div class="container">
-            <div class="reveal">
-                <span class="section-tag">Inquiry</span>
-                <h2 class="section-title serif">Start a Conversation</h2>
-                <div class="form-container">
-                    <form id="contact-form" action="https://formspree.io/f/xpqkjzkz" method="POST">
-                        <input type="text" name="name" placeholder="Naam" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <textarea name="message" rows="4" placeholder="Beschrijf uw idee." required></textarea>
-                        <button id="submit-btn" type="submit" class="btn">Verstuur Aanvraag</button>
-                    </form>
-                </div>
+        <div class="container reveal">
+            <span class="section-tag">Inquiry</span>
+            <h2 class="section-title serif">Start a Conversation</h2>
+            <div class="form-container">
+                <form id="contact-form" action="https://formspree.io/f/xpqkjzkz" method="POST">
+                    <input type="text" name="name" placeholder="Naam" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" rows="3" placeholder="Beschrijf uw idee." required></textarea>
+                    <button id="submit-btn" type="submit" class="btn">Verstuur Aanvraag</button>
+                </form>
             </div>
         </div>
     </section>
@@ -192,7 +203,7 @@
         <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
             <h2 class="serif" style="font-size: clamp(2rem, 5vw, 3rem);">Interior design services</h2>
-            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;">Did you know I also provide curated interior advice?</p>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;">Curated interior advice and styling.</p>
             <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 11px; font-weight: 700; margin-top: 5rem; display: block;">COMING SOON</span>
         </div>
     </section>
@@ -207,25 +218,26 @@
         });
 
         const artworks = [
-            { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
-            { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
-            { title: "Golden Circle III", price: "€ 1.950", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
-            { title: "Golden Circle IV", price: "€ 2.400", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] }
+            { title: "Golden Circle I", price: "€ 1.800", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
+            { title: "Golden Circle II", price: "€ 2.100", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg"] },
+            { title: "Golden Circle III", price: "€ 1.950", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg"] },
+            { title: "Golden Circle IV", price: "€ 2.400", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg"] }
         ];
 
-        const gal = document.getElementById('gallery');
+        const gal = document.getElementById('gallery-container');
         artworks.forEach((art, artIdx) => {
             let imagesHtml = art.images.map((img, i) => `<img src="${img}" class="${i === 0 ? 'active-slide' : ''}" alt="${art.title}">`).join('');
+            
             gal.innerHTML += `
-                <div class="artwork-card reveal">
+                <div class="artwork-card">
                     <div class="carousel" onclick="moveSlide(${artIdx}, 1)">
                         <button class="c-arrow c-prev" onclick="event.stopPropagation(); moveSlide(${artIdx}, -1)">&#8249;</button>
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
                         <button class="c-arrow c-next" onclick="event.stopPropagation(); moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
-                    <div style="margin-top: 1.5rem;">
-                        <h3 class="serif" style="font-size: 1.6rem; margin: 0;">${art.title}</h3>
-                        <span style="font-weight:600; font-size: 1rem; color: var(--muted); display: block; margin-top: 0.3rem;">${art.price}</span>
+                    <div style="margin-top: 2.5rem; text-align: center;" class="reveal">
+                        <h3 class="serif" style="font-size: 1.8rem; margin: 0;">${art.title}</h3>
+                        <span style="font-weight:600; font-size: 1.1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
                     </div>
                 </div>
             `;
