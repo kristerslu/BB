@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Beta Beatrise — Fine Art</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
             --white: #ffffff;
@@ -14,7 +14,7 @@
             --hero-bg: #f9f7f4;
             --sand: #fbfaf8;
             --dark: #1a1816;
-            --border: #f0f0f0;
+            --border: #eeeeee;
         }
 
         html { visibility: hidden; }
@@ -31,47 +31,46 @@
         }
         .reveal.active { opacity: 1; filter: blur(0px); transform: translateY(0); }
 
-        .serif { font-family: 'Playfair Display', serif; }
-        .italic { font-style: italic; }
+        .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION - LARGER ELEMENTS */
+        /* NAVIGATION */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 1.5rem 0; border-bottom: 1px solid var(--border); 
         }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; font-weight: 400; }
+        .logo { text-decoration: none; color: var(--black); font-size: 1.8rem; }
         .nav-links { display: flex; gap: 2rem; margin: 0 auto; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
-        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; }
+        .lang-btn { background:none; border:1px solid #000; padding:5px 12px; font-size:11px; cursor:pointer; font-weight: 600; font-family: 'Inter', sans-serif; }
 
-        /* SPACING & TITLES */
-        section { padding: 10rem 0; text-align: center; scroll-margin-top: 100px; }
+        /* TITLES & SPACING */
+        section { padding: 9rem 0; text-align: center; scroll-margin-top: 100px; }
         .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
         .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; }
-        .section-title { font-size: clamp(2.5rem, 6vw, 3.8rem); margin-bottom: 2rem; font-weight: 400; }
+        /* LIGHTWEIGHT HERO TITLE */
+        .hero-title { font-size: clamp(4rem, 12vw, 8rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
+        .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* ARTISTIC PRODUCT CARD - SOFT SQUARE */
+        /* PRODUCT CARDS */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 4rem; margin-top: 5rem; }
         
         .artwork-card { 
-            padding: 2rem; 
+            padding: 1.5rem; 
             border: 1px solid var(--border); 
             background: #fff;
-            transition: transform 0.4s ease;
             text-align: left;
         }
 
         .carousel { position: relative; width: 100%; overflow: hidden; cursor: pointer; }
         .carousel-track { display: grid; grid-template-areas: "stack"; width: 100%; }
-        .carousel-track img { grid-area: stack; width: 100%; height: auto; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        .carousel-track img { grid-area: stack; width: 100%; height: auto; opacity: 0; transition: opacity 0.7s ease-in-out; }
         .carousel-track img.active-slide { opacity: 1; z-index: 2; }
 
         .c-arrow { 
@@ -84,14 +83,14 @@
 
         /* FORM */
         .form-container { width: 100%; max-width: 550px; margin: 3rem auto; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-size: 1.1rem; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 1rem; }
         .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 11px; width: 100%; cursor: pointer; }
         
         #form-status { display: none; text-align: center; padding: 2rem 0; }
 
         @media (max-width: 600px) {
             section { padding: 6rem 0; }
-            .nav-links { display: none; } /* Hide links on mobile for cleaner look */
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -105,14 +104,14 @@
                 <a href="#about">Philosophy</a>
                 <a href="#inquire">Inquiry</a>
             </div>
-            <button class="lang-btn serif">NL</button>
+            <button class="lang-btn">NL</button>
         </div>
     </nav>
 
     <section id="top" class="hero">
         <div class="container reveal">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
-            <p style="max-width: 500px; margin-top: 3rem; font-size: 1.3rem; font-weight: 300; color: var(--muted);">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
+            <p style="max-width: 480px; margin-top: 2.5rem; font-size: 1.2rem; font-weight: 300; color: var(--muted);">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
         </div>
     </section>
 
@@ -127,9 +126,9 @@
     <section id="about" class="bg-sand full-v">
         <div class="container reveal" style="max-width: 800px;">
             <span class="section-tag">De Verbinding</span>
-            <h2 class="section-title serif italic">Elegance in the Raw</h2>
-            <p style="font-size: 1.25rem; line-height: 2; font-weight: 300; margin-top: 2.5rem;">
-                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een tijdloze dialoog met de ruimte aan te gaan.
+            <h2 class="section-title serif">Elegance in the Raw</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; font-weight: 300; margin-top: 2rem;">
+                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlagige texturen en gouden elementen om een dialoog met de ruimte aan te gaan.
             </p>
         </div>
     </section>
@@ -146,7 +145,7 @@
                     <button id="submit-btn" type="submit" class="btn">Verstuur Aanvraag</button>
                 </form>
                 <div id="form-status">
-                    <p class="serif italic" style="font-size: 2rem;">Dank u.</p>
+                    <p class="serif" style="font-size: 2rem;">Dank u.</p>
                     <p style="color: var(--muted);">Uw bericht is succesvol verzonden.</p>
                 </div>
             </div>
@@ -156,8 +155,9 @@
     <section id="interior" class="bg-dark full-v">
         <div class="container reveal">
             <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
-            <h2 class="serif italic" style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 300;">Did you know I also provide interior design services?</h2>
-            <span style="color: var(--accent); letter-spacing: 0.7em; font-size: 12px; font-weight: 700; margin-top: 5rem; display: block;">COMING SOON</span>
+            <h2 class="serif" style="font-size: clamp(2rem, 5vw, 3rem);">Interior design services</h2>
+            <p style="font-weight: 300; margin-top: 1rem; opacity: 0.8;">Did you know I also provide curated interior advice?</p>
+            <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;">COMING SOON</span>
         </div>
     </section>
 
@@ -187,9 +187,9 @@
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
                         <button class="c-arrow c-next" onclick="event.stopPropagation(); moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
-                    <div style="margin-top: 2rem;">
-                        <h3 class="serif italic" style="font-size: 1.6rem; margin: 0; letter-spacing: 0.02em;">${art.title}</h3>
-                        <span style="font-weight:600; font-size: 1rem; color: var(--muted); display: block; margin-top: 0.5rem;">${art.price}</span>
+                    <div style="margin-top: 1.5rem;">
+                        <h3 class="serif" style="font-size: 1.4rem; margin: 0;">${art.title}</h3>
+                        <span style="font-weight:600; font-size: 0.9rem; color: var(--muted); display: block; margin-top: 0.3rem;">${art.price}</span>
                     </div>
                 </div>
             `;
