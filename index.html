@@ -20,27 +20,44 @@
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         .serif { font-family: 'Playfair Display', serif; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* NAVIGATION - Solid and visible */
+        /* NAVIGATION - Fixed Spacing */
         nav { 
             position: fixed; top: 0; width: 100%; z-index: 10000; 
             background: #ffffff; 
-            padding: 1.2rem 0; border-bottom: 1px solid var(--border);
+            padding: 1rem 0; border-bottom: 1px solid var(--border);
         }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .nav-links { display: flex; gap: 1.5rem; }
-        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+        .nav-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 1rem; /* Extra padding for edges */
+        }
+        
+        .nav-links { 
+            display: flex; 
+            gap: 1.2rem; 
+            margin: 0 auto; /* Centers the links group between logo and lang */
+            padding: 0 10px;
+        }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--black) !important; 
+            font-size: 9px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.12em; 
+            font-weight: 600; 
+        }
 
-        /* Language Button - Anti-Blue Fix */
         .lang-dropdown { position: relative; }
-        .dropbtn { background: none; border: 1px solid var(--black); padding: 5px 12px; font-size: 10px; cursor: pointer; text-transform: uppercase; color: var(--black) !important; font-weight: 600; }
-        .dropdown-content { display: none; position: absolute; right: 0; background: #fff; border: 1px solid var(--border); min-width: 65px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .dropdown-content div { padding: 8px; font-size: 10px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
+        .dropbtn { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 9px; cursor: pointer; text-transform: uppercase; color: var(--black) !important; font-weight: 600; }
+        .dropdown-content { display: none; position: absolute; right: 0; background: #fff; border: 1px solid var(--border); min-width: 60px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
         .lang-dropdown:hover .dropdown-content { display: block; }
 
         /* SECTIONS */
-        section { padding: 10rem 0; text-align: center; }
+        section { padding: 8rem 0; text-align: center; }
         .hero { 
             min-height: 100vh; display: flex; align-items: center; text-align: left;
             background: var(--hero-bg);
@@ -49,45 +66,53 @@
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
         /* TYPOGRAPHY */
-        .hero-title { font-size: clamp(3rem, 10vw, 7.5rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
-        .section-title { font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 1rem 0; font-weight: 400; color: var(--black); }
+        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; }
+        .section-title { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem 0; font-weight: 400; color: var(--black); }
         
-        /* High Visibility Tags */
-        .section-tag { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #000; font-weight: 700; margin-bottom: 2rem; display: block; border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 5px; }
+        .section-tag { 
+            font-size: 10px; 
+            letter-spacing: 0.35em; 
+            text-transform: uppercase; 
+            color: #000; 
+            font-weight: 700; 
+            margin-bottom: 2rem; 
+            display: inline-block; 
+            border-bottom: 1px solid var(--accent); 
+            padding-bottom: 4px; 
+        }
 
         /* CAROUSEL */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 6rem 3.5rem; margin-top: 4rem; text-align: left; }
-        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f0f0f0; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; }
+        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); height: 100%; }
         .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
         
-        /* Visible Arrows */
         .c-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); 
-            background: rgba(0,0,0,0.3); border: none; color: white;
-            width: 35px; height: 35px; border-radius: 50%;
-            font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            background: rgba(0,0,0,0.15); border: none; color: white;
+            width: 32px; height: 32px; border-radius: 50%;
+            font-size: 16px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.3s;
         }
-        .c-arrow:hover { background: rgba(0,0,0,0.6); }
-        .c-prev { left: 10px; }
-        .c-next { right: 10px; }
+        .c-prev { left: 8px; }
+        .c-next { right: 8px; }
 
-        .price { font-size: 1rem; color: var(--black); font-weight: 600; margin-top: 1.5rem; display: block; }
-        .desc { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+        .price { font-size: 0.9rem; color: var(--black); font-weight: 600; margin-top: 1.2rem; display: block; }
+        .desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
 
-        /* INQUIRY SECTION SPACING */
-        #inquire { padding-bottom: 15rem; } /* Extra space so button doesn't touch next section */
-        .form-container { max-width: 600px; margin: 4rem auto 0 auto; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 1rem; color: inherit; }
-        .btn { background: var(--black); color: #fff; border: none; padding: 1.2rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; cursor: pointer; transition: 0.3s; width: 100%; }
+        /* INQUIRY */
+        #inquire { padding-bottom: 15rem; } 
+        .form-container { max-width: 550px; margin: 3rem auto 0 auto; text-align: left; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1.5rem; outline: none; background: transparent; font-family: inherit; font-size: 0.95rem; color: inherit; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.1rem; text-transform: uppercase; letter-spacing: 0.2em; font-size: 9px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 1rem; }
 
-        /* CREATIVE SERVICES REFINEMENT */
-        .services-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.3; max-width: 700px; margin: 0 auto; }
-        .coming-soon { color: var(--accent); letter-spacing: 0.4em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block; }
+        /* CREATIVE SERVICES - Delicate Font */
+        .services-title { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 300; line-height: 1.5; max-width: 600px; margin: 0 auto; letter-spacing: 0.01em; color: var(--white); }
+        .coming-soon { color: var(--accent); letter-spacing: 0.5em; font-size: 10px; font-weight: 700; margin-top: 3.5rem; display: block; opacity: 0.9; }
 
         @media (max-width: 768px) { 
             section { padding: 6rem 0; }
-            .hero-title { font-size: 4rem; }
+            .nav-links { gap: 0.8rem; } /* Tighter gap on small mobile to prevent overlap */
+            .nav-links a { font-size: 8px; }
         }
     </style>
 </head>
@@ -95,7 +120,7 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="logo serif" style="font-size: 1.3rem; letter-spacing: -1px; font-weight: 400;">BB</div>
+            <div class="logo serif" style="font-size: 1.2rem; font-weight: 400;">BB</div>
             <div class="nav-links">
                 <a href="#collection">Collection</a>
                 <a href="#about">Philosophy</a>
@@ -106,7 +131,6 @@
                 <div class="dropdown-content">
                     <div onclick="changeLang('NL')">NL</div>
                     <div onclick="changeLang('EN')">EN</div>
-                    <div onclick="changeLang('FR')">FR</div>
                 </div>
             </div>
         </div>
@@ -115,7 +139,7 @@
     <section class="hero">
         <div class="container">
             <h1 class="hero-title serif">Beta<br><span style="color:var(--accent);">Beatrise</span></h1>
-            <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.1rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
+            <p style="max-width: 450px; margin-top: 2rem; font-size: 1rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
         </div>
     </section>
 
@@ -129,7 +153,7 @@
         <div class="container" style="max-width: 800px;">
             <span class="section-tag" data-key="tagAbout">The Connection</span>
             <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
-            <div style="font-size: 1.15rem; line-height: 1.9; font-weight: 300; margin-top: 3rem; text-align: center;" data-key="aboutText">
+            <div style="font-size: 1.05rem; line-height: 1.9; font-weight: 300; margin-top: 2.5rem;" data-key="aboutText">
                 <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
                 <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas, allowing the art to be a personal reflection for every viewer.</p>
             </div>
@@ -139,7 +163,7 @@
     <section id="inquire" class="container">
         <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
         <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
-        <p style="max-width: 550px; margin: 1.5rem auto; font-size: 1rem; color: var(--muted);" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.</p>
+        <p style="max-width: 550px; margin: 1rem auto; font-size: 0.95rem; color: var(--muted);" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation tailored to your space.</p>
         <form class="form-container">
             <input type="text" data-placeholder="pName" placeholder="Name">
             <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your vision..."></textarea>
@@ -149,13 +173,17 @@
 
     <section id="interior" class="bg-dark">
         <div class="container">
-            <span class="section-tag" style="color:var(--accent); border-color: var(--muted);">Creative Services</span>
+            <span class="section-tag" style="color:var(--accent); border-color: var(--accent);">Creative Services</span>
             <h2 class="serif italic services-title" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
             <span class="coming-soon" data-key="soon">COMING SOON</span>
         </div>
     </section>
 
     <script>
+        // Force Top on Refresh
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0,0);
+
         const texts = {
             NL: { 
                 heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
@@ -191,11 +219,11 @@
             gal.innerHTML += `
                 <div class="artwork-card">
                     <div class="carousel" id="carousel-${artIdx}">
-                        <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#10094;</button>
+                        <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#8249;</button>
                         <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
-                        <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#10095;</button>
+                        <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
-                    <h3 class="serif italic" style="font-size: 1.6rem; margin-top:1.5rem;">${art.title}</h3>
+                    <h3 class="serif italic" style="font-size: 1.5rem; margin-top:1.2rem;">${art.title}</h3>
                     <span class="price">${art.price}</span>
                     <p class="desc">${art.desc}</p>
                 </div>
