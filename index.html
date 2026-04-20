@@ -1,3 +1,7 @@
+That makes sense! On mobile especially, you don't want that menu hanging around after you've made your choice.
+I've updated the logic so that as soon as you click a language, the dropdown "blurs" (closes). I also added a small CSS tweak to ensure it behaves better on touch devices where "hover" states can sometimes get stuck.
+Here is the updated script and the small CSS change for the dropdown:
+```html
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -55,7 +59,7 @@
         .nav-links { display: flex; gap: 2.5rem; justify-self: center; }
         .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
         
-        /* DROPDOWN */
+        /* DROPDOWN - IMPROVED FOR AUTO-CLOSE */
         .lang-dropdown { position: relative; justify-self: end; display: inline-block; }
         .lang-trigger { 
             background: none; border: 1px solid var(--black); padding: 6px 14px; font-size: 11px; 
@@ -65,13 +69,16 @@
         .dropdown-content {
             display: none; position: absolute; right: 0; background-color: var(--white);
             min-width: 90px; border: 1px solid var(--border); z-index: 1;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.05);
         }
         .dropdown-content button {
             color: var(--black); padding: 12px; text-decoration: none; display: block;
             width: 100%; border: none; background: none; font-size: 11px; font-weight: 600;
             text-align: left; cursor: pointer; border-bottom: 1px solid var(--border);
         }
-        .lang-dropdown:hover .dropdown-content { display: block; }
+        /* Keep open on hover or when trigger is active */
+        .lang-dropdown:hover .dropdown-content,
+        .lang-dropdown:focus-within .dropdown-content { display: block; }
 
         section, .artwork-page { 
             height: 100vh; width: 100%; display: flex; flex-direction: column; 
@@ -84,7 +91,6 @@
         .section-title { font-size: clamp(2.4rem, 6vw, 3.4rem); margin-bottom: 2rem; }
         .section-tag { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700; margin-bottom: 3rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 6px; }
 
-        /* ARTWORK */
         .artwork-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; height: 75vh; justify-content: center; }
         .carousel { position: relative; width: 100%; height: 55vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; padding: 20px; }
         .carousel-track { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -120,7 +126,7 @@
             </div>
             <div class="lang-dropdown">
                 <button class="lang-trigger" id="langCurrent">NL</button>
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="langMenu">
                     <button onclick="setLang('nl')">NL</button>
                     <button onclick="setLang('fr')">FR</button>
                     <button onclick="setLang('en')">EN</button>
@@ -225,6 +231,9 @@
                 el.placeholder = translations[lang][key] || el.getAttribute('data-p');
             });
             document.getElementById('langCurrent').innerText = lang.toUpperCase();
+            
+            // THE FIX: Forces the menu to close by removing focus
+            document.activeElement.blur();
         }
 
         const artworks = [
@@ -274,3 +283,5 @@
     </script>
 </body>
 </html>
+
+```
