@@ -72,7 +72,7 @@
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
 
-        /* FORMS & INQUIRY */
+        /* FORMS */
         .alternative-email-section { margin-top: 2rem; }
         .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
         .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; }
@@ -240,7 +240,7 @@
                 "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
-                "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Décrivez vos préférences (format, palette, etc.)",
+                "p-name": "Nom", "p-email": "E-mail", "p-phone": "Telefoon (Optionnel)", "p-msg": "Message", "p-msg-l": "Décrivez vos préférences (format, palette, etc.)",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or",
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
             }
@@ -284,14 +284,28 @@
                 </div>`);
         });
 
-        // Swipe Logic
-        let touchStartX = 0;
+        // IMPROVED SWIPE LOGIC
+        let touchStart = { x: 0, y: 0 };
         document.querySelectorAll('.carousel').forEach((carousel, idx) => {
-            carousel.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+            carousel.addEventListener('touchstart', e => {
+                touchStart.x = e.touches[0].clientX;
+                touchStart.y = e.touches[0].clientY;
+            }, {passive: false});
+
+            carousel.addEventListener('touchmove', e => {
+                let dx = touchStart.x - e.touches[0].clientX;
+                let dy = touchStart.y - e.touches[0].clientY;
+                // If moving more horizontally than vertically, lock the scroll
+                if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+            }, {passive: false});
+
             carousel.addEventListener('touchend', e => {
-                let touchEndX = e.changedTouches[0].screenX;
-                let diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) move(idx, diff > 0 ? 1 : -1);
+                let dx = touchStart.x - e.changedTouches[0].clientX;
+                let dy = touchStart.y - e.changedTouches[0].clientY;
+                // Trigger swipe if horizontal move is significant and greater than vertical
+                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+                    move(idx, dx > 0 ? 1 : -1);
+                }
             }, {passive: true});
         });
 
@@ -355,16 +369,15 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // RESET LOGIC: Triggers as soon as the element is less than 90% visible
+        // Optimized reset observer
         const resetObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.intersectionRatio < 0.9) {
+                if (entry.intersectionRatio < 0.8) {
                     const idx = entry.target.getAttribute('data-idx');
                     if (idx !== null) resetGallery(idx);
                 }
             });
-        }, { threshold: [0, 0.1, 0.5, 0.9, 1.0] });
-        
+        }, { threshold: [0, 0.2, 0.5, 0.8, 1.0] });
         document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
 
         setLang('nl');
