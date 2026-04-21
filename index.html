@@ -92,10 +92,10 @@
         #inquire textarea { height: 60px; padding: 0.6rem 0; margin-bottom: 1rem; font-size: 14px; resize: none; text-align: center; }
         #inquire .submit-btn { padding: 1.2rem; width: 100%; }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
-        .modal-content { max-width: 500px; width: 90%; margin: 10vh auto; padding: 3rem 2rem; position: relative; text-align: center; box-sizing: border-box; }
-        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; transition: opacity 0.3s; }
+        /* MODAL - SOLID BACKGROUND DISABLE TRANSPARENCY */
+        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
+        .modal-content { max-width: 500px; width: 90%; margin: 10vh auto; padding: 3rem 2rem; position: relative; text-align: center; box-sizing: border-box; background: #ffffff; }
+        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; transition: opacity 0.3s; z-index: 20001; }
         .close-modal:hover { opacity: 0.5; }
         
         #modalForm input { padding: 0.6rem 0; margin-bottom: 0.8rem; text-align: center; font-size: 14px; }
@@ -254,7 +254,7 @@
                 "email-intro": "N'hésitez pas à m'envoyer un e-mail directement :",
                 "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Décrivez vos préférences (format, palette de couleurs, etc.)",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or",
-                "success": "Merci ! Votre message a été envoyé.", "error": "Oups ! Quelque chose s'est mal passé."
+                "success": "Merci ! Votre message a été envoyé.", "error": "Oups ! Quel que chose s'est mal passé."
             }
         };
 
@@ -337,9 +337,16 @@
             document.getElementById('modalTitle').innerText = translations[currentLang][artId];
             document.getElementById('hiddenSubject').value = "Interest in Artwork: " + translations[currentLang][artId];
             document.getElementById('artModal').style.display = "block";
+            // Prevent scrolling on the main page while modal is open
+            document.body.style.overflow = 'hidden';
         }
         
-        function closeModal() { document.getElementById('artModal').style.display = "none"; }
+        function closeModal() { 
+            document.getElementById('artModal').style.display = "none"; 
+            // Re-enable scrolling
+            document.body.style.overflow = 'auto';
+        }
+        
         function toggleMenu(e) { e.stopPropagation(); document.getElementById('langMenu').classList.toggle('show'); }
         window.onclick = () => document.getElementById('langMenu').classList.remove('show');
 
