@@ -72,7 +72,7 @@
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
 
-        /* FORMS */
+        /* FORMS & INQUIRY */
         .alternative-email-section { margin-top: 2rem; }
         .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
         .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; }
@@ -80,7 +80,6 @@
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; display: block; margin: 0 auto; }
         .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* INQUIRY SECTION */
         #inquire { padding-top: 60px; justify-content: center; }
         #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.3rem !important; font-size: 1.8rem !important; line-height: 1.1; }
@@ -356,15 +355,16 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // Observer to reset galleries when they are scrolled away
+        // RESET LOGIC: Triggers as soon as the element is less than 90% visible
         const resetObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) {
+                if (entry.intersectionRatio < 0.9) {
                     const idx = entry.target.getAttribute('data-idx');
                     if (idx !== null) resetGallery(idx);
                 }
             });
-        }, { threshold: 0 });
+        }, { threshold: [0, 0.1, 0.5, 0.9, 1.0] });
+        
         document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
 
         setLang('nl');
