@@ -75,9 +75,10 @@
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
 
-        /* FORMS */
-        .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.5rem; font-weight: 300; }
-        .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; margin-bottom: 1.5rem; display: inline-block; font-weight: 400; }
+        /* FORMS & EMAIL ALTERNATIVE */
+        .alternative-email-section { margin-top: 2.5rem; }
+        .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
+        .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; }
         
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; box-sizing: border-box; border-radius: 0; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; display: block; margin: 0 auto; }
@@ -87,10 +88,9 @@
         #inquire { padding-top: 80px; justify-content: center; }
         #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.5rem !important; font-size: 1.8rem !important; line-height: 1.2; }
-        #inquire p { font-size: 0.95rem; margin-bottom: 1.5rem !important; line-height: 1.4; }
+        #inquire p { font-size: 0.95rem; margin-bottom: 2rem !important; line-height: 1.4; color: var(--muted); font-weight: 300; }
         #inquire input { padding: 0.6rem 0; margin-bottom: 0.8rem; font-size: 14px; text-align: center; }
         #inquire textarea { height: 60px; padding: 0.6rem 0; margin-bottom: 1rem; font-size: 14px; resize: none; text-align: center; }
-        #inquire .submit-btn { padding: 1.2rem; width: 100%; }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
@@ -100,7 +100,6 @@
         
         #modalForm input { padding: 0.6rem 0; margin-bottom: 0.8rem; text-align: center; font-size: 14px; }
         #modalForm textarea { padding: 0.6rem 0; margin-bottom: 1.2rem; height: 60px; resize: none; text-align: center; font-size: 14px; }
-        #modalForm .submit-btn { width: 100%; padding: 1.2rem; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
@@ -119,13 +118,8 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
-            <p style="margin-bottom: 1.5rem; font-weight: 300; font-size: 0.95rem;" data-key="modal-sub"></p>
+            <p style="margin-bottom: 2rem; font-weight: 300; font-size: 0.95rem; color: var(--muted);" data-key="modal-sub"></p>
             
-            <div style="margin-bottom: 2rem;">
-                <div class="contact-intro" data-key="email-intro"></div>
-                <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
-            </div>
-
             <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" data-key="p-name" placeholder="" required>
@@ -135,6 +129,11 @@
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
                 <div class="status-msg" id="modalStatus"></div>
             </form>
+
+            <div class="alternative-email-section">
+                <div class="contact-intro" data-key="email-intro"></div>
+                <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
+            </div>
         </div>
     </div>
 
@@ -187,13 +186,8 @@
         <div class="reveal">
             <span class="section-tag" data-key="nav-inq"></span>
             <h2 class="serif" data-key="form-title"></h2>
-            <p style="font-weight: 300; color: var(--muted);" data-key="form-desc"></p>
+            <p data-key="form-desc"></p>
             
-            <div style="margin-bottom: 2rem;">
-                <div class="contact-intro" data-key="email-intro"></div>
-                <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
-            </div>
-
             <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" value="Custom Art Inquiry">
                 <input type="text" name="name" data-key="p-name" placeholder="" required>
@@ -203,6 +197,11 @@
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
                 <div class="status-msg" id="mainStatus"></div>
             </form>
+
+            <div class="alternative-email-section">
+                <div class="contact-intro" data-key="email-intro"></div>
+                <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
+            </div>
         </div>
     </section>
 
@@ -223,9 +222,9 @@
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
                 "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar werken kennen geen vaste boven- of onderkant; ze zijn ontworpen om gedraaid te worden, zodat de kijker zijn eigen perspectief en emotie in de compositie kan vinden.",
                 "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef?<br>Van kunst aan de muur tot een volledig harmonieus interieur.", "soon": "BINNENKORT",
-                "form-title": "Wil je een uniek schilderij speciaal voor jou gemaakt?", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur?", "form-btn": "Verstuur Aanvraag",
-                "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
-                "email-intro": "U kunt mij ook rechtstreeks een e-mail sturen:",
+                "form-title": "Uniek Schilderij", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur? Laat hieronder uw gegevens achter voor een vrijblijvende aanvraag.", "form-btn": "Verstuur Aanvraag",
+                "modal-sub": "Heeft u interesse in dit specifieke werk? Laat hieronder uw gegevens achter.",
+                "email-intro": "Of stuur rechtstreeks een e-mail:",
                 "p-name": "Naam", "p-email": "E-mail", "p-phone": "Telefoon (Optioneel)", "p-msg": "Bericht", "p-msg-l": "Beschrijf uw wensen (formaat, kleurenpalet, etc.)",
                 "art0": "Begin van het Licht", "art1": "Gouden Cascade", "art2": "Vergulde Wandeling", "art3": "Sporen van Goud",
                 "success": "Bedankt! Uw bericht is verstuurd.", "error": "Oeps! Er ging iets mis."
@@ -236,9 +235,9 @@
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
                 "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her works have no fixed top or bottom; they are designed to be rotated, allowing the viewer to find their own perspective and emotion within the composition.",
                 "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also provide advice?<br>From wall art to a fully harmonious interior.", "soon": "COMING SOON",
-                "form-title": "Do you want a unique painting made especially for you?", "form-desc": "Looking for a unique piece that fits your interior perfectly?", "form-btn": "Send Inquiry",
-                "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
-                "email-intro": "Please feel free to send me an email directly:",
+                "form-title": "Custom Painting", "form-desc": "Looking for a unique piece that fits perfectly with your interior? Leave your details below for a non-binding inquiry.", "form-btn": "Send Inquiry",
+                "modal-sub": "Are you interested in this specific piece? Leave your details below.",
+                "email-intro": "Or send me an email directly:",
                 "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Describe your preferences (size, color palette, etc.)",
                 "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold",
                 "success": "Thank you! Your message has been sent.", "error": "Oops! Something went wrong."
@@ -249,9 +248,9 @@
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
                 "about-tag": "Philosophie", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
                 "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
-                "form-title": "Voulez-vous un tableau unique réalisé spécialement pour vous ?", "form-desc": "Vous recherchez une pièce unique qui s'adapte parfaitement à votre intérieur ?", "form-btn": "Envoyer la Demande",
-                "modal-sub": "Intéressé par cette œuvre ? Laissez vos coordonnées ou contactez-moi directement.",
-                "email-intro": "N'hésitez pas à m'envoyer un e-mail directement :",
+                "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique qui s'adapte parfaitement à votre intérieur ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
+                "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
+                "email-intro": "Ou envoyez-moi un e-mail directement :",
                 "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Décrivez vos préférences (format, palette de couleurs, etc.)",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or",
                 "success": "Merci ! Votre message a été envoyé.", "error": "Oups ! Quelque chose s'est mal passé."
