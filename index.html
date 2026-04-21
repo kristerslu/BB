@@ -59,7 +59,6 @@
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
         
-        /* UPDATED VERTICAL BOUNCE ARROW */
         .scroll-down { 
             margin: 3rem auto 0 auto; 
             width: 14px; 
@@ -219,10 +218,18 @@
     </section>
 
     <script>
-        // FORCED RELOAD TO TOP
+        // RESET URL & SCROLL ON LOAD
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
-        window.onload = function() { setTimeout(() => { window.scrollTo(0, 0); }, 10); };
+        
+        window.onload = function() {
+            // Remove the #inquire part from URL without refreshing
+            if (window.location.hash) {
+                history.replaceState(null, null, window.location.pathname);
+            }
+            // Ensure we are at the top
+            setTimeout(() => { window.scrollTo(0, 0); }, 10);
+        };
 
         const translations = {
             nl: {
