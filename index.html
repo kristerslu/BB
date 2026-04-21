@@ -12,7 +12,7 @@
         }
 
         /* RESET & SNAP */
-        html { overflow: hidden; height: 100%; }
+        html { overflow: hidden; height: 100%; scroll-behavior: auto; }
         body { 
             margin: 0; padding: 0; width: 100%; height: 100%;
             overflow-y: scroll; overflow-x: hidden;
@@ -59,7 +59,7 @@
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
         
-        /* UPDATED ANIMATED ARROW */
+        /* UPDATED VERTICAL BOUNCE ARROW */
         .scroll-down { 
             margin: 3rem auto 0 auto; 
             width: 14px; 
@@ -67,13 +67,12 @@
             border-right: 1px solid var(--muted); 
             border-bottom: 1px solid var(--muted); 
             transform: rotate(45deg); 
-            animation: arrow-bounce 2s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            animation: arrow-vertical 2s infinite ease-in-out;
         }
 
-        @keyframes arrow-bounce {
-            0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
-            50% { opacity: 1; }
-            100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
+        @keyframes arrow-vertical {
+            0%, 100% { transform: rotate(45deg) translate(0, 0); }
+            50% { transform: rotate(45deg) translate(8px, 8px); }
         }
 
         /* GALLERY CAROUSEL */
@@ -220,6 +219,11 @@
     </section>
 
     <script>
+        // FORCED RELOAD TO TOP
+        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        window.onload = function() { setTimeout(() => { window.scrollTo(0, 0); }, 10); };
+
         const translations = {
             nl: {
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
