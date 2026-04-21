@@ -182,7 +182,7 @@
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
         <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="about-tag"></span>
-            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
+            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;" data-key="about-title"></h2>
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text"></p>
         </div>
     </section>
@@ -223,11 +223,9 @@
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         
         window.onload = function() {
-            // Remove the #inquire part from URL without refreshing
             if (window.location.hash) {
                 history.replaceState(null, null, window.location.pathname);
             }
-            // Ensure we are at the top
             setTimeout(() => { window.scrollTo(0, 0); }, 10);
         };
 
@@ -236,7 +234,7 @@
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
-                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar werken kennen geen vaste boven- of onderkant; ze zijn ontworpen om gedraaid te worden, zodat de kijker zijn eigen perspectief en emotie in de compositie kan vinden.",
+                "about-tag": "Filosofie", "about-title": "Elegantie in de Puurheid", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar werken kennen geen vaste boven- of onderkant; ze zijn ontworpen om gedraaid te worden, zodat de kijker zijn eigen perspectief en emotie in de compositie kan vinden.",
                 "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef?<br>Van kunst aan de muur tot een volledig harmonieus interieur.", "soon": "BINNENKORT",
                 "form-title": "Uniek Schilderij", "form-desc": "Wilt u een werk dat perfect bij uw interieur past? Laat uw gegevens achter voor een vrijblijvende aanvraag.", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Heeft u interesse in dit werk? Laat hieronder uw gegevens achter.",
@@ -249,7 +247,7 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
-                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her works have no fixed top or bottom; they are designed to be rotated, allowing the viewer to find their own perspective and emotion within the composition.",
+                "about-tag": "Philosophy", "about-title": "Elegance in the Raw", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her works have no fixed top or bottom; they are designed to be rotated, allowing the viewer to find their own perspective and emotion within the composition.",
                 "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also provide advice?<br>From wall art to a fully harmonious interior.", "soon": "COMING SOON",
                 "form-title": "Custom Painting", "form-desc": "Looking for a unique piece? Leave your details below for a non-binding inquiry.", "form-btn": "Send Inquiry",
                 "modal-sub": "Are you interested in this piece? Leave your details below.",
@@ -262,7 +260,7 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
-                "about-tag": "Philosophie", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
+                "about-tag": "Philosophie", "about-title": "L'Élégance à l'État Brut", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
                 "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne ook des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
                 "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
