@@ -5,91 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <title>Beta Beatrise — Fine Art</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
-            --hero-bg: #f9f7f4; --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
-        }
+<style>
+    :root {
+        --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
+        --hero-bg: #f9f7f4; --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
+        --nav-h: 70px;
+    }
 
-        /* RESET & SNAP */
-        html { overflow: hidden; height: 100%; }
-        body { 
-            margin: 0; padding: 0; width: 100%; height: 100vh;
-            overflow-y: scroll; overflow-x: hidden;
-            scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
-            font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
-            line-height: 1.6; -webkit-font-smoothing: antialiased;
-        }
+    /* GLOBAL RESET */
+    html { overflow: hidden; height: 100%; }
+    body { 
+        margin: 0; padding: 0; width: 100%; height: 100vh;
+        overflow-y: scroll; overflow-x: hidden;
+        scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
+        font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
+        line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
 
-        a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-        .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+    a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+    .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* NAVIGATION */
-        nav { 
-            position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
-            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box;
-        }
-        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; }
-        .nav-links { display: flex; gap: 2rem; justify-self: center; }
-        .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-        
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
-        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
-        .dropdown-content.show { display: block; }
-        .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
+    /* NAVIGATION */
+    nav { 
+        position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
+        background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box; height: var(--nav-h);
+    }
+    .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; }
+    .nav-links { display: flex; gap: 2rem; justify-self: center; }
+    .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+    
+    .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+    .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
+    .dropdown-content.show { display: block; }
+    .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
 
-        /* HERO */
-        .hero { 
-            background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
-            background-size: cover; background-position: center; text-align: left; align-items: flex-start; 
-        }
-        .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
-        .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
+    /* HERO */
+    .hero { 
+        background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
+        background-size: cover; background-position: center; text-align: left; align-items: flex-start; padding-left: 10%;
+    }
+    .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
 
-        .scroll-down { margin: 3rem auto 0 auto; width: 18px; height: 18px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg); animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);} 40% {transform: translateY(-10px) rotate(45deg);} 60% {transform: translateY(-5px) rotate(45deg);} }
+    /* LAYOUT & SECTIONS */
+    section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
+    .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
+    .bg-dark { background-color: var(--dark); color: var(--white); }
 
-        section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
+    /* GALLERY */
+    .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; background: #fff; overflow: hidden; }
+    .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 15px; box-sizing: border-box; }
+    .carousel-track img.active-slide { opacity: 1; position: relative; }
+    .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; margin-top: 1.5rem; }
+    .price-tag { color: #999; font-size: 0.9rem; margin-top: 0.5rem; }
 
-        /* GALLERY CAROUSEL */
-        .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; overflow: hidden; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 15px; box-sizing: border-box; }
-        .carousel-track img.active-slide { opacity: 1; position: relative; }
-        .c-arrow { position: absolute; top: 0; bottom: 0; width: 25%; background: transparent; border: none; z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: rgba(0,0,0,0.03); transition: color 0.3s ease; }
-        .c-arrow:hover { color: rgba(0,0,0,0.2); }
-        .c-prev { left: 0; } .c-next { right: 0; }
+    /* --- THE COMPACT INQUIRY FIX --- */
+    #inquire { padding: var(--nav-h) 1.5rem 20px 1.5rem; }
+    #inquire .reveal { width: 100%; max-width: 400px; margin-top: -30px; }
+    #inquire h2 { margin: 0.5rem 0; font-size: 1.8rem; }
+    #inquire p { margin-bottom: 0.8rem; font-size: 0.85rem; line-height: 1.3; }
+    #inquire .contact-info { margin-bottom: 0.8rem; font-size: 11px; }
+    #inquire input { padding: 0.4rem 0; margin-bottom: 0.4rem; font-size: 13px; }
+    #inquire textarea { height: 55px; padding: 0.4rem 0; margin-bottom: 0.8rem; font-size: 13px; resize: none; }
+    #inquire .submit-btn { padding: 1rem; font-size: 10px; }
 
-        /* TITLES */
-        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; }
-        .art-title-btn:hover { opacity: 0.6; }
-        .price-tag { font-weight: 400; font-size: 0.95rem; color: #999; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
-
-        /* FORMS */
-        .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
-        .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; }
-        .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
-        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; text-align: left; }
-        .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
-
-        .bg-dark { background-color: var(--dark); color: var(--white); }
-
-        @media (max-width: 768px) {
-            .nav-content { grid-template-columns: auto 1fr auto; }
-            .nav-links { gap: 0.8rem; }
-            .nav-links a { font-size: 8px; }
-            .hero { padding-left: 1.5rem; }
-            .carousel { height: 45vh; }
-        }
-    </style>
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 768px) {
+        .nav-links { gap: 0.8rem; }
+        .nav-links a { font-size: 8px; }
+        .carousel { height: 45vh; }
+    }
+</style>
 </head>
 <body>
 
