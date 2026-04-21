@@ -37,12 +37,13 @@
         .nav-links { display: flex; gap: 2rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
         
+        .lang-dropdown { justify-self: end; position: relative; }
         .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
-        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; margin-top: 5px; }
         .dropdown-content.show { display: block; }
         .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
 
-        /* SECTIONS - Added 100dvh and snap-align center to fix scrolling cutoff bugs */
+        /* SECTIONS */
         section, .artwork-page { 
             height: 100vh; height: 100dvh; width: 100%; 
             scroll-snap-align: center; scroll-snap-stop: always; 
@@ -56,7 +57,7 @@
             background-size: cover; background-position: center; 
         }
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
-        .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
+        .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
 
         .scroll-down { margin: 3rem auto 0 auto; width: 18px; height: 18px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg); animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);} 40% {transform: translateY(-10px) rotate(45deg);} 60% {transform: translateY(-5px) rotate(45deg);} }
@@ -75,22 +76,25 @@
 
         /* FORMS - Global */
         .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; box-sizing: border-box; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; }
         .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* COMPACT INQUIRY FIX */
-        #inquire .reveal { margin-top: -30px; }
+        #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.5rem !important; }
         #inquire p { font-size: 0.9rem; margin-bottom: 1rem !important; line-height: 1.3; }
-        #inquire input { padding: 0.5rem 0; margin-bottom: 0.5rem; font-size: 13px; }
-        #inquire textarea { height: 50px; padding: 0.5rem 0; margin-bottom: 0.8rem; font-size: 13px; resize: none; }
+        #inquire input { padding: 0.5rem 0; margin-bottom: 0.5rem; font-size: 13px; text-align: left; }
+        #inquire textarea { height: 50px; padding: 0.5rem 0; margin-bottom: 0.8rem; font-size: 13px; resize: none; text-align: left; }
         #inquire .submit-btn { padding: 1rem; }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
-        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; text-align: left; }
-        .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
+        .modal-content { max-width: 450px; margin: 5vh auto; padding: 2rem 1.5rem; position: relative; text-align: center; }
+        .close-modal { position: absolute; top: 0.5rem; right: 1.5rem; font-size: 2rem; cursor: pointer; }
+        #modalForm input { padding: 0.5rem 0; margin-bottom: 0.5rem; text-align: left; }
+        #modalForm textarea { padding: 0.5rem 0; margin-bottom: 0.8rem; height: 50px; resize: none; text-align: left; }
+        #modalForm .submit-btn { padding: 1rem; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
@@ -99,6 +103,7 @@
             .nav-links { gap: 0.8rem; }
             .nav-links a { font-size: 8px; }
             .carousel { height: 45vh; }
+            .modal-content { margin: 8vh auto; }
         }
     </style>
 </head>
@@ -107,9 +112,9 @@
     <div id="artModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
-            <p style="margin-bottom: 1.5rem; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.</p>
-            <div class="contact-info">info@betabeatrise.com</div>
+            <h2 class="serif" id="modalTitle" style="font-size: 1.6rem; margin-bottom: 0.2rem;"></h2>
+            <p style="margin-bottom: 1rem; font-weight: 300; font-size: 0.85rem;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.</p>
+            <div class="contact-info" style="margin-bottom: 1rem;">info@betabeatrise.com</div>
             <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" placeholder="Naam" required>
@@ -124,7 +129,7 @@
 
     <nav>
         <div class="nav-content">
-            <a href="#" class="logo serif">BB</a>
+            <a href="#top" class="logo serif">BB</a>
             <div class="nav-links">
                 <a href="#collection" data-key="nav-coll">Collectie</a>
                 <a href="#about" data-key="nav-phil">Filosofie</a>
@@ -164,13 +169,13 @@
             <span class="section-tag" data-key="about-tag">Filosofie</span>
             <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text">
-                Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren. Door het gebruik van 24-karaats goud en natuurlijke pigmenten ontstaat een dialoog tussen materie en ruimte, waarbij imperfectie juist wordt gevierd als de hoogste vorm van schoonheid.
+                Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van gelaagde texturen en gouden elementen om een dialoog aan te gaan met de ruimte.
             </p>
         </div>
     </section>
 
     <section id="inquire">
-        <div class="reveal" style="width: 100%; padding: 0 1.5rem; max-width: 500px; box-sizing: border-box; text-align: left;">
+        <div class="reveal">
             <span class="section-tag" data-key="nav-inq">Aanvraag</span>
             <h2 class="serif" style="font-size: 2rem;" data-key="form-title">Paintings on Demand</h2>
             <p style="font-weight: 300; color: var(--muted);" data-key="form-desc">Op zoek naar een uniek werk dat perfect past bij uw interieur?</p>
@@ -191,7 +196,7 @@
         <div class="reveal">
             <span class="section-tag" data-key="int-tag">Interieur</span>
             <h2 class="serif" style="font-size: 2.2rem;" data-key="int-title">Interieuradvies</h2>
-            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef om jouw ruimte tot leven te brengen?</p>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Wist je dat ik ook advies geef? Van kunst aan de muur tot een volledig harmonieus interieur.</p>
             <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon">BINNENKORT</span>
         </div>
     </section>
@@ -202,8 +207,8 @@
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
-                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren.",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef?", "soon": "BINNENKORT",
+                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van gelaagde texturen en gouden elementen om een dialoog aan te gaan met de ruimte.",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef? Van kunst aan de muur tot een volledig harmonieus interieur.", "soon": "BINNENKORT",
                 "form-title": "Paintings on Demand", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur?", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
                 "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud",
@@ -213,8 +218,8 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
-                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the fragile balance between unpolished rawness and timeless elegance. Each work is a tactile journey, built from countless layers of texture.",
-                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "From wall art to a fully harmonious interior. Did you know I also provide advice?", "soon": "COMING SOON",
+                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her art utilizes multilayered textures and golden elements to engage in a dialogue with the space.",
+                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also provide advice? From wall art to a fully harmonious interior.", "soon": "COMING SOON",
                 "form-title": "Paintings on Demand", "form-desc": "Looking for a unique piece that fits your interior perfectly?", "form-btn": "Send Inquiry",
                 "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
                 "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold",
@@ -224,8 +229,8 @@
                 "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
-                "about-tag": "Philosophie", "about-text": "Beta Beatrise explore l'équilibre fragile entre la rudesse brute et l'élégance intemporelle.",
-                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en décoration d'intérieur ?", "soon": "BIENTÔT DISPONIBLE",
+                "about-tag": "Philosophie", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Son art utilise des textures multicouches et des éléments dorés pour engager un dialogue avec l'espace.",
+                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils ? De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
                 "form-title": "Tableaux sur Demande", "form-desc": "Vous recherchez une pièce unique qui s'adapte parfaitement à votre intérieur ?", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Intéressé par cette œuvre ? Laissez vos coordonnées ou contactez-moi directement.",
                 "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Terre Dorée", "art3": "Traces d'Or",
@@ -241,7 +246,11 @@
             document.querySelectorAll('[data-key]').forEach(el => { 
                 const key = el.getAttribute('data-key');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerText = translations[lang][key];
+                    if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
                 }
             });
             document.getElementById('langCurrent').innerText = lang.toUpperCase();
@@ -249,10 +258,10 @@
         }
 
         const artworks = [
-            { id: "art0", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
-            { id: "art1", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg"] },
-            { id: "art2", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg"] },
-            { id: "art3", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg"] }
+            { id: "art0", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
+            { id: "art1", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { id: "art2", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/13.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
+            { id: "art3", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] }
         ];
 
         const root = document.getElementById('gallery-root');
@@ -346,7 +355,7 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        setLang('nl');
+        setLang('en'); // Defaults to English to match your specific text replacements, easily switchable by user.
     </script>
 </body>
 </html>
