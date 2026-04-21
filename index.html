@@ -8,7 +8,7 @@
     <style>
         :root {
             --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
-            --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
+            --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee; --nav-h: 70px;
         }
 
         html { overflow: hidden; height: 100%; }
@@ -29,70 +29,64 @@
         nav { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
             background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box;
+            border-bottom: 1px solid var(--border); height: var(--nav-h); display: flex; align-items: center;
         }
-        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
         .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; }
         .nav-links { display: flex; gap: 1.5rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+        .lang-trigger { justify-self: end; background: none; border: 1px solid var(--black); padding: 3px 8px; font-size: 9px; cursor: pointer; font-weight: 700; }
 
-        /* HERO */
+        /* SECTIONS */
+        section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; padding: 20px; }
         .hero { 
-            background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
-            background-size: cover; background-position: center; text-align: left; align-items: flex-start; 
+            background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('public/Paintings/1.jpg');
+            background-size: cover; background-position: center; 
         }
-        .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
+        .hero-title { font-size: clamp(3.5rem, 10vw, 6rem); line-height: 1; margin: 0; }
 
-        section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
-
-        /* GALLERY - NO CROP */
-        .artwork-container { width: 100%; max-width: 900px; padding: 0 1rem; display: flex; flex-direction: column; align-items: center; }
-        .carousel { position: relative; width: 100%; height: 60vh; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; }
+        /* GALLERY - CONTAINED & NON-OVERLAPPING */
+        .artwork-container { width: 100%; max-width: 800px; }
+        .carousel { 
+            position: relative; width: 100%; height: 55vh; /* Fixed height container */
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; margin-bottom: 1rem;
+        }
+        .carousel-track { width: 100%; height: 100%; position: relative; display: flex; justify-content: center; align-items: center; }
+        .carousel-track img { 
+            max-width: 100%; max-height: 100%; 
+            position: absolute; opacity: 0; transition: opacity 0.4s ease; 
+            object-fit: contain; /* Ensures original ratio, no cropping */
+        }
         .carousel-track img.active-slide { opacity: 1; position: relative; }
 
-        /* COMPACT INQUIRY FIX */
-        #inquire .reveal { max-width: 450px; width: 100%; }
-        #inquire h2 { font-size: 1.8rem; margin: 0 0 0.5rem 0; }
-        #inquire p { font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.4; }
-        #inquire .contact-info { font-size: 11px; margin-bottom: 0.8rem; }
-        #inquire input { padding: 0.6rem 0; margin-bottom: 0.5rem; font-size: 13px; }
-        #inquire textarea { rows: 2; height: 50px; margin-bottom: 1rem; font-size: 13px; }
-        .submit-btn { background: #000; color: #fff; border: none; padding: 1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; }
+        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; font-size: 1.8rem; margin: 10px 0 0 0; }
+        .price-tag { color: var(--muted); font-size: 0.9rem; display: block; }
 
-        .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; }
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
-        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; text-align: left; }
+        /* INQUIRY SECTION FIX */
+        .form-wrapper { width: 100%; max-width: 450px; text-align: left; }
+        #inquire h2 { margin-bottom: 0.5rem; }
+        #inquire p { font-size: 0.9rem; margin-bottom: 1rem; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.7rem 0; margin-bottom: 0.6rem; outline: none; background: transparent; font-size: 14px; }
+        textarea { height: 60px; resize: none; }
+        .submit-btn { background: #000; color: #fff; border: none; padding: 1.1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); }
+        .modal-content { max-width: 450px; margin: 15vh auto; padding: 2rem; position: relative; }
         .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
+
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        .price-tag { color: #999; display: block; margin-top: 0.5rem; font-size: 0.9rem; }
-        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; margin-top: 1.2rem; font-size: 1.8rem; }
+        .section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid var(--accent); display: inline-block; margin-bottom: 1rem; }
 
         @media (max-width: 768px) {
             .nav-links { gap: 0.8rem; }
             .nav-links a { font-size: 8px; }
-            .carousel { height: 50vh; }
+            .carousel { height: 45vh; }
         }
     </style>
 </head>
 <body>
-
-    <div id="artModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
-            <p style="margin-bottom: 1.5rem; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter.</p>
-            <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
-                <input type="hidden" name="Subject" id="hiddenSubject">
-                <input type="text" name="name" placeholder="Naam" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" placeholder="Bericht"></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-                <div class="status-msg" id="modalStatus"></div>
-            </form>
-        </div>
-    </div>
 
     <nav>
         <div class="nav-content">
@@ -102,47 +96,70 @@
                 <a href="#about" data-key="nav-phil">Filosofie</a>
                 <a href="#inquire" data-key="nav-inq">Aanvraag</a>
             </div>
-            <button class="lang-trigger" id="langCurrent" onclick="setLang(document.getElementById('langCurrent').innerText === 'NL' ? 'en' : 'nl')">NL</button>
+            <button class="lang-trigger" id="langCurrent" onclick="toggleLang()">NL</button>
         </div>
     </nav>
 
     <section id="top" class="hero">
-        <div class="reveal" style="padding: 0 1.5rem;">
+        <div class="reveal">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
-            <p style="max-width: 400px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300;" data-key="hero-desc">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
+            <p data-key="hero-desc">Abstracte composities met 24k goud.</p>
         </div>
     </section>
 
     <div id="gallery-root"></div>
 
     <section id="about" style="background-color: var(--sand);">
-        <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
-            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
-            <p style="font-size: 1.1rem; font-weight: 300;" data-key="about-text">
-                Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie.
-            </p>
+        <div class="reveal" style="max-width: 600px;">
+            <span class="section-tag" data-key="nav-phil">Filosofie</span>
+            <h2 class="serif">Elegance in the Raw</h2>
+            <p data-key="about-text">De balans tussen ongepolijste ruwheid en tijdloze elegantie.</p>
         </div>
     </section>
 
     <section id="inquire">
-        <div class="reveal" style="padding: 0 1.5rem;">
+        <div class="reveal form-wrapper">
+            <span class="section-tag" data-key="nav-inq">Aanvraag</span>
             <h2 class="serif" data-key="form-title">Paintings on Demand</h2>
-            <p data-key="form-desc" style="color: var(--muted);">Uniek werk voor uw interieur.</p>
-            <div class="contact-info">info@betabeatrise.com</div>
-            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
+            <p data-key="form-desc">Uniek werk dat perfect past bij uw interieur.</p>
+            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="message" placeholder="Beschrijf uw wensen" required></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur Aanvraag</button>
-                <div class="status-msg" id="mainStatus"></div>
+                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
+                <div id="mainStatus" style="margin-top:10px; display:none; font-size:12px;"></div>
             </form>
         </div>
     </section>
 
+    <section id="interior" class="bg-dark">
+        <div class="reveal">
+            <span class="section-tag">Interieur</span>
+            <h2 class="serif">Interieuradvies</h2>
+            <p data-key="int-desc">Advies om jouw ruimte tot leven te brengen.</p>
+            <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 10px; margin-top: 3rem; display: block;">BINNENKORT</span>
+        </div>
+    </section>
+
+    <div id="artModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 class="serif" id="modalTitle"></h2>
+            <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
+                <input type="hidden" name="Subject" id="hiddenSubject">
+                <input type="text" name="name" placeholder="Naam" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" placeholder="Bericht"></textarea>
+                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
+                <div id="modalStatus" style="margin-top:10px; display:none; font-size:12px;"></div>
+            </form>
+        </div>
+    </div>
+
     <script>
         const translations = {
-            nl: { "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "hero-desc": "Abstracte kunst met 24k goud.", "about-text": "Balans tussen ruwheid en elegantie.", "form-title": "Paintings on Demand", "form-desc": "Uniek werk voor uw interieur.", "form-btn": "Verstuur Aanvraag", "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud", "success": "Bedankt!", "error": "Fout." },
-            en: { "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry", "hero-desc": "Abstract art with 24k gold.", "about-text": "Balance between rawness and elegance.", "form-title": "Custom Art", "form-desc": "Unique art for your interior.", "form-btn": "Send Inquiry", "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold", "success": "Thank you!", "error": "Error." }
+            nl: { "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "hero-desc": "Abstracte composities met 24k goud.", "about-text": "De balans tussen ongepolijste ruwheid en tijdloze elegantie.", "form-title": "Paintings on Demand", "form-desc": "Uniek werk dat perfect past bij uw interieur.", "form-btn": "Verstuur", "int-desc": "Advies om jouw ruimte tot leven te brengen.", "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud" },
+            en: { "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry", "hero-desc": "Abstract compositions with 24k gold.", "about-text": "The balance between unpolished rawness and elegance.", "form-title": "Custom Art", "form-desc": "Unique work tailored to your interior.", "form-btn": "Send", "int-desc": "Bringing your space to life through design.", "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold" }
         };
 
         const artworks = [
@@ -157,9 +174,9 @@
             root.insertAdjacentHTML('beforeend', `
                 <div class="artwork-page">
                     <div class="artwork-container reveal">
-                        <div class="carousel" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
+                        <div class="carousel" onclick="handleImageClick(event, ${idx}, '${art.id}')">
                             <div class="carousel-track" id="t-${idx}">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
+                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}">`).join('')}
                             </div>
                         </div>
                         <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
@@ -168,73 +185,54 @@
                 </div>`);
         });
 
-        function handleCarouselClick(e, idx, id) {
+        function handleImageClick(e, idx, id) {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
-            const width = rect.width;
-            
-            if (x < width * 0.3) {
-                move(idx, -1); // Previous
-            } else if (x > width * 0.7) {
-                move(idx, 1); // Next
-            } else {
-                openModal(id); // Middle
-            }
+            const w = rect.width;
+            if (x < w * 0.3) move(idx, -1);
+            else if (x > w * 0.7) move(idx, 1);
+            else openModal(id);
         }
 
         function move(idx, dir) {
-            const track = document.getElementById(`t-${idx}`);
-            const imgs = track.querySelectorAll('img');
-            let current = 0;
-            imgs.forEach((img, i) => { if(img.classList.contains('active-slide')) current = i; });
-            imgs[current].classList.remove('active-slide');
-            imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
+            const imgs = document.querySelectorAll(`#t-${idx} img`);
+            let c = Array.from(imgs).findIndex(i => i.classList.contains('active-slide'));
+            imgs[c].classList.remove('active-slide');
+            imgs[(c + dir + imgs.length) % imgs.length].classList.add('active-slide');
         }
 
         function openModal(id) {
-            const lang = document.getElementById('langCurrent').innerText.toLowerCase() === 'en' ? 'nl' : 'en';
-            document.getElementById('modalTitle').innerText = translations[lang][id] || id;
+            const l = document.getElementById('langCurrent').innerText.toLowerCase();
+            document.getElementById('modalTitle').innerText = translations[l][id] || id;
             document.getElementById('hiddenSubject').value = "Interest: " + id;
             document.getElementById('artModal').style.display = "block";
         }
-
         function closeModal() { document.getElementById('artModal').style.display = "none"; }
 
-        function setLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => { 
-                const key = el.getAttribute('data-key');
-                if (translations[lang][key]) el.innerText = translations[lang][key];
+        function toggleLang() {
+            const cur = document.getElementById('langCurrent').innerText;
+            const next = cur === 'NL' ? 'en' : 'nl';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const k = el.getAttribute('data-key');
+                if (translations[next][k]) el.innerText = translations[next][k];
             });
-            document.getElementById('langCurrent').innerText = lang.toUpperCase();
+            document.getElementById('langCurrent').innerText = next.toUpperCase();
         }
 
-        async function handleSubmit(event, statusId) {
-            event.preventDefault();
-            const form = event.target;
-            const status = document.getElementById(statusId);
-            status.style.display = "block";
-            status.innerText = "S E N D I N G . . .";
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            }).then(() => {
-                status.innerText = "SENT SUCCESSFULLY";
-                form.reset();
-                if(statusId === 'modalStatus') setTimeout(closeModal, 2000);
-            }).catch(() => {
-                status.innerText = "ERROR - TRY AGAIN";
-            });
+        async function handleSubmit(e, sid) {
+            e.preventDefault();
+            const s = document.getElementById(sid);
+            s.style.display = "block"; s.innerText = "SENDING...";
+            fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { 'Accept': 'application/json' }})
+            .then(() => { s.innerText = "BEDANKT!"; e.target.reset(); if(sid === 'modalStatus') setTimeout(closeModal, 2000); })
+            .catch(() => { s.innerText = "FOUT!"; });
         }
 
         document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
         document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
