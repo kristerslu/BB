@@ -6,61 +6,116 @@
     <title>Beta Beatrise — Fine Art</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
-        :root { --white: #fff; --black: #000; --muted: #777; --accent: #c2b5a3; --sand: #fbfaf8; --dark: #1a1816; --border: #eee; --nav-h: 70px; }
+        :root {
+            --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
+            --hero-bg: #f9f7f4; --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
+        }
+
+        /* RESET & SNAP */
         html { overflow: hidden; height: 100%; }
-        body { margin: 0; padding: 0; width: 100%; height: 100vh; overflow-y: scroll; overflow-x: hidden; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; font-family: 'Inter', sans-serif; background: var(--white); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        body { 
+            margin: 0; padding: 0; width: 100%; height: 100vh;
+            overflow-y: scroll; overflow-x: hidden;
+            scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
+            font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
+        }
+
         a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-        .serif { font-family: 'Playfair Display', serif; }
+        .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        nav { position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); height: var(--nav-h); display: flex; align-items: center; }
-        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
-        .logo { font-size: 1.2rem; letter-spacing: 2px; justify-self: start; }
-        .nav-links { display: flex; gap: 1.2rem; justify-self: center; }
-        .nav-links a { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 3px 8px; font-size: 9px; cursor: pointer; font-weight: 700; }
+
+        /* NAVIGATION */
+        nav { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box;
+        }
+        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; }
+        .nav-links { display: flex; gap: 2rem; justify-self: center; }
+        .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        
+        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
         .dropdown-content.show { display: block; }
-        .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; }
-        section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; scroll-margin-top: var(--nav-h); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; padding: 20px; }
-        .hero { background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('public/Paintings/1.jpg'); background-size: cover; background-position: center; }
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; cursor: pointer; z-index: 1; }
-        .carousel-track img.active-slide { opacity: 1; position: relative; z-index: 5; }
-        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 5px; margin-top: 1.5rem; font-size: 1.5rem; }
-        .price-tag { font-size: 0.85rem; color: #999; display: block; margin-top: 0.5rem; }
-        .form-container { width: 100%; max-width: 450px; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.5rem 0; margin-bottom: 0.8rem; outline: none; background: transparent; font-family: inherit; font-size: 13px; }
-        .submit-btn { background: #000; color: #fff; border: none; padding: 1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 10px; letter-spacing: 0.2em; }
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); }
-        .modal-content { max-width: 450px; margin: 10vh auto; padding: 2rem; position: relative; }
+        .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
+
+        /* HERO */
+        .hero { 
+            background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
+            background-size: cover; background-position: center; text-align: left; align-items: flex-start; 
+        }
+        .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
+        .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 2rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
+
+        .scroll-down { margin: 3rem auto 0 auto; width: 18px; height: 18px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);} 40% {transform: translateY(-10px) rotate(45deg);} 60% {transform: translateY(-5px) rotate(45deg);} }
+
+        section, .artwork-page { height: 100vh; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-sizing: border-box; text-align: center; }
+
+        /* GALLERY CAROUSEL */
+        .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); background: #fff; overflow: hidden; }
+        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; padding: 15px; box-sizing: border-box; }
+        .carousel-track img.active-slide { opacity: 1; position: relative; }
+        .c-arrow { position: absolute; top: 0; bottom: 0; width: 25%; background: transparent; border: none; z-index: 10; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: rgba(0,0,0,0.03); transition: color 0.3s ease; }
+        .c-arrow:hover { color: rgba(0,0,0,0.2); }
+        .c-prev { left: 0; } .c-next { right: 0; }
+
+        /* TITLES */
+        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; }
+        .art-title-btn:hover { opacity: 0.6; }
+        .price-tag { font-weight: 400; font-size: 0.95rem; color: #999; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
+
+        /* FORMS */
+        .contact-info { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.4; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; }
+        .submit-btn { background: #000; color: #fff; border: none; padding: 1.2rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; }
+        .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); overflow-y: auto; }
+        .modal-content { max-width: 500px; margin: 15vh auto; padding: 2rem; position: relative; text-align: left; }
         .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
-        .section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--accent); display: inline-block; }
+
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        @media (max-width: 768px) { .nav-links { gap: 0.7rem; } .nav-links a { font-size: 8px; } }
+
+        @media (max-width: 768px) {
+            .nav-content { grid-template-columns: auto 1fr auto; }
+            .nav-links { gap: 0.8rem; }
+            .nav-links a { font-size: 8px; }
+            .hero { padding-left: 1.5rem; }
+            .carousel { height: 45vh; }
+        }
     </style>
 </head>
 <body>
+
     <div id="artModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="serif" id="modalTitle" style="font-size: 1.8rem; margin-bottom: 0.5rem;"></h2>
+            <h2 class="serif" id="modalTitle" style="font-size: 2rem; margin-bottom: 0.5rem;"></h2>
+            <p style="margin-bottom: 1.5rem; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.</p>
+            <div class="contact-info">info@betabeatrise.com</div>
             <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Telefoon">
-                <textarea name="message" placeholder="Bericht"></textarea>
+                <input type="tel" name="phone" placeholder="Telefoonnummer (Optioneel)">
+                <textarea name="message" rows="2" placeholder="Bericht"></textarea>
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-                <div class="status-msg" id="modalStatus" style="margin-top:10px; display:none;"></div>
+                <div class="status-msg" id="modalStatus"></div>
             </form>
         </div>
     </div>
+
     <nav>
         <div class="nav-content">
             <a href="#" class="logo serif">BB</a>
             <div class="nav-links">
-                <a href="#gallery-root" data-key="nav-coll">Collectie</a>
+                <a href="#collection" data-key="nav-coll">Collectie</a>
                 <a href="#about" data-key="nav-phil">Filosofie</a>
                 <a href="#inquire" data-key="nav-inq">Aanvraag</a>
             </div>
@@ -68,76 +123,207 @@
                 <button class="lang-trigger" id="langCurrent" onclick="toggleMenu(event)">NL</button>
                 <div class="dropdown-content" id="langMenu">
                     <button onclick="setLang('nl')">NL</button>
-                    <button onclick="setLang('en')">EN</button>
                     <button onclick="setLang('fr')">FR</button>
+                    <button onclick="setLang('en')">EN</button>
                 </div>
             </div>
         </div>
     </nav>
+
     <section id="top" class="hero">
+        <div class="reveal" style="width: 100%; box-sizing: border-box;">
+            <h1 class="hero-title serif">Beta<br>Beatrise</h1>
+            <p style="max-width: 400px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300; color: #333;" data-key="hero-desc">Abstracte composities. Zware texturen. Glinsteringen van 24k goud.</p>
+        </div>
+    </section>
+
+    <section id="collection">
         <div class="reveal">
-            <h1 class="serif" style="font-size: 4rem; line-height: 1;">Beta<br>Beatrise</h1>
-            <p data-key="hero-desc">Abstracte composities. Zware texturen. 24k goud.</p>
+            <span class="section-tag" data-key="coll-tag">Beschikbaar Werk</span>
+            <h2 class="serif" style="font-size: 2.5rem;">Golden Circle of Life</h2>
+            <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc">Ontdek de collectie</p>
+            <div class="scroll-down"></div>
         </div>
     </section>
+
     <div id="gallery-root"></div>
-    <section id="about" style="background-color: var(--sand);">
-        <div class="reveal" style="max-width: 600px;">
+
+    <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
+        <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="about-tag">Filosofie</span>
-            <h2 class="serif" style="font-size: 1.8rem;">Elegance in the Raw</h2>
-            <p data-key="about-text">Beta Beatrise verkent de fragiele balans tussen ruwheid en elegantie.</p>
+            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Elegance in the Raw</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text">
+                Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren. Door het gebruik van 24-karaats goud en natuurlijke pigmenten ontstaat een dialoog tussen materie en ruimte, waarbij imperfectie juist wordt gevierd als de hoogste vorm van schoonheid.
+            </p>
         </div>
     </section>
+
     <section id="inquire">
-        <div class="reveal form-container">
+        <div class="reveal" style="width: 100%; padding: 0 1.5rem; max-width: 500px; box-sizing: border-box;">
             <span class="section-tag" data-key="nav-inq">Aanvraag</span>
-            <h2 class="serif" style="font-size: 1.8rem; margin-bottom: 0.5rem;" data-key="form-title">Paintings on Demand</h2>
-            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
+            <h2 class="serif" style="font-size: 2rem; margin-bottom: 1rem;" data-key="form-title">Paintings on Demand</h2>
+            <p style="font-weight: 300; color: var(--muted); margin-bottom: 1.5rem;" data-key="form-desc">Op zoek naar een uniek werk dat perfect past bij uw interieur?</p>
+            <div class="contact-info">info@betabeatrise.com</div>
+            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST" style="text-align: left;">
+                <input type="hidden" name="Subject" value="Paintings on Demand Inquiry">
                 <input type="text" name="name" placeholder="Naam" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Telefoon">
-                <textarea name="message" placeholder="Uw wensen" required></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-                <div class="status-msg" id="mainStatus" style="margin-top:10px; display:none;"></div>
+                <input type="tel" name="phone" placeholder="Telefoonnummer (Optioneel)">
+                <textarea name="message" rows="2" placeholder="Beschrijf uw wensen (formaat, kleurenpalet, etc.)" required></textarea>
+                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur Aanvraag</button>
+                <div class="status-msg" id="mainStatus"></div>
             </form>
         </div>
     </section>
+
     <section id="interior" class="bg-dark">
         <div class="reveal">
             <span class="section-tag" data-key="int-tag">Interieur</span>
-            <h2 class="serif" style="font-size: 1.8rem;" data-key="int-title">Interieuradvies</h2>
-            <p data-key="int-desc">Advies om jouw ruimte tot leven te brengen.</p>
-            <span style="color: var(--accent); letter-spacing: 0.4em; font-size: 10px; margin-top: 2rem; display: block;" data-key="soon">BINNENKORT</span>
+            <h2 class="serif" style="font-size: 2.2rem;" data-key="int-title">Interieuradvies</h2>
+            <p style="font-weight: 300; opacity: 0.8; margin-top: 1rem;" data-key="int-desc">Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef om jouw ruimte tot leven te brengen?</p>
+            <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon">BINNENKORT</span>
         </div>
     </section>
+
     <script>
         const translations = {
-            nl: { "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "hero-desc": "Abstracte kunst met 24k goud.", "about-tag": "Filosofie", "about-text": "Balans tussen ruwheid en elegantie.", "form-title": "Paintings on Demand", "form-btn": "Verstuur", "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Advies voor uw ruimte.", "soon": "BINNENKORT", "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud" },
-            en: { "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry", "hero-desc": "Abstract art with 24k gold.", "about-tag": "Philosophy", "about-text": "Balance between rawness and elegance.", "form-title": "Custom Art", "form-btn": "Send", "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Bringing spaces to life.", "soon": "COMING SOON", "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold" },
-            fr: { "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande", "hero-desc": "Art abstrait à l'or 24k.", "about-tag": "Philosophie", "about-text": "Équilibre entre rudesse et élégance.", "form-title": "Tableaux sur Demande", "form-btn": "Envoyer", "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Donner vie à votre espace.", "soon": "BIENTÔT", "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Terre Dorée", "art3": "Traces d'Or" }
+            nl: {
+                "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
+                "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
+                "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
+                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie. Elk werk is een tactiele reis, opgebouwd uit talloze lagen textuur die het licht vangen en transformeren.",
+                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Van kunst aan de muur tot een volledig harmonieus interieur. Wist je dat ik ook advies geef?", "soon": "BINNENKORT",
+                "form-title": "Paintings on Demand", "form-desc": "Op zoek naar een uniek werk dat perfect past bij uw interieur?", "form-btn": "Verstuur Aanvraag",
+                "modal-sub": "Interesse in dit werk? Laat je gegevens achter of contacteer mij direct.",
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud",
+                "success": "Bedankt! Uw bericht is verstuurd.", "error": "Oeps! Er ging iets mis."
+            },
+            en: {
+                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
+                "hero-desc": "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
+                "coll-tag": "Available Work", "coll-desc": "Discover the collection",
+                "about-tag": "Philosophy", "about-text": "Beta Beatrise explores the fragile balance between unpolished rawness and timeless elegance. Each work is a tactile journey, built from countless layers of texture.",
+                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "From wall art to a fully harmonious interior. Did you know I also provide advice?", "soon": "COMING SOON",
+                "form-title": "Paintings on Demand", "form-desc": "Looking for a unique piece that fits your interior perfectly?", "form-btn": "Send Inquiry",
+                "modal-sub": "Interested in this piece? Leave your details or contact me directly.",
+                "art0": "Noble Matter", "art1": "Raw Radiance", "art2": "Gilded Earth", "art3": "Traces of Gold",
+                "success": "Thank you! Your message has been sent.", "error": "Oops! Something went wrong."
+            },
+            fr: {
+                "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
+                "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or 24 carats.",
+                "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
+                "about-tag": "Philosophie", "about-text": "Beta Beatrise explore l'équilibre fragile entre la rudesse brute et l'élégance intemporelle.",
+                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils en décoration d'intérieur ?", "soon": "BIENTÔT DISPONIBLE",
+                "form-title": "Tableaux sur Demande", "form-desc": "Vous recherchez une pièce unique qui s'adapte parfaitement à votre intérieur ?", "form-btn": "Envoyer la Demande",
+                "modal-sub": "Intéressé par cette œuvre ? Laissez vos coordonnées ou contactez-moi directement.",
+                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Terre Dorée", "art3": "Traces d'Or",
+                "success": "Merci ! Votre message a été envoyé.", "error": "Oups ! Quelque chose s'est mal passé."
+            }
         };
+
+        const langMenu = document.getElementById('langMenu');
+        function toggleMenu(e) { e.stopPropagation(); langMenu.classList.toggle('show'); }
+        window.onclick = function() { langMenu.classList.remove('show'); }
+
+        function setLang(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => { 
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+            document.getElementById('langCurrent').innerText = lang.toUpperCase();
+            langMenu.classList.remove('show');
+        }
+
         const artworks = [
             { id: "art0", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
             { id: "art1", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg"] },
             { id: "art2", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg"] },
             { id: "art3", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg"] }
         ];
+
         const root = document.getElementById('gallery-root');
         artworks.forEach((art, idx) => {
-            root.insertAdjacentHTML('beforeend', `<div class="artwork-page"><div class="reveal" style="width:100%;"><div class="carousel" id="carousel-${idx}"><div class="carousel-track">${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" onclick="handleImageClick(event, ${idx}, '${art.id}')">`).join('')}</div></div><h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3><span class="price-tag">${art.price}</span></div></div>`);
+            root.insertAdjacentHTML('beforeend', `
+                <div class="artwork-page">
+                    <div class="artwork-container reveal">
+                        <div class="carousel" onclick="move(${idx}, 1)">
+                            <button class="c-arrow c-prev" onclick="event.stopPropagation(); move(${idx}, -1)">&#8249;</button>
+                            <div class="carousel-track" id="t-${idx}">
+                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
+                            </div>
+                            <button class="c-arrow c-next" onclick="event.stopPropagation(); move(${idx}, 1)">&#8250;</button>
+                        </div>
+                        <div style="margin-top: 2rem;">
+                            <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
+                            <span class="price-tag">${art.price}</span>
+                        </div>
+                    </div>
+                </div>`);
         });
-        function handleImageClick(e, idx, id) { const rect = e.target.getBoundingClientRect(); const x = e.clientX - rect.left; if (x < rect.width * 0.35) move(idx, -1); else if (x > rect.width * 0.65) move(idx, 1); else openModal(id); }
-        function move(idx, dir) { const imgs = document.querySelectorAll(`#carousel-${idx} img`); let c = Array.from(imgs).findIndex(i => i.classList.contains('active-slide')); imgs[c].classList.remove('active-slide'); imgs[(c + dir + imgs.length) % imgs.length].classList.add('active-slide'); }
-        function openModal(id) { const l = document.getElementById('langCurrent').innerText.toLowerCase(); document.getElementById('modalTitle').innerText = translations[l][id] || translations['nl'][id]; document.getElementById('hiddenSubject').value = "Interest: " + id; document.getElementById('artModal').style.display = "block"; }
+
+        function openModal(artId) {
+            const currentLang = document.getElementById('langCurrent').innerText.toLowerCase();
+            const title = translations[currentLang][artId];
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('hiddenSubject').value = "Interest in Artwork: " + title;
+            document.getElementById('artModal').style.display = "block";
+        }
         function closeModal() { document.getElementById('artModal').style.display = "none"; }
-        function toggleMenu(e) { e.stopPropagation(); document.getElementById('langMenu').classList.toggle('show'); }
-        window.onclick = () => document.getElementById('langMenu').classList.remove('show');
-        function setLang(l) { document.querySelectorAll('[data-key]').forEach(el => { const k = el.getAttribute('data-key'); if (translations[l][k]) el.innerText = translations[l][k]; }); document.getElementById('langCurrent').innerText = l.toUpperCase(); }
-        async function handleSubmit(e, sid) { e.preventDefault(); const s = document.getElementById(sid); s.style.display = "block"; s.innerText = "SENDING..."; fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { 'Accept': 'application/json' }}).then(() => { s.innerText = "BEDANKT!"; e.target.reset(); if(sid === 'modalStatus') setTimeout(closeModal, 2000); }).catch(() => { s.innerText = "FOUT!"; }); }
+
+        function move(idx, dir) {
+            const track = document.getElementById(`t-${idx}`);
+            const imgs = track.querySelectorAll('img');
+            let current = 0;
+            imgs.forEach((img, i) => { if(img.classList.contains('active-slide')) current = i; });
+            imgs[current].classList.remove('active-slide');
+            imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
+        }
+
+        async function handleSubmit(event, statusId) {
+            event.preventDefault();
+            const form = event.target;
+            const status = document.getElementById(statusId);
+            const btn = form.querySelector('button');
+            const currentLang = document.getElementById('langCurrent').innerText.toLowerCase();
+            const data = new FormData(form);
+
+            btn.innerText = "Sending...";
+            btn.style.opacity = "0.5";
+
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = translations[currentLang]['success'];
+                    status.style.display = "block";
+                    status.style.color = "inherit";
+                    form.reset();
+                    btn.innerText = translations[currentLang]['form-btn'];
+                    btn.style.opacity = "1";
+                    if(statusId === 'modalStatus') setTimeout(closeModal, 3000);
+                } else {
+                    status.innerHTML = translations[currentLang]['error'];
+                    status.style.display = "block";
+                }
+            }).catch(() => {
+                status.innerHTML = translations[currentLang]['error'];
+                status.style.display = "block";
+            });
+        }
+
         document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
         document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
-        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        setLang('nl');
     </script>
 </body>
 </html>
