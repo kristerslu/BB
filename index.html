@@ -60,11 +60,11 @@
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
         .scroll-down { margin: 3rem auto 0 auto; width: 18px; height: 18px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg); animation: bounce 2s infinite; }
 
-        /* GALLERY CAROUSEL - Borders Removed */
+        /* GALLERY CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; cursor: pointer; }
-        .carousel-track { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; box-sizing: border-box; pointer-events: none; }
+        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; cursor: pointer; touch-action: pan-y; }
+        .carousel-track { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; pointer-events: none; }
+        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; box-sizing: border-box; }
         .carousel-track img.active-slide { opacity: 1; position: relative; }
 
         /* TITLES & INFO */
@@ -92,8 +92,6 @@
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
         .modal-content { max-width: 500px; width: 90%; margin: 5vh auto; padding: 2.5rem 1.5rem; position: relative; text-align: center; box-sizing: border-box; background: #ffffff; }
         .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; z-index: 20001; }
-        #modalForm input { padding: 0.5rem 0; margin-bottom: 0.6rem; text-align: center; font-size: 13px; }
-        #modalForm textarea { padding: 0.5rem 0; margin-bottom: 1rem; height: 50px; resize: none; text-align: center; font-size: 13px; }
 
         .bg-dark { background-color: var(--dark); color: var(--white); }
 
@@ -115,7 +113,6 @@
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h2 class="serif" id="modalTitle" style="font-size: 1.8rem; margin-bottom: 0.3rem;"></h2>
             <p style="margin-bottom: 1.5rem; font-weight: 300; font-size: 0.85rem; color: var(--muted);" data-key="modal-sub"></p>
-            
             <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" data-key="p-name" placeholder="" required>
@@ -125,7 +122,6 @@
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
                 <div class="status-msg" id="modalStatus"></div>
             </form>
-
             <div class="alternative-email-section">
                 <div class="contact-intro" data-key="email-intro"></div>
                 <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
@@ -183,7 +179,6 @@
             <span class="section-tag" data-key="nav-inq"></span>
             <h2 class="serif" data-key="form-title"></h2>
             <p data-key="form-desc"></p>
-            
             <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" value="Custom Art Inquiry">
                 <input type="text" name="name" data-key="p-name" placeholder="" required>
@@ -193,7 +188,6 @@
                 <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
                 <div class="status-msg" id="mainStatus"></div>
             </form>
-
             <div class="alternative-email-section">
                 <div class="contact-intro" data-key="email-intro"></div>
                 <a href="mailto:info@betabeatrise.com" class="contact-email">info@betabeatrise.com</a>
@@ -275,9 +269,9 @@
         const root = document.getElementById('gallery-root');
         artworks.forEach((art, idx) => {
             root.insertAdjacentHTML('beforeend', `
-                <div class="artwork-page" id="page-${idx}">
+                <div class="artwork-page" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
-                        <div class="carousel" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
+                        <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                             <div class="carousel-track" id="t-${idx}">
                                 ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
                             </div>
@@ -289,6 +283,17 @@
                         </div>
                     </div>
                 </div>`);
+        });
+
+        // Swipe Logic
+        let touchStartX = 0;
+        document.querySelectorAll('.carousel').forEach((carousel, idx) => {
+            carousel.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+            carousel.addEventListener('touchend', e => {
+                let touchEndX = e.changedTouches[0].screenX;
+                let diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) move(idx, diff > 0 ? 1 : -1);
+            }, {passive: true});
         });
 
         function handleCarouselClick(event, idx, id) {
@@ -306,6 +311,13 @@
             imgs.forEach((img, i) => { if(img.classList.contains('active-slide')) current = i; });
             imgs[current].classList.remove('active-slide');
             imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
+        }
+
+        function resetGallery(idx) {
+            const track = document.getElementById(`t-${idx}`);
+            if (!track) return;
+            const imgs = track.querySelectorAll('img');
+            imgs.forEach((img, i) => { img.classList.toggle('active-slide', i === 0); });
         }
 
         function openModal(artId) {
@@ -327,7 +339,6 @@
             const btn = form.querySelector('button');
             const currentLang = document.getElementById('langCurrent').innerText.toLowerCase();
             btn.innerText = "Sending..."; 
-
             fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } }).then(response => {
                 if (response.ok) {
                     status.innerHTML = translations[currentLang]['success'];
@@ -344,6 +355,17 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Observer to reset galleries when they are scrolled away
+        const resetObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    const idx = entry.target.getAttribute('data-idx');
+                    if (idx !== null) resetGallery(idx);
+                }
+            });
+        }, { threshold: 0 });
+        document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
 
         setLang('nl');
     </script>
