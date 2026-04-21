@@ -2,267 +2,267 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Beta Beatrise — Fine Art</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
-            --hero-bg: #f9f7f4; --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
-            --nav-height: 70px;
+            --white: #ffffff;
+            --black: #000000;
+            --muted: #777777;
+            --accent: #c2b5a3;
+            --hero-bg: #f9f7f4;
+            --sand: #fbfaf8;
+            --dark: #1a1816;
+            --border: #eeeeee;
         }
 
-        /* RESET & SNAP */
-        html { overflow: hidden; height: 100%; }
+        html { visibility: hidden; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        
         body { 
-            margin: 0; padding: 0; width: 100%; height: 100vh;
-            overflow-y: scroll; overflow-x: hidden;
-            scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
-            font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
-            line-height: 1.5; -webkit-font-smoothing: antialiased;
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--white); 
+            color: var(--black); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
         }
 
-        a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-        .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* DYNAMIC SCROLL FOG - iOS COMPATIBLE */
+        .viewport-fog {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 12vh;
+            pointer-events: none;
+            z-index: 9998;
+            background: linear-gradient(to top, var(--white) 20%, rgba(255,255,255,0));
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            /* Mask ensures the blur itself fades out so there is no "edge" */
+            -webkit-mask-image: linear-gradient(to top, black, transparent);
+            mask-image: linear-gradient(to top, black, transparent);
+        }
+
+        .serif { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
         /* NAVIGATION */
         nav { 
-            position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
-            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 0.8rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box; height: var(--nav-height);
+            position: fixed; top: 0; width: 100%; z-index: 10000; 
+            background: rgba(255,255,255,0.9); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 1.2rem 0; border-bottom: 1px solid var(--border); 
         }
-        .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { font-size: 1.2rem; letter-spacing: 2px; justify-self: start; }
-        .nav-links { display: flex; gap: 1.5rem; justify-self: center; }
-        .nav-links a { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
+        .logo { text-decoration: none; color: var(--black); font-size: 1.2rem; font-weight: 400; cursor: pointer; }
+        .nav-links { display: flex; gap: 1.5rem; margin: 0 auto; }
+        .nav-links a { text-decoration: none; color: var(--black) !important; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
+
+        .lang-dropdown { position: relative; }
+        .dropbtn { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 9px; cursor: pointer; text-transform: uppercase; color: var(--black) !important; font-weight: 600; }
+        .dropdown-content { display: none; position: absolute; right: 0; background: #fff; border: 1px solid var(--border); min-width: 60px; }
+        .dropdown-content div { padding: 8px; font-size: 9px; cursor: pointer; text-align: center; border-bottom: 1px solid var(--border); color: var(--black); font-weight: 600; }
+        .lang-dropdown:hover .dropdown-content { display: block; }
+
+        /* UNIFIED SPACING */
+        section { padding: 10rem 0; text-align: center; scroll-margin-top: 80px; }
+        .full-v { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 3px 8px; font-size: 9px; cursor: pointer; font-weight: 700; }
-        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; }
-        .dropdown-content.show { display: block; }
-        .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; }
-
-        section, .artwork-page { 
-            height: 100vh; width: 100%; 
-            scroll-snap-align: start; scroll-snap-stop: always; 
-            scroll-margin-top: var(--nav-height);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            position: relative; box-sizing: border-box; text-align: center; padding: 20px;
-        }
-
-        /* GALLERY CAROUSEL */
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; overflow: visible; }
-        .carousel-track { height: 100%; width: 100%; display: flex; justify-content: center; align-items: center; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; cursor: pointer; z-index: 1; }
-        .carousel-track img.active-slide { opacity: 1; position: relative; z-index: 5; }
-
-        .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 5px; margin-top: 1.5rem; font-size: 1.5rem; }
-        .price-tag { font-size: 0.85rem; color: #999; display: block; margin-top: 0.5rem; }
-
-        /* COMPACT FORM */
-        .form-container { width: 100%; max-width: 450px; text-align: left; }
-        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.5rem 0; margin-bottom: 0.8rem; outline: none; background: transparent; font-family: inherit; font-size: 13px; }
-        textarea { height: 60px; resize: none; }
-        .submit-btn { background: #000; color: #fff; border: none; padding: 1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 10px; letter-spacing: 0.2em; }
-        .status-msg { font-size: 11px; margin-top: 8px; font-weight: 600; display: none; text-transform: uppercase; }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); }
-        .modal-content { max-width: 450px; margin: 10vh auto; padding: 2rem; position: relative; }
-        .close-modal { position: absolute; top: 0; right: 2rem; font-size: 2rem; cursor: pointer; }
-
+        .hero { min-height: 100vh; display: flex; align-items: center; text-align: left; background: var(--hero-bg); }
+        .bg-sand { background-color: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .bg-dark { background-color: var(--dark); color: var(--white); }
-        .section-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; border-bottom: 1px solid var(--accent); padding-bottom: 3px; display: inline-block; }
 
-        @media (max-width: 768px) {
-            .nav-links { gap: 0.8rem; }
-            .carousel { height: 45vh; }
-            .hero-title { font-size: 4rem; }
+        /* TYPOGRAPHY */
+        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin: 0; font-weight: 400; letter-spacing: -2px; color: var(--black); }
+        .hero-title span { color: var(--black); }
+        
+        .section-title { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 1.5rem 0; font-weight: 400; }
+        .section-tag { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 700; margin-bottom: 2.5rem; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
+
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 5rem 3rem; margin-top: 4rem; text-align: left; width: 100%; }
+        .carousel { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; border-radius: 2px; }
+        .carousel-track { display: flex; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); height: 100%; width: 100%; }
+        .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+        
+        .c-arrow { 
+            position: absolute; top: 0; height: 100%; width: 25%; 
+            background: transparent; border: none; color: white; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 10; -webkit-tap-highlight-color: transparent;
+            text-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+        .c-prev { left: 0; justify-content: flex-start; padding-left: 15px; } 
+        .c-next { right: 0; justify-content: flex-end; padding-right: 15px; }
+
+        /* FORM */
+        .form-container { width: 100%; max-width: 500px; margin: 2rem auto; text-align: left; }
+        input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 1.5rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 1.1rem; }
+        .btn { background: var(--black); color: #fff; border: none; padding: 1.5rem; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; width: 100%; cursor: pointer; margin-top: 2rem; }
+
+        @media (max-width: 600px) {
+            .nav-links { gap: 0.9rem; }
+            .nav-links a { font-size: 8px; }
+            .hero-title { font-size: 4.2rem; }
+            section { padding: 8rem 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="artModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="serif" id="modalTitle" style="font-size: 1.8rem; margin-bottom: 0.5rem;"></h2>
-            <p style="margin-bottom: 1rem; font-size: 13px; font-weight: 300;" data-key="modal-sub">Interesse in dit werk? Laat je gegevens achter.</p>
-            <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
-                <input type="hidden" name="Subject" id="hiddenSubject">
-                <input type="text" name="name" placeholder="Naam" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Telefoon (Optioneel)">
-                <textarea name="message" placeholder="Bericht"></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-                <div class="status-msg" id="modalStatus"></div>
-            </form>
-        </div>
-    </div>
+    <div class="viewport-fog"></div>
 
     <nav>
-        <div class="nav-content">
-            <a href="#" class="logo serif">BB</a>
+        <div class="container nav-content">
+            <a href="#top" class="logo serif">BB</a>
             <div class="nav-links">
-                <a href="#collection" data-key="nav-coll">Collectie</a>
-                <a href="#about" data-key="nav-phil">Filosofie</a>
-                <a href="#inquire" data-key="nav-inq">Aanvraag</a>
+                <a href="#collection">Collection</a>
+                <a href="#about">Philosophy</a>
+                <a href="#inquire">Inquiry</a>
             </div>
             <div class="lang-dropdown">
-                <button class="lang-trigger" id="langCurrent" onclick="toggleMenu(event)">NL</button>
-                <div class="dropdown-content" id="langMenu">
-                    <button onclick="setLang('nl')">NL</button>
-                    <button onclick="setLang('en')">EN</button>
-                    <button onclick="setLang('fr')">FR</button>
+                <button class="dropbtn" id="current-lang">NL</button>
+                <div class="dropdown-content">
+                    <div onclick="changeLang('NL')">NL</div>
+                    <div onclick="changeLang('EN')">EN</div>
+                    <div onclick="changeLang('FR')">FR</div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section id="top" class="hero" style="background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('public/Paintings/1.jpg'); background-size: cover;">
-        <div class="reveal">
-            <h1 class="hero-title serif" style="font-size: clamp(3rem, 15vw, 6rem); line-height: 1;">Beta<br>Beatrise</h1>
-            <p style="max-width: 300px; margin-top: 1rem; font-size: 0.9rem;" data-key="hero-desc">Abstracte composities. Zware texturen. 24k goud.</p>
+    <section class="hero" id="top">
+        <div class="container">
+            <h1 class="hero-title serif">Beta<br><span>Beatrise</span></h1>
+            <p style="max-width: 450px; margin-top: 2.5rem; font-size: 1.15rem; font-weight: 300; color: var(--muted);" data-key="heroSub">Abstract compositions. Heavy textures. Glimmers of 24k gold.</p>
         </div>
     </section>
 
-    <div id="gallery-root"></div>
+    <section id="collection" class="container">
+        <span class="section-tag" data-key="tagColl">Available Work</span>
+        <h2 class="section-title serif">Golden Circle of Life</h2>
+        <div class="gallery-grid" id="gallery"></div>
+    </section>
 
-    <section id="about" style="background-color: var(--sand);">
-        <div class="reveal" style="max-width: 600px;">
-            <span class="section-tag" data-key="about-tag">Filosofie</span>
-            <h2 class="serif" style="font-size: 1.8rem;">Elegance in the Raw</h2>
-            <p style="font-size: 1rem; font-weight: 300;" data-key="about-text">Beta Beatrise verkent de fragiele balans tussen ongepolijste ruwheid en tijdloze elegantie.</p>
+    <section id="about" class="bg-sand full-v">
+        <div class="container" style="max-width: 800px;">
+            <span class="section-tag" data-key="tagAbout">The Connection</span>
+            <h2 class="section-title serif italic" data-key="aboutTitle">Elegance in the Raw</h2>
+            <div style="font-size: 1.15rem; line-height: 2; font-weight: 300; margin-top: 2rem;" data-key="aboutText">
+                <p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements to create luxurious abstract paintings to be enjoyed and interpreted by anyone.</p>
+                <p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives. By changing the orientation, the light reveals new inspirations and ideas.</p>
+            </div>
         </div>
     </section>
 
-    <section id="inquire">
-        <div class="reveal form-container">
-            <span class="section-tag" data-key="nav-inq">Aanvraag</span>
-            <h2 class="serif" style="font-size: 1.8rem; margin: 0 0 0.5rem 0;" data-key="form-title">Paintings on Demand</h2>
-            <p style="font-size: 12px; margin-bottom: 1rem;" data-key="form-desc">Een uniek werk op maat voor uw interieur.</p>
-            <form id="mainForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
-                <input type="hidden" name="Subject" value="Paintings on Demand Inquiry">
-                <input type="text" name="name" placeholder="Naam" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="Telefoon">
-                <textarea name="message" placeholder="Uw wensen (formaat, kleur...)" required></textarea>
-                <button type="submit" class="submit-btn" data-key="form-btn">Verstuur</button>
-                <div class="status-msg" id="mainStatus"></div>
+    <section id="inquire" class="full-v">
+        <div class="container">
+            <span class="section-tag" data-key="tagInq">Personal Inquiry</span>
+            <h2 class="section-title serif" data-key="inqTitle">Start a Conversation</h2>
+            <p style="max-width: 500px; margin: 0 auto; font-size: 1.05rem; color: var(--muted);" data-key="inqSub">If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.</p>
+            <form class="form-container">
+                <input type="text" data-placeholder="pName" placeholder="Name">
+                <textarea rows="4" data-placeholder="pMsg" placeholder="Describe your vision."></textarea>
+                <button type="button" class="btn" data-key="btnSend">Send Inquiry</button>
             </form>
         </div>
     </section>
 
-    <section id="interior" class="bg-dark">
-        <div class="reveal">
-            <span class="section-tag" data-key="int-tag">Interieur</span>
-            <h2 class="serif" style="font-size: 1.8rem;" data-key="int-title">Interieuradvies</h2>
-            <p style="font-weight: 300; opacity: 0.8; font-size: 14px;" data-key="int-desc">Advies om jouw ruimte tot leven te brengen.</p>
-            <span style="color: var(--accent); letter-spacing: 0.4em; font-size: 10px; margin-top: 2rem; display: block;" data-key="soon">BINNENKORT</span>
+    <section id="interior" class="bg-dark full-v">
+        <div class="container">
+            <span class="section-tag" style="border-color: var(--accent); color: var(--accent);">Creative Services</span>
+            <h2 class="serif italic" style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 300;" data-key="interiorTitle">Did you know I also provide interior design services?</h2>
+            <span style="color: var(--accent); letter-spacing: 0.6em; font-size: 10px; font-weight: 700; margin-top: 5rem; display: block;" data-key="soon">COMING SOON</span>
         </div>
     </section>
 
     <script>
-        const translations = {
-            nl: {
-                "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
-                "hero-desc": "Abstracte composities. Zware texturen. 24k goud.",
-                "about-tag": "Filosofie", "about-text": "Beta Beatrise verkent de fragiele balans tussen ruwheid en elegantie.",
-                "form-title": "Paintings on Demand", "form-desc": "Een uniek werk op maat voor uw interieur.", "form-btn": "Verstuur",
-                "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Advies om jouw ruimte tot leven te brengen.", "soon": "BINNENKORT",
-                "modal-sub": "Interesse? Laat je gegevens achter.", "success": "Verstuurd!", "error": "Fout.",
-                "art0": "Matière Noble", "art1": "Éclat Brut", "art2": "Vergulde Aarde", "art3": "Sporen van Goud"
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.documentElement.style.visibility = 'visible';
+
+        const texts = {
+            NL: { 
+                heroSub: "Abstracte composities. Zware texturen. Glinsteringen van 24k goud.",
+                tagColl: "Beschikbaar Werk", tagAbout: "De Verbinding",
+                aboutTitle: "Elegantie in de Ruwe Vorm",
+                aboutText: "<p>Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar kunst maakt gebruik van meerlaagse texturen en gouden elementen om luxueuze abstracte schilderijen te creëren.</p><p>Haar werken zijn intuïtief ontworpen; u wordt uitgenodigd om het doek te draaien en het vanuit verschillende perspectieven te bekijken.</p>",
+                tagInq: "Persoonlijke Aanvraag", inqTitle: "Begin een Gesprek",
+                inqSub: "Heeft u een specifiek idee of kleurenpalet in gedachten? Neem contact op voor een creatie op maat.",
+                interiorTitle: "Wist u dat ik ook interieurontwerp aanbied?",
+                soon: "BINNENKORT BESCHIKBAAR", btnSend: "Verstuur Aanvraag", pName: "Naam", pMsg: "Beschrijf uw idee."
             },
-            en: {
-                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
-                "hero-desc": "Abstract compositions. Heavy textures. 24k gold.",
-                "about-tag": "Philosophy", "about-text": "Exploration of the balance between rawness and elegance.",
-                "form-title": "Paintings on Demand", "form-desc": "Custom artwork for your interior.", "form-btn": "Send",
-                "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Advice to bring your space to life.", "soon": "COMING SOON",
-                "modal-sub": "Interested? Leave your details.", "success": "Sent!", "error": "Error."
+            EN: { 
+                heroSub: "Abstract compositions. Heavy textures. Glimmers of 24k gold.",
+                tagColl: "Available Work", tagAbout: "The Connection",
+                aboutTitle: "Elegance in the Raw",
+                aboutText: "<p>Beta Beatrise explores the connection of raw material and refined elegance. Her art uses multi-layer textures and golden elements.</p><p>Her works are designed to be intuitive; you are invited to rotate the canvas and look at them from different perspectives.</p>",
+                tagInq: "Personal Inquiry", inqTitle: "Start a Conversation",
+                inqSub: "If you have a specific idea, room, or color palette in mind, feel free to inquire about a custom creation.",
+                interiorTitle: "Did you know I also provide interior design services?",
+                soon: "COMING SOON", btnSend: "Send Inquiry", pName: "Name", pMsg: "Describe your vision."
+            },
+            FR: {
+                heroSub: "Compositions abstraites. Textures denses. Éclats d'or 24 carats.",
+                tagColl: "Œuvres Disponibles", tagAbout: "La Connexion",
+                aboutTitle: "L'élégance à l'état brut",
+                aboutText: "<p>Beta Beatrise explore le lien entre le matériau brut et l'élégance raffinée.</p>",
+                tagInq: "Demande Personnelle", inqTitle: "Entamer une Conversation",
+                inqSub: "Si vous avez une idée spécifique, n'hésitez pas à demander une création sur mesure.",
+                interiorTitle: "Saviez-vous que je propose également des services de design d'intérieur ?",
+                soon: "BIENTÔT DISPONIBLE", btnSend: "Envoyer", pName: "Nom", pMsg: "Décrivez votre vision."
             }
         };
 
         const artworks = [
-            { id: "art0", price: "€ 350", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg"] },
-            { id: "art1", price: "€ 250", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg"] },
-            { id: "art2", price: "€ 100", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg"] },
-            { id: "art3", price: "€ 100", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg"] }
+            { title: "Circle I", price: "€ 1.200", desc: "Gold leaf on heavy texture.", images: ["https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800", "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800"] },
+            { title: "Circle II", price: "€ 1.450", desc: "Deep charcoal with 24k gold.", images: ["https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800", "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800"] }
         ];
 
-        const root = document.getElementById('gallery-root');
-        artworks.forEach((art, idx) => {
-            root.insertAdjacentHTML('beforeend', `
-                <div class="artwork-page">
-                    <div class="reveal" style="width:100%;">
-                        <div class="carousel" id="carousel-${idx}">
-                            <div class="carousel-track">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" onclick="handleImageClick(event, ${idx}, '${art.id}')">`).join('')}
-                            </div>
-                        </div>
-                        <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id] || ''}</h3>
-                        <span class="price-tag">${art.price}</span>
+        const gal = document.getElementById('gallery');
+        artworks.forEach((art, artIdx) => {
+            let imagesHtml = art.images.map(img => `<img src="${img}" alt="${art.title}">`).join('');
+            gal.innerHTML += `
+                <div class="artwork-card">
+                    <div class="carousel" id="carousel-${artIdx}">
+                        <button class="c-arrow c-prev" onclick="moveSlide(${artIdx}, -1)">&#8249;</button>
+                        <div class="carousel-track" id="track-${artIdx}">${imagesHtml}</div>
+                        <button class="c-arrow c-next" onclick="moveSlide(${artIdx}, 1)">&#8250;</button>
                     </div>
-                </div>`);
+                    <h3 class="serif italic" style="font-size: 1.6rem; margin-top:1.5rem;">${art.title}</h3>
+                    <span class="price" style="font-weight: 600; font-size: 0.9rem;">${art.price}</span>
+                    <p class="desc" style="color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem;">${art.desc}</p>
+                </div>
+            `;
         });
 
-        function handleImageClick(e, artIdx, artId) {
-            const rect = e.target.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            if (x < rect.width * 0.35) move(artIdx, -1);
-            else if (x > rect.width * 0.65) move(artIdx, 1);
-            else openModal(artId);
+        let currentSlides = artworks.map(() => 0);
+        function moveSlide(artIdx, step) {
+            const track = document.getElementById(`track-${artIdx}`);
+            const total = artworks[artIdx].images.length;
+            currentSlides[artIdx] = (currentSlides[artIdx] + step + total) % total;
+            track.style.transform = `translateX(-${currentSlides[artIdx] * 100}%)`;
         }
 
-        function move(idx, dir) {
-            const imgs = document.querySelectorAll(`#carousel-${idx} img`);
-            let current = Array.from(imgs).findIndex(img => img.classList.contains('active-slide'));
-            imgs[current].classList.remove('active-slide');
-            imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
-        }
-
-        function openModal(artId) {
-            const lang = document.getElementById('langCurrent').innerText.toLowerCase();
-            document.getElementById('modalTitle').innerText = translations[lang][artId] || translations['nl'][artId];
-            document.getElementById('artModal').style.display = "block";
-        }
-        function closeModal() { document.getElementById('artModal').style.display = "none"; }
-
-        function setLang(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
+        function changeLang(l) {
+            localStorage.setItem('prefLang', l);
+            document.getElementById('current-lang').innerText = l;
+            document.querySelectorAll('[data-key]').forEach(item => {
+                const key = item.getAttribute('data-key');
+                if (texts[l][key]) item.innerHTML = texts[l][key];
             });
-            document.getElementById('langCurrent').innerText = lang.toUpperCase();
-        }
-
-        async function handleSubmit(event, statusId) {
-            event.preventDefault();
-            const form = event.target;
-            const status = document.getElementById(statusId);
-            const data = new FormData(form);
-            status.style.display = "block";
-            status.innerText = "Sending...";
-            fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }})
-            .then(() => {
-                status.innerText = "Bedankt!";
-                form.reset();
-                if(statusId === 'modalStatus') setTimeout(closeModal, 2000);
+            document.querySelectorAll('[data-placeholder]').forEach(item => {
+                item.placeholder = texts[l][item.getAttribute('data-placeholder')];
             });
         }
 
-        document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
-        document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
-        
-        const langMenu = document.getElementById('langMenu');
-        function toggleMenu(e) { e.stopPropagation(); langMenu.classList.toggle('show'); }
-        window.onclick = () => langMenu.classList.remove('show');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        window.onload = () => {
+            const saved = localStorage.getItem('prefLang') || 'NL';
+            changeLang(saved.toUpperCase());
+        };
     </script>
 </body>
 </html>
