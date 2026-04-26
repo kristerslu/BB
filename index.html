@@ -75,12 +75,27 @@
             50% { transform: rotate(45deg) translate(8px, 8px); }
         }
 
-        /* GALLERY CAROUSEL */
+        /* NATIVE CSS GALLERY CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; cursor: pointer; touch-action: pan-y; }
-        .carousel-track { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; pointer-events: none; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; box-sizing: border-box; }
-        .carousel-track img.active-slide { opacity: 1; position: relative; }
+        .carousel { position: relative; width: 100%; height: 50vh; background: transparent; overflow: hidden; cursor: pointer; }
+        
+        .carousel-track { 
+            display: flex; align-items: center; 
+            width: 100%; height: 100%; 
+            overflow-x: auto; overflow-y: hidden; 
+            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; /* Hide in Firefox */
+            -ms-overflow-style: none; /* Hide in IE */
+        }
+        .carousel-track::-webkit-scrollbar { display: none; /* Hide in Safari/Chrome */ }
+
+        .carousel-track img { 
+            flex: 0 0 100%; width: 100%; max-height: 100%; 
+            object-fit: contain; padding: 15px; box-sizing: border-box; 
+            scroll-snap-align: center; scroll-snap-stop: always; pointer-events: none;
+        }
 
         /* TITLES & INFO */
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; margin: 0; }
@@ -299,9 +314,9 @@
             root.insertAdjacentHTML('beforeend', `
                 <div class="artwork-page" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
-                        <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
+                        <div class="carousel" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                             <div class="carousel-track" id="t-${idx}">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
+                                ${art.images.map((img, i) => `<img src="${img}" alt="Art">`).join('')}
                             </div>
                         </div>
                         <div style="margin-top: 1.5rem;">
@@ -313,71 +328,26 @@
                 </div>`);
         });
 
-        // IMPROVED EAGER SWIPE LOGIC
-        let touchStart = { x: 0, y: 0 };
-        let isSwiping = false;
-
-        document.querySelectorAll('.carousel').forEach((carousel, idx) => {
-            carousel.addEventListener('touchstart', e => {
-                touchStart.x = e.touches[0].clientX;
-                touchStart.y = e.touches[0].clientY;
-                isSwiping = false;
-            }, {passive: false});
-
-            carousel.addEventListener('touchmove', e => {
-                if (!touchStart.x || !touchStart.y) return;
-
-                let dx = touchStart.x - e.touches[0].clientX;
-                let dy = touchStart.y - e.touches[0].clientY;
-
-                // Lock the vertical scroll of the page if user is clearly swiping sideways
-                if (Math.abs(dx) > Math.abs(dy) && e.cancelable) {
-                    e.preventDefault();
-                }
-
-                // Trigger swipe instantly during the move, not waiting for touchend
-                if (Math.abs(dx) > 40 && !isSwiping && Math.abs(dx) > Math.abs(dy)) {
-                    isSwiping = true;
-                    move(idx, dx > 0 ? 1 : -1);
-                }
-            }, {passive: false});
-
-            carousel.addEventListener('touchend', e => {
-                touchStart.x = 0;
-                touchStart.y = 0;
-                isSwiping = false;
-            }, {passive: true});
-
-            // Handle the case where the browser cancels the touch because of vertical snap scroll
-            carousel.addEventListener('touchcancel', e => {
-                touchStart.x = 0;
-                touchStart.y = 0;
-                isSwiping = false;
-            }, {passive: true});
-        });
-
+        // NATIVE SCROLL CLICK HANDLING
         function handleCarouselClick(event, idx, id) {
+            const track = document.getElementById(`t-${idx}`);
             const rect = event.currentTarget.getBoundingClientRect();
             const x = event.clientX - rect.left;
-            if (x < rect.width * 0.3) move(idx, -1);
-            else if (x > rect.width * 0.7) move(idx, 1);
-            else openModal(id);
+            
+            // If clicked left 30%, scroll left natively. Right 30% scrolls right. Center opens modal.
+            if (x < rect.width * 0.3) {
+                track.scrollBy({ left: -rect.width, behavior: 'smooth' });
+            } else if (x > rect.width * 0.7) {
+                track.scrollBy({ left: rect.width, behavior: 'smooth' });
+            } else {
+                openModal(id);
+            }
         }
 
-        function move(idx, dir) {
-            const track = document.getElementById(`t-${idx}`);
-            const imgs = track.querySelectorAll('img');
-            let current = 0;
-            imgs.forEach((img, i) => { if(img.classList.contains('active-slide')) current = i; });
-            imgs[current].classList.remove('active-slide');
-            imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
-        }
-
+        // RESET NATIVE SCROLL TO START
         function resetGallery(idx) {
             const track = document.getElementById(`t-${idx}`);
-            if (!track) return;
-            const imgs = track.querySelectorAll('img');
-            imgs.forEach((img, i) => { img.classList.toggle('active-slide', i === 0); });
+            if (track) track.scrollTo({ left: 0, behavior: 'instant' });
         }
 
         function openModal(artId) {
