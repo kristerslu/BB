@@ -167,6 +167,9 @@
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
             <p style="max-width: 400px; margin-top: 2rem; font-size: 1.1rem; font-weight: 300; color: #333;" data-key="hero-desc"></p>
         </div>
+        <div style="position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);">
+            <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
+        </div>
     </section>
 
     <section id="collection">
@@ -310,26 +313,46 @@
                 </div>`);
         });
 
-        // Swipe Logic
+        // IMPROVED EAGER SWIPE LOGIC
         let touchStart = { x: 0, y: 0 };
+        let isSwiping = false;
+
         document.querySelectorAll('.carousel').forEach((carousel, idx) => {
             carousel.addEventListener('touchstart', e => {
                 touchStart.x = e.touches[0].clientX;
                 touchStart.y = e.touches[0].clientY;
+                isSwiping = false;
             }, {passive: false});
 
             carousel.addEventListener('touchmove', e => {
+                if (!touchStart.x || !touchStart.y) return;
+
                 let dx = touchStart.x - e.touches[0].clientX;
                 let dy = touchStart.y - e.touches[0].clientY;
-                if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+
+                // Lock the vertical scroll of the page if user is clearly swiping sideways
+                if (Math.abs(dx) > Math.abs(dy) && e.cancelable) {
+                    e.preventDefault();
+                }
+
+                // Trigger swipe instantly during the move, not waiting for touchend
+                if (Math.abs(dx) > 40 && !isSwiping && Math.abs(dx) > Math.abs(dy)) {
+                    isSwiping = true;
+                    move(idx, dx > 0 ? 1 : -1);
+                }
             }, {passive: false});
 
             carousel.addEventListener('touchend', e => {
-                let dx = touchStart.x - e.changedTouches[0].clientX;
-                let dy = touchStart.y - e.changedTouches[0].clientY;
-                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                    move(idx, dx > 0 ? 1 : -1);
-                }
+                touchStart.x = 0;
+                touchStart.y = 0;
+                isSwiping = false;
+            }, {passive: true});
+
+            // Handle the case where the browser cancels the touch because of vertical snap scroll
+            carousel.addEventListener('touchcancel', e => {
+                touchStart.x = 0;
+                touchStart.y = 0;
+                isSwiping = false;
             }, {passive: true});
         });
 
