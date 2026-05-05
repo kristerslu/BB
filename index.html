@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Beta Beatrise",
-  "image": "https://betabeatrise.com/logo.png", 
-  "@id": "https://betabeatrise.com",
-  "url": "https://betabeatrise.com",
-  "telephone": "",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "",
-    "addressLocality": "Turnhout",
-    "postalCode": "2300",
-    "addressRegion": "Flanders",
-    "addressCountry": "BE"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.3225,
-    "longitude": 4.9447
-  },
-  "description": "Bespoke abstract art and interior design consultant specializing in heavy textures and gold leaf paintings in Turnhout and Oud-Turnhout, Belgium.",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-    ],
-    "opens": "00:00",
-    "closes": "23:59"
-  },
-  "sameAs": [
-    "https://www.instagram.com/betabeatrise" 
-  ]
-}
-</script>
-
     <script defer src="https://cloud.umami.is/script.js" data-website-id="aeb9be0c-a9ba-460a-8f69-9bf2eae963ff"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     
-    <title>Beta Beatrise — Custom Abstract Art & Interior Design | Turnhout, Belgium</title>
-    <meta name="description" content="Discover bespoke abstract paintings with raw textures and gold leaf by Beta Beatrise. Custom fine art and interior design advice based in Turnhout and Oud-Turnhout, Flanders.">
-    <meta name="keywords" content="Beta Beatrise, abstract art, gold art, fine art Turnhout, Oud-Turnhout art gallery, custom painting Belgium, interior design advice Flanders, bespoke art">
+    <title>Beta Beatrise — Abstracte Kunst & Interieuradvies | Turnhout</title>
+    <meta name="description" content="Ontdek unieke abstracte schilderijen met ruwe texturen en bladgoud van Beta Beatrise. Kunst op maat en exclusief interieuradvies in Turnhout en Oud-Turnhout.">
+    <meta name="keywords" content="Beta Beatrise, abstracte kunst, schilderij met goud, kunstgalerij Turnhout, kunstenaar Oud-Turnhout, schilderij op maat, exclusief interieuradvies, moderne kunst België">
     <meta name="author" content="Beta Beatrise">
+    
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Beta Beatrise",
+      "url": "https://betabeatrise.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Turnhout",
+        "addressRegion": "Vlaanderen",
+        "addressCountry": "BE"
+      },
+      "description": "Beta Beatrise creëert exclusieve abstracte kunst op maat, gespecialiseerd in zware texturen en bladgoud. Gevestigd in de regio Turnhout en Oud-Turnhout.",
+      "knowsLanguage": [
+        {
+          "@type": "Language",
+          "name": "Dutch",
+          "alternateName": "nl"
+        },
+        {
+          "@type": "Language",
+          "name": "English",
+          "alternateName": "en"
+        },
+        {
+          "@type": "Language",
+          "name": "French",
+          "alternateName": "fr"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/betabeatrise",
+        "https://www.facebook.com/share/17cpjVsSBe/?mibextid=wwXIfr",
+        "https://www.linkedin.com/in/beta-beatrise-prancane"
+      ]
+    }
+    </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
+
         :root {
             --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
             --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
@@ -67,7 +71,6 @@
         a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         
-        /* REVEAL ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -83,7 +86,7 @@
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
         
         .lang-dropdown { justify-self: end; position: relative; }
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: opacity 0.2s; }
+        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; margin-top: 5px; }
         .dropdown-content.show { display: block; }
         .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
@@ -96,7 +99,6 @@
             position: relative; box-sizing: border-box; text-align: center; 
         }
 
-        /* HERO */
         .hero { 
             background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
             background-size: cover; background-position: center; 
@@ -105,12 +107,9 @@
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
         
         .scroll-down { 
-            width: 14px; 
-            height: 14px; 
-            border-right: 1px solid var(--muted); 
-            border-bottom: 1px solid var(--muted); 
-            transform: rotate(45deg); 
-            animation: arrow-vertical 2s infinite ease-in-out;
+            width: 14px; height: 14px; 
+            border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); 
+            transform: rotate(45deg); animation: arrow-vertical 2s infinite ease-in-out;
         }
 
         @keyframes arrow-vertical {
@@ -118,58 +117,23 @@
             50% { transform: rotate(45deg) translate(8px, 8px); }
         }
 
-        /* NATIVE CSS GALLERY CAROUSEL WITH ARROWS */
+        /* CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .carousel-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .gallery-arrow { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 10px; display: flex; align-items: center; justify-content: center; transition: color 0.3s ease; -webkit-tap-highlight-color: transparent; }
         
-        .carousel-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .gallery-arrow {
-            background: transparent;
-            border: none;
-            color: var(--muted);
-            cursor: pointer;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.3s ease, opacity 0.2s ease;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        @media (hover: hover) {
-            .gallery-arrow:hover, .art-title-btn:hover { color: var(--black); opacity: 0.6; }
-            .lang-trigger:hover { opacity: 0.6; }
-        }
-        .gallery-arrow:active, .art-title-btn:active { color: var(--black); opacity: 0.6; }
+        @media (hover: hover) { .gallery-arrow:hover, .art-title-btn:hover { color: var(--black); } }
+        .gallery-arrow:active, .art-title-btn:active { color: var(--black); }
 
         .gallery-arrow svg { width: 28px; height: 28px; stroke-width: 1px; }
+        .carousel { flex-grow: 1; position: relative; height: 50vh; overflow: hidden; cursor: pointer; margin: 0 10px; }
+        .carousel-track { display: flex; align-items: center; width: 100%; height: 100%; pointer-events: none; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; }
+        .carousel-track img { flex: 0 0 100%; width: 100%; max-height: 100%; object-fit: contain; box-sizing: border-box; padding: 15px; }
 
-        .carousel { flex-grow: 1; position: relative; height: 50vh; background: transparent; overflow: hidden; cursor: pointer; margin: 0 10px; }
-        
-        .carousel-track { 
-            display: flex; align-items: center; 
-            width: 100%; height: 100%; pointer-events: none;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: transform;
-        }
-        
-        .carousel-track img { 
-            flex: 0 0 100%; width: 100%; max-height: 100%; 
-            object-fit: contain; box-sizing: border-box; padding: 15px; 
-        }
-
-        /* TITLES & INFO */
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s, color 0.3s; margin: 0; }
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
 
-        /* FORMS */
         .alternative-email-section { margin-top: 2rem; }
         .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
         .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; transition: opacity 0.2s; }
@@ -177,17 +141,13 @@
         
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; box-sizing: border-box; border-radius: 0; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; display: block; margin: 0 auto; }
-        @media (hover: hover) { .submit-btn:hover { background: #333; } }
         .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
 
         #inquire { padding-top: 60px; justify-content: center; }
         #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.3rem !important; font-size: 1.8rem !important; line-height: 1.1; }
         #inquire p { font-size: 0.85rem; margin-bottom: 1.2rem !important; line-height: 1.3; color: var(--muted); font-weight: 300; }
-        #inquire input { padding: 0.5rem 0; margin-bottom: 0.6rem; font-size: 13px; text-align: center; }
-        #inquire textarea { height: 50px; padding: 0.5rem 0; margin-bottom: 0.8rem; font-size: 13px; resize: none; text-align: center; }
 
-        /* MODAL */
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
         .modal-content { max-width: 500px; width: 90%; margin: 5vh auto; padding: 2.5rem 1.5rem; position: relative; text-align: center; box-sizing: border-box; background: #ffffff; }
         .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; z-index: 20001; transition: opacity 0.2s; }
@@ -312,14 +272,11 @@
     </section>
 
     <script>
-        // RESET URL & SCROLL ON LOAD
+        // URL & SCROLL RESET
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
-        
         window.onload = function() {
-            if (window.location.hash) {
-                history.replaceState(null, null, window.location.pathname);
-            }
+            if (window.location.hash) { history.replaceState(null, null, window.location.pathname); }
             setTimeout(() => { window.scrollTo(0, 0); }, 10);
         };
 
@@ -355,7 +312,7 @@
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or.",
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
                 "about-tag": "Philosophie", "about-title": "L'Élégance à l'État Brut", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
-                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
+                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
                 "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
@@ -406,23 +363,19 @@
             root.insertAdjacentHTML('beforeend', `
                 <div class="artwork-page" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
-                        
                         <div class="carousel-wrapper">
                             <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, -1)" aria-label="Previous image">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
                             </button>
-                            
                             <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                                 <div class="carousel-track" id="t-${idx}" data-current="0">
                                     ${art.images.map((img, i) => `<img src="${img}" alt="">`).join('')}
                                 </div>
                             </div>
-                            
                             <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg>
                             </button>
                         </div>
-
                         <div style="margin-top: 1.5rem;">
                             <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
                             <span class="price-tag">${art.price}</span>
@@ -432,7 +385,7 @@
                 </div>`);
         });
 
-        // EAGER SWIPE LOGIC
+        // SWIPE LOGIC
         let touchStart = { x: 0, y: 0 };
         let isSwiping = false;
 
@@ -445,31 +398,17 @@
 
             carousel.addEventListener('touchmove', e => {
                 if (!touchStart.x || !touchStart.y) return;
-
                 let dx = touchStart.x - e.touches[0].clientX;
                 let dy = touchStart.y - e.touches[0].clientY;
-
-                if (Math.abs(dx) > Math.abs(dy) && e.cancelable) {
-                    e.preventDefault();
-                }
-
+                if (Math.abs(dx) > Math.abs(dy) && e.cancelable) { e.preventDefault(); }
                 if (Math.abs(dx) > 40 && !isSwiping && Math.abs(dx) > Math.abs(dy)) {
                     isSwiping = true;
                     move(idx, dx > 0 ? 1 : -1);
                 }
             }, {passive: false});
 
-            carousel.addEventListener('touchend', e => {
-                touchStart.x = 0;
-                touchStart.y = 0;
-                isSwiping = false;
-            }, {passive: true});
-
-            carousel.addEventListener('touchcancel', e => {
-                touchStart.x = 0;
-                touchStart.y = 0;
-                isSwiping = false;
-            }, {passive: true});
+            carousel.addEventListener('touchend', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
+            carousel.addEventListener('touchcancel', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
         });
 
         function handleCarouselClick(event, idx, id) {
@@ -480,32 +419,23 @@
             else openModal(id);
         }
 
-        // SLIDING ANIMATION LOGIC
         function move(idx, dir) {
             const track = document.getElementById(`t-${idx}`);
             const totalImages = track.querySelectorAll('img').length;
             let current = parseInt(track.getAttribute('data-current') || '0');
-            
             current = (current + dir + totalImages) % totalImages;
-            
             track.setAttribute('data-current', current);
             track.style.transform = `translateX(-${current * 100}%)`;
         }
 
-        // FIXED RESET LOGIC (Invisible teleport)
         function resetGallery(idx) {
             const track = document.getElementById(`t-${idx}`);
             if (!track) return;
-            
             if(track.getAttribute('data-current') !== '0') {
-                track.style.transition = 'none'; // Temporarily disable animation
+                track.style.transition = 'none';
                 track.setAttribute('data-current', '0');
                 track.style.transform = `translateX(0%)`;
-                
-                // Re-enable animation slightly after so it's ready for the next swipe
-                setTimeout(() => {
-                    track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-                }, 50);
+                setTimeout(() => { track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; }, 50);
             }
         }
 
@@ -540,31 +470,26 @@
         document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
         document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
 
-        // RE-TRIGGER REVEAL ANIMATIONS
+        // RE-TRIGGER ANIMATIONS
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active'); 
-                } else {
-                    entry.target.classList.remove('active'); 
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('active'); } 
+                else { entry.target.classList.remove('active'); }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // RESET GALLERY ON FULL EXIT (Fix applied here)
+        // RESET ON EXIT
         const resetObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Now triggers when 10% or less of the gallery is visible
-                if (entry.intersectionRatio <= 0.1) {
+                if (entry.intersectionRatio < 0.1) {
                     const idx = entry.target.getAttribute('data-idx');
                     if (idx !== null) resetGallery(idx);
                 }
             });
-        }, { threshold: [0.1] }); 
+        }, { threshold: [0, 0.1, 0.9, 1] }); 
         document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
 
-        // Initialize language and alt tags
         setLang('nl');
     </script>
 </body>
