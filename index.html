@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     
-    <!-- SEO OPTIMIZATIONS FOR BELGIAN MARKET -->
     <title>Beta Beatrise — Custom Abstract Art & Interior Design | Turnhout, Belgium</title>
     <meta name="description" content="Discover bespoke abstract paintings with raw textures and gold leaf by Beta Beatrise. Custom fine art and interior design advice based in Turnhout and Oud-Turnhout, Flanders.">
     <meta name="keywords" content="Beta Beatrise, abstract art, gold art, fine art Turnhout, Oud-Turnhout art gallery, custom painting Belgium, interior design advice Flanders, bespoke art">
@@ -69,7 +68,6 @@
         .section-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); padding-bottom: 4px; display: inline-block; }
         
         .scroll-down { 
-            margin: 3rem auto 0 auto; 
             width: 14px; 
             height: 14px; 
             border-right: 1px solid var(--muted); 
@@ -230,7 +228,9 @@
             <span class="section-tag" data-key="coll-tag"></span>
             <h2 class="serif" style="font-size: 2.5rem;">Golden Circle of Life</h2>
             <p style="font-weight: 300; color: var(--muted);" data-key="coll-desc"></p>
-            <div class="scroll-down"></div>
+        </div>
+        <div style="position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);">
+            <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
         </div>
     </section>
 
@@ -395,7 +395,7 @@
                 </div>`);
         });
 
-        // IMPROVED EAGER SWIPE LOGIC
+        // EAGER SWIPE LOGIC
         let touchStart = { x: 0, y: 0 };
         let isSwiping = false;
 
@@ -509,21 +509,22 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active'); 
                 } else {
-                    entry.target.classList.remove('active'); // Removes class so it triggers again next time
+                    entry.target.classList.remove('active'); 
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // RESET GALLERY ON FULL EXIT
+        // RESET GALLERY ON FULL EXIT (Fix applied here)
         const resetObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) { // Triggers ONLY when 100% out of view
+                // Now triggers when 10% or less of the gallery is visible
+                if (entry.intersectionRatio <= 0.1) {
                     const idx = entry.target.getAttribute('data-idx');
                     if (idx !== null) resetGallery(idx);
                 }
             });
-        }, { threshold: 0 }); // 0 threshold means "completely invisible"
+        }, { threshold: [0.1] }); 
         document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
 
         // Initialize language and alt tags
