@@ -81,7 +81,11 @@
             padding: 1.2rem 0; border-bottom: 1px solid var(--border); box-sizing: border-box;
         }
         .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        .logo { font-size: 1.4rem; letter-spacing: 2px; justify-self: start; cursor: pointer; }
+        
+        /* Updated Logo CSS for the Image */
+        .logo { justify-self: start; cursor: pointer; display: flex; align-items: center; }
+        .logo img { height: 32px; width: auto; display: block; }
+        
         .nav-links { display: flex; gap: 2rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
         
@@ -165,6 +169,9 @@
             #inquire h2 { font-size: 1.5rem !important; }
             #inquire { padding-top: 40px; }
             .modal-content { margin: 2vh auto; padding: 2rem 1rem; }
+            
+            /* Make the logo slightly smaller on mobile */
+            .logo img { height: 26px; }
         }
     </style>
 </head>
@@ -193,7 +200,9 @@
 
     <nav>
         <div class="nav-content">
-            <div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo serif">BB</div>
+            <div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo">
+                <img src="favicon.png" alt="Beta Beatrise Logo">
+            </div>
             <div class="nav-links">
                 <a href="#collection" data-key="nav-coll">Collectie</a>
                 <a href="#about" data-key="nav-phil">Filosofie</a>
