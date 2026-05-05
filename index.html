@@ -75,12 +75,21 @@
             50% { transform: rotate(45deg) translate(8px, 8px); }
         }
 
-        /* GALLERY CAROUSEL */
+        /* GALLERY CAROUSEL - Updated for swiping animation */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
-        .carousel { position: relative; width: 100%; height: 50vh; display: flex; justify-content: center; align-items: center; background: transparent; overflow: hidden; cursor: pointer; touch-action: pan-y; }
-        .carousel-track { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; pointer-events: none; }
-        .carousel-track img { max-width: 100%; max-height: 100%; position: absolute; opacity: 0; transition: opacity 0.4s ease; object-fit: contain; box-sizing: border-box; }
-        .carousel-track img.active-slide { opacity: 1; position: relative; }
+        .carousel { position: relative; width: 100%; height: 50vh; display: flex; align-items: center; background: transparent; overflow: hidden; cursor: pointer; touch-action: pan-y; }
+        
+        .carousel-track { 
+            display: flex; align-items: center; 
+            width: 100%; height: 100%; pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+        
+        .carousel-track img { 
+            flex: 0 0 100%; width: 100%; max-height: 100%; 
+            object-fit: contain; box-sizing: border-box; padding: 15px; 
+        }
 
         /* TITLES & INFO */
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s; margin: 0; }
@@ -256,7 +265,7 @@
                 "form-title": "Custom Painting", "form-desc": "Looking for a unique piece? Leave your details below for a non-binding inquiry.", "form-btn": "Send Inquiry",
                 "modal-sub": "Are you interested in this piece? Leave your details below.",
                 "email-intro": "Or send me an email directly:",
-                "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Describe your preferences (size, palette, etc.)",
+                "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Size, color palette, etc.",
                 "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold",
                 "success": "Message sent!", "error": "Oops! Something went wrong."
             },
@@ -265,11 +274,11 @@
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or.",
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
                 "about-tag": "Philosophie", "about-title": "L'Élégance à l'État Brut", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
-                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne ook des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
+                "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
                 "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
-                "p-name": "Nom", "p-email": "E-mail", "p-phone": "Telefoon (Optionnel)", "p-msg": "Message", "p-msg-l": "Décrivez vos préférences (format, palette, etc.)",
+                "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Format, palette de couleurs, etc.",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or",
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
             }
@@ -300,8 +309,8 @@
                 <div class="artwork-page" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
                         <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
-                            <div class="carousel-track" id="t-${idx}">
-                                ${art.images.map((img, i) => `<img src="${img}" class="${i===0?'active-slide':''}" alt="Art">`).join('')}
+                            <div class="carousel-track" id="t-${idx}" data-current="0">
+                                ${art.images.map((img, i) => `<img src="${img}" alt="Art">`).join('')}
                             </div>
                         </div>
                         <div style="margin-top: 1.5rem;">
@@ -313,7 +322,7 @@
                 </div>`);
         });
 
-        // IMPROVED EAGER SWIPE LOGIC
+        // IMPROVED EAGER SWIPE LOGIC (now using sliding transform instead of fade)
         let touchStart = { x: 0, y: 0 };
         let isSwiping = false;
 
@@ -364,20 +373,24 @@
             else openModal(id);
         }
 
+        // Updated move function for sliding effect
         function move(idx, dir) {
             const track = document.getElementById(`t-${idx}`);
-            const imgs = track.querySelectorAll('img');
-            let current = 0;
-            imgs.forEach((img, i) => { if(img.classList.contains('active-slide')) current = i; });
-            imgs[current].classList.remove('active-slide');
-            imgs[(current + dir + imgs.length) % imgs.length].classList.add('active-slide');
+            const totalImages = track.querySelectorAll('img').length;
+            let current = parseInt(track.getAttribute('data-current') || '0');
+            
+            current = (current + dir + totalImages) % totalImages;
+            
+            track.setAttribute('data-current', current);
+            track.style.transform = `translateX(-${current * 100}%)`;
         }
 
+        // Updated reset function to snap back to the first image
         function resetGallery(idx) {
             const track = document.getElementById(`t-${idx}`);
             if (!track) return;
-            const imgs = track.querySelectorAll('img');
-            imgs.forEach((img, i) => { img.classList.toggle('active-slide', i === 0); });
+            track.setAttribute('data-current', '0');
+            track.style.transform = `translateX(0%)`;
         }
 
         function openModal(artId) {
