@@ -82,14 +82,13 @@
         }
         .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         .logo { justify-self: start; cursor: pointer; display: flex; align-items: center; }
+        .logo img { height: 42px; width: auto; display: block; }
         .nav-links { display: flex; gap: 2rem; justify-self: center; }
         .nav-links a { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
         
-        .lang-dropdown { justify-self: end; position: relative; }
-        .lang-trigger { background: none; border: 1px solid var(--black); padding: 4px 10px; font-size: 10px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: opacity 0.2s; }
-        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--white); min-width: 80px; border: 1px solid var(--border); z-index: 10001; margin-top: 5px; }
-        .dropdown-content.show { display: block; }
-        .dropdown-content button { padding: 10px; display: block; width: 100%; border: none; background: none; font-size: 10px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border); }
+        .lang { justify-self: end; display: flex; gap: 0.5rem; }
+        .lang button { background: none; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; opacity: 0.4; padding: 4px; text-transform: uppercase; transition: opacity 0.2s; color: inherit; }
+        .lang button.on { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
         /* SECTIONS */
         section, .artwork-page { 
@@ -167,7 +166,10 @@
             .modal-content { margin: 2vh auto; padding: 2rem 1rem; }
             
             /* Make the logo slightly smaller on mobile */
-            .logo img { height: 26px; }
+            .logo img { height: 40px; }
+            .lang { gap: 0.3rem; }
+            .lang button { font-size: 10px; padding: 3px; }
+
         }
     </style>
 </head>
@@ -196,28 +198,23 @@
 
     <nav>
         <div class="nav-content">
-<div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo">
-    <img src="favicon.png" alt="Beta Beatrise Logo" style="height: 45px; width: auto; display: block;">
-</div>
-
-
-<div class="nav-links">
-    <a href="wine-and-design.html" data-key="nav-event" style="color:#3d1f2e; font-weight:700; white-space:nowrap;">Wine &amp; Design</a>
-    <a href="#collection" data-key="nav-coll">Collectie</a>
-    <a href="#about" data-key="nav-phil">Filosofie</a>
-    <a href="#inquire" data-key="nav-inq">Aanvraag</a>
-</div>
-
-            <div class="lang-dropdown">
-                <button class="lang-trigger" id="langCurrent" onclick="toggleMenu(event)">NL</button>
-                <div class="dropdown-content" id="langMenu">
-                    <button onclick="setLang('nl')">NL</button>
-                    <button onclick="setLang('fr')">FR</button>
-                    <button onclick="setLang('en')">EN</button>
-                </div>
+            <div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo">
+                <img src="favicon.png" alt="Beta Beatrise Logo">
+            </div>
+            <div class="nav-links">
+                <a href="wine-and-design.html" style="color:#3d1f2e; font-weight:700; white-space:nowrap;">Wine &amp; Design</a>
+                <a href="#collection" data-key="nav-coll">Collectie</a>
+                <a href="#about" data-key="nav-phil">Filosofie</a>
+                <a href="#inquire" data-key="nav-inq">Aanvraag</a>
+            </div>
+            <div class="lang">
+                <button id="lng-nl" class="on" onclick="setLang('nl')">NL</button>
+                <button id="lng-fr" onclick="setLang('fr')">FR</button>
+                <button id="lng-en" onclick="setLang('en')">EN</button>
             </div>
         </div>
     </nav>
+
 
     <section id="top" class="hero">
         <div class="reveal" style="width: 100%; max-width: 1100px; padding: 0 1.5rem; box-sizing: border-box; text-align: left;">
@@ -349,8 +346,8 @@
                     else el.innerHTML = translations[lang][key];
                 }
             });
-            document.getElementById('langCurrent').innerText = lang.toUpperCase();
-            document.getElementById('langMenu').classList.remove('show');
+            ['nl','fr','en'].forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x === lang));
+
             updateImageAltTags();
         }
 
@@ -457,9 +454,7 @@
         }
         
         function closeModal() { document.getElementById('artModal').style.display = "none"; document.body.style.overflow = 'auto'; }
-        function toggleMenu(e) { e.stopPropagation(); document.getElementById('langMenu').classList.toggle('show'); }
-        window.onclick = () => document.getElementById('langMenu').classList.remove('show');
-
+        
         async function handleSubmit(event, statusId) {
             event.preventDefault();
             const form = event.target;
