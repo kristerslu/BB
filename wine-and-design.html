@@ -457,7 +457,7 @@
             <div class="contact">
                 Beta Beatrise Prancāne<br>
                 <a href="mailto:info@betabeatrise.com">info@betabeatrise.com</a><br>
-                +371 29535757 · <a href="index.html">betabeatrise.com</a><br>
+                <a href="tel:+37129535757">+371 29535757</a> · <a href="index.html">betabeatrise.com</a><br>
                 <a href="https://www.instagram.com/betabeatrise" target="_blank" rel="noopener">@betabeatrise</a>
             </div>
             <a href="index.html" class="foot-home" data-key="home">← Home</a>
@@ -689,7 +689,10 @@
 
             const pb = document.getElementById('payBlock');
             pb.classList.add('show');
-            pb.scrollIntoView({behavior:'smooth', block:'center'});
+            const nav = document.querySelector('nav');
+            const navH = nav ? nav.offsetHeight : 0;
+            const y = pb.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+            window.scrollTo({ top:y, behavior:'smooth' });
         }
 
         /* ---- Copy helpers ---- */
