@@ -123,6 +123,9 @@
         .total-bar .per { font-size:11px; color:var(--muted); margin-left:6px; }
 
         .submit-btn { background:var(--black); color:#fff; border:none; padding:1.1rem; width:100%; cursor:pointer; text-transform:uppercase; font-size:11px; letter-spacing:0.2em; margin-top:1.6rem; transition:opacity 0.3s; }
+        .consent { display:flex; align-items:flex-start; gap:0.6rem; margin-top:1.6rem; cursor:pointer; font-size:0.85rem; font-weight:300; color:#444; line-height:1.5; }
+        .consent input { width:auto; margin:0.2rem 0 0; flex-shrink:0; accent-color:var(--wine); }
+        .privacy-note { font-size:0.72rem; line-height:1.6; color:var(--muted); font-weight:300; margin:0.9rem 0 0; }
         @media (hover:hover){ .submit-btn:hover { opacity:0.85; } }
         .status-msg { font-size:12px; margin-top:14px; font-weight:600; text-align:center; text-transform:uppercase; letter-spacing:0.08em; display:none; }
         .status-msg.err { color:#a33; }
@@ -416,6 +419,12 @@
                     <span><span class="amt" id="total">€43</span><span class="per" id="per-line">(1 × €43)</span></span>
                 </div>
 
+                <label class="consent">
+                    <input type="checkbox" name="marketing_optin" value="ja, opt-in toekomstige events">
+                    <span data-key="optin">Houd me op de hoogte van toekomstige events (optioneel)</span>
+                </label>
+                <p class="privacy-note" data-key="privacy">We gebruiken je gegevens alleen om je reservatie te beheren en je een bevestiging te sturen, en delen ze nooit met derden. Je gegevens opvragen of laten verwijderen? Mail naar info@betabeatrise.com.</p>
+
                 <button type="submit" class="submit-btn" data-key="btn">Bevestig reservatie</button>
                 <div class="status-msg" id="status"></div>
             </form>
@@ -473,7 +482,7 @@
            EDIT THESE VALUES
            ============================================================ */
         const PRICE_PER_PERSON = 43;                 // € per participant
-        const BENEFICIARY_NAME = "Beta Beatrise Prancane";  // MUST match your bank account holder name (ASCII, no ā) — banks verify this on transfer
+        const BENEFICIARY_NAME = "Beta Beatrise Prancane";  // MUST match your bank account holder name (ASCII, no a-accent); banks verify this on transfer
         const IBAN = "BE05 0638 3840 4175";          // Belfius IBAN
         const BIC  = "GKCCBEBB";                      // Belfius BIC (change if not Belfius)
         const EVENT_REF = "Wine & Design";            // shown in the payment communication
@@ -481,7 +490,7 @@
 
         /* ---- Capacity (update these as paid bookings come in) ---- */
         const BOOKING_OPEN = true;                    // set to false to close registration completely
-        const SPOTS_LEFT   = 10;                      // total spots still available (0–10). Lower this as people pay.
+        const SPOTS_LEFT   = 10;                      // total spots still available (0 to 10). Lower this as people pay.
         /* ============================================================ */
 
         const translations = {
@@ -508,7 +517,7 @@
                 "faq-q4":"Hoe betaal ik?","faq-a4":"Veilig via je eigen bank-app (scan de QR) of een gewone overschrijving. Je gegevens blijven bij je eigen bank.",
                 "faq-q5":"Wat als ik niet kan komen?","faq-a5":"Laat het Beta zo snel mogelijk weten. Ze zoekt graag een oplossing, zoals een plek op een andere datum.",
                 "book-title":"Reserveer je plek", "book-intro":"Vul het aantal deelnemers en hun namen in. Je ziet meteen het totaalbedrag en een QR-code om veilig online te betalen.",
-                "l-count":"Aantal deelnemers","l-email":"Jouw e-mail","l-phone":"Telefoon (optioneel)","l-notes":"Opmerkingen (optioneel, bv. allergieën)",
+                "l-count":"Aantal deelnemers","l-email":"Jouw e-mail","l-phone":"Telefoon (optioneel)","l-notes":"Opmerkingen (optioneel, bv. allergieën)","optin":"Houd me op de hoogte van toekomstige events (optioneel)","privacy":"We gebruiken je gegevens alleen om je reservatie te beheren en je een bevestiging te sturen, en delen ze nooit met derden. Je gegevens opvragen of laten verwijderen? Mail naar info@betabeatrise.com.",
                 "spots":"Nog {n} plaatsen beschikbaar","soldout-title":"Volzet","soldout-text":"Dit event is volgeboekt. Volg @betabeatrise voor nieuwe data, of stuur een mailtje en we houden je op de hoogte.",
                 "total-label":"Totaal", btn:"Bevestig reservatie", who:"Deelnemer", first:"Voornaam", last:"Achternaam",
                 "pay-title":"Bijna klaar! Rond je betaling af","pay-intro":"Scan de QR-code met je bank-app, of voer de overschrijving handmatig uit met de gegevens hieronder.",
@@ -541,7 +550,7 @@
                 "faq-q4":"How do I pay?","faq-a4":"Securely through your own banking app (scan the QR) or a normal bank transfer. Your details stay with your own bank.",
                 "faq-q5":"What if I can't make it?","faq-a5":"Let Beta know as early as you can. She'll gladly find a solution, such as a spot on another date.",
                 "book-title":"Reserve your spot", "book-intro":"Enter the number of participants and their names. You'll instantly see the total and a QR code to pay securely online.",
-                "l-count":"Number of participants","l-email":"Your email","l-phone":"Phone (optional)","l-notes":"Notes (optional, e.g. allergies)",
+                "l-count":"Number of participants","l-email":"Your email","l-phone":"Phone (optional)","l-notes":"Notes (optional, e.g. allergies)","optin":"Keep me posted about future events (optional)","privacy":"We use your details only to manage your booking and send your confirmation, and never share them with third parties. To access or delete your data, email info@betabeatrise.com.",
                 "spots":"{n} spots still available","soldout-title":"Sold out","soldout-text":"This event is fully booked. Follow @betabeatrise for new dates, or send us an email and we'll keep you posted.",
                 "total-label":"Total", btn:"Confirm reservation", who:"Participant", first:"First name", last:"Last name",
                 "pay-title":"Almost there! Complete your payment","pay-intro":"Scan the QR code with your banking app, or make the transfer manually using the details below.",
@@ -574,7 +583,7 @@
                 "faq-q4":"Comment puis-je payer ?","faq-a4":"En toute sécurité via votre application bancaire (scannez le QR) ou un virement classique. Vos données restent dans votre banque.",
                 "faq-q5":"Et si je ne peux pas venir ?","faq-a5":"Prévenez Beta dès que possible. Elle trouvera volontiers une solution, comme une place à une autre date.",
                 "book-title":"Réservez votre place", "book-intro":"Indiquez le nombre de participants et leurs noms. Vous verrez immédiatement le total et un QR code pour payer en ligne en toute sécurité.",
-                "l-count":"Nombre de participants","l-email":"Votre e-mail","l-phone":"Téléphone (optionnel)","l-notes":"Remarques (optionnel, ex. allergies)",
+                "l-count":"Nombre de participants","l-email":"Votre e-mail","l-phone":"Téléphone (optionnel)","l-notes":"Remarques (optionnel, ex. allergies)","optin":"Tenez-moi informé·e des prochains événements (optionnel)","privacy":"Nous utilisons vos données uniquement pour gérer votre réservation et vous envoyer une confirmation, et ne les partageons jamais. Pour consulter ou supprimer vos données, écrivez à info@betabeatrise.com.",
                 "spots":"Encore {n} places disponibles","soldout-title":"Complet","soldout-text":"Cet événement est complet. Suivez @betabeatrise pour de nouvelles dates, ou écrivez-nous et nous vous tiendrons informé·e.",
                 "total-label":"Total", btn:"Confirmer la réservation", who:"Participant", first:"Prénom", last:"Nom",
                 "pay-title":"Presque terminé ! Finalisez votre paiement","pay-intro":"Scannez le QR code avec votre application bancaire, ou effectuez le virement manuellement avec les détails ci-dessous.",
