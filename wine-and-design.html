@@ -253,7 +253,7 @@
                 <div class="meta-item"><div class="v" id="meta-price">€43</div><div class="l" data-key="m-price">per persoon</div></div>
                 <div class="meta-item"><div class="v" data-key="m-dur-v">2.5-3u</div><div class="l" data-key="m-dur">workshop</div></div>
                 <div class="meta-item"><div class="v">10</div><div class="l" data-key="m-spots">plaatsen</div></div>
-                <div class="meta-item"><div class="v">EN</div><div class="l" data-key="m-lang">begeleiding</div></div>
+                <div class="meta-item"><div class="v" data-key="m-lang-v">Engels</div><div class="l" data-key="m-lang">begeleiding</div></div>
             </div>
             <a href="#book" class="cta" data-key="cta">Reserveer je plek</a>
             <p class="hero-reassure" data-key="hero-reassure">Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn &amp; hapjes inbegrepen</p>
@@ -488,7 +488,7 @@
             nl: {
                 home:"← Home", eyebrow:"Pilot Event · Turnhout", subtitle:"The Designer Edition",
                 tagline:"Een avond vol wijn, kleur en design. Schilder onder begeleiding een werk dat écht in jouw interieur thuishoort. Geen kopie, maar jouw eigen statement.",
-                "m-price":"per persoon","m-dur":"workshop","m-dur-v":"2,5-3u","m-spots":"plaatsen","m-lang":"begeleiding",
+                "m-price":"per persoon","m-dur":"workshop","m-dur-v":"2,5-3u","m-spots":"plaatsen","m-lang":"begeleiding","m-lang-v":"Engels",
                 cta:"Reserveer je plek","hero-reassure":"Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn & hapjes inbegrepen","book-reassure":"Geen ervaring nodig. Kom alleen of met vrienden, alles is voorzien.",
                 "info-tag":"Praktisch","info-title":"Wanneer & waar","info-l-date":"Datum","info-date":"Dinsdag 7 juli 2026","info-time":"19:00 · duurt 2,5 tot 3 uur","info-l-loc":"Locatie","info-directions":"Routebeschrijving →",
                 "exp-tag":"De Ervaring", "exp-title":"Meer dan wijn & schilderen",
@@ -521,7 +521,7 @@
             en: {
                 home:"← Home", eyebrow:"Pilot Event · Turnhout", subtitle:"The Designer Edition",
                 tagline:"An evening of wine, color and design. With expert guidance you'll paint a piece that truly belongs in your home. Not a copy, but your own statement.",
-                "m-price":"per person","m-dur":"workshop","m-dur-v":"2.5-3h","m-spots":"spots","m-lang":"guidance",
+                "m-price":"per person","m-dur":"workshop","m-dur-v":"2.5-3h","m-spots":"spots","m-lang":"guidance","m-lang-v":"English",
                 cta:"Reserve your spot","hero-reassure":"No experience needed · guided step by step · materials, wine & snacks included","book-reassure":"No experience needed. Come solo or with friends, everything's provided.",
                 "info-tag":"Practical","info-title":"When & where","info-l-date":"Date","info-date":"Tuesday 7 July 2026","info-time":"19:00 · lasts 2.5 to 3 hours","info-l-loc":"Location","info-directions":"Get directions →",
                 "exp-tag":"The Experience", "exp-title":"More than wine & paint",
@@ -554,7 +554,7 @@
             fr: {
                 home:"← Accueil", eyebrow:"Événement Pilote · Turnhout", subtitle:"The Designer Edition",
                 tagline:"Une soirée de vin, de couleur et de design. Accompagné·e par une experte, peignez une œuvre qui s'intègre vraiment à votre intérieur. Pas une copie, mais votre propre signature.",
-                "m-price":"par personne","m-dur":"atelier","m-dur-v":"2h30-3h","m-spots":"places","m-lang":"en anglais",
+                "m-price":"par personne","m-dur":"atelier","m-dur-v":"2h30-3h","m-spots":"places","m-lang":"accompagnement","m-lang-v":"Anglais",
                 cta:"Réservez votre place","hero-reassure":"Aucune expérience requise · accompagnement pas à pas · matériel, vin & amuse-bouches inclus","book-reassure":"Aucune expérience requise. Venez seul·e ou entre amis, tout est fourni.",
                 "info-tag":"Pratique","info-title":"Quand & où","info-l-date":"Date","info-date":"Mardi 7 juillet 2026","info-time":"19:00 · dure 2h30 à 3h","info-l-loc":"Lieu","info-directions":"Itinéraire →",
                 "exp-tag":"L'Expérience", "exp-title":"Plus que du vin & de la peinture",
@@ -755,8 +755,11 @@
                 .catch(()=>{ btn.textContent=T('btn'); status.textContent=T('error'); status.className='status-msg err'; status.style.display='block'; });
         });
 
-        /* ---- Reveal-on-scroll ---- */
-        const io = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting) en.target.classList.add('active'); }), {threshold:0.1});
+        /* ---- Reveal-on-scroll (replays each pass, both directions) ---- */
+        const io = new IntersectionObserver(es => es.forEach(en => {
+            if (en.isIntersecting) en.target.classList.add('active');
+            else en.target.classList.remove('active');
+        }), {threshold:0.1});
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
         /* ---- FAQ accordion ---- */
