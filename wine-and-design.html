@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 
     <title>Wine &amp; Design: The Designer Edition · Reserveer | Beta Beatrise</title>
-    <meta name="description" content="Reserveer je plek voor Wine & Design: The Designer Edition, een designer-led wijn & schilder avond in Turnhout. Betaal eenvoudig ter plaatse met cash of Bancontact, of vooraf via QR.">
+    <meta name="description" content="Reserveer je plek voor Wine & Design: The Designer Edition, een designer-led wijn & schilder avond in Turnhout. Gratis deelname, reserveer gewoon je plek.">
     <link rel="icon" href="favicon.png" type="image/png">
 
     <!-- EPC / SEPA QR code generator (works offline once loaded; encodes a standard Belgian bank transfer) -->
@@ -259,7 +259,7 @@
                 <div class="meta-item"><div class="v" data-key="m-lang-v">Engels</div><div class="l" data-key="m-lang">begeleiding</div></div>
             </div>
             <a href="#book" class="cta" data-key="cta">Reserveer je plek</a>
-            <p class="hero-reassure" data-key="hero-reassure">Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn &amp; hapjes inbegrepen · betaal ter plaatse</p>
+            <p class="hero-reassure" data-key="hero-reassure">Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn &amp; hapjes inbegrepen · gratis deelname</p>
         </div>
         <div class="scroll-cue"></div>
     </header>
@@ -371,8 +371,8 @@
                 <div class="faq-a"><p data-key="faq-a3">De begeleiding is in het Engels, en Nederlands of Frans zijn altijd welkom. Je volgt makkelijk mee.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-q" data-key="faq-q4">Hoe betaal ik?</button>
-                <div class="faq-a"><p data-key="faq-a4">Het makkelijkst betaal je ter plaatse met cash of Bancontact. Wil je liever vooraf betalen? Dat kan via je eigen bank-app (QR) of een overschrijving, maar het hoeft niet.</p></div>
+                <button class="faq-q" data-key="faq-q4">Wat kost het?</button>
+                <div class="faq-a"><p data-key="faq-a4">Deze pilot-avond is gratis, je hoeft niets te betalen. Reserveer gewoon je plek en kom langs.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" data-key="faq-q5">Wat als ik niet kan komen?</button>
@@ -385,7 +385,7 @@
     <section class="booking" id="book">
         <div class="booking-head reveal">
             <h2 class="serif" data-key="book-title">Reserveer je plek</h2>
-            <p data-key="book-intro">Reserveer je plek in één minuut. Betalen doe je gewoon ter plaatse met cash of Bancontact, vooraf betalen hoeft niet.</p>
+            <p data-key="book-intro">Deze eerste avond is helemaal gratis. Reserveer gewoon je plek, dan weten we dat je erbij bent. Nog maar een paar plaatsen vrij.</p>
             <p class="book-reassure" data-key="book-reassure">Geen ervaring nodig. Kom alleen of met vrienden, alles is voorzien.</p>
         </div>
 
@@ -490,7 +490,8 @@
 
         /* ---- Capacity (update these as paid bookings come in) ---- */
         const BOOKING_OPEN = true;                    // set to false to close registration completely
-        const SPOTS_LEFT   = 9;                      // total spots still available (0 to 10). Lower this as people pay.
+        const SPOTS_LEFT   = 6;                      // total spots still available (0 to 10). Lower this as people book.
+        const FREE_EVENT   = true;                    // true = free signup, no payment shown
         /* ============================================================ */
 
         const translations = {
@@ -498,7 +499,7 @@
                 home:"← Home", eyebrow:"Pilot Event · Turnhout", subtitle:"The Designer Edition",
                 tagline:"Een avond vol wijn, kleur en design. Schilder onder begeleiding een werk dat écht in jouw interieur thuishoort. Geen kopie, maar jouw eigen statement.",
                 "m-price":"per persoon","m-dur":"workshop","m-dur-v":"2,5-3u","m-spots":"plaatsen","m-lang":"begeleiding","m-lang-v":"Engels",
-                cta:"Reserveer je plek","hero-reassure":"Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn & hapjes inbegrepen · betaal ter plaatse","book-reassure":"Geen ervaring nodig. Kom alleen of met vrienden, alles is voorzien.",
+                cta:"Reserveer je plek","hero-reassure":"Geen ervaring nodig · stap voor stap begeleid · materiaal, wijn & hapjes inbegrepen · gratis deelname","book-reassure":"Geen ervaring nodig. Kom alleen of met vrienden, alles is voorzien.",
                 "info-tag":"Praktisch","info-title":"Wanneer & waar","info-l-date":"Datum","info-date":"Dinsdag 7 juli 2026","info-time":"19:00 · duurt 2,5 tot 3 uur","info-l-loc":"Locatie","info-directions":"Routebeschrijving →",
                 "exp-tag":"De Ervaring", "exp-title":"Meer dan wijn & schilderen",
                 "exp-lead":"Dit is geen avond waarop je een voorbeeld natekent. Onder begeleiding van een interieurontwerpster ontdek je kleurtheorie en compositie, en maak je een canvas dat thuishoort in een modern interieur.",
@@ -514,24 +515,24 @@
                 "faq-q1":"Ik kan niet schilderen. Is dit iets voor mij?","faq-a1":"Zeker. Je hebt geen ervaring nodig: Beta begeleidt je stap voor stap, en iedereen gaat naar huis met een werk waar ze trots op zijn.",
                 "faq-q2":"Wat moet ik meebrengen?","faq-a2":"Niets. Alle materialen, canvas en schorten zijn voorzien. Kom gewoon zoals je bent, alleen of met vrienden.",
                 "faq-q3":"In welke taal is de avond?","faq-a3":"De avond wordt in het Engels begeleid, zodat iedereen kan meedoen en makkelijk kan volgen, welke taal je ook spreekt.",
-                "faq-q4":"Hoe betaal ik?","faq-a4":"Het makkelijkst betaal je ter plaatse met cash of Bancontact. Wil je liever vooraf betalen? Dat kan via je eigen bank-app (QR) of een overschrijving, maar het hoeft niet.",
+                "faq-q4":"Wat kost het?","faq-a4":"Deze pilot-avond is gratis, je hoeft niets te betalen. Reserveer gewoon je plek en kom langs.",
                 "faq-q5":"Wat als ik niet kan komen?","faq-a5":"Laat het Beta zo snel mogelijk weten. Ze zoekt graag een oplossing, zoals een plek op een andere datum.",
-                "book-title":"Reserveer je plek", "book-intro":"Reserveer je plek in één minuut. Betalen doe je gewoon ter plaatse met cash of Bancontact, vooraf betalen hoeft niet.",
+                "book-title":"Reserveer je plek", "book-intro":"Deze eerste avond is helemaal gratis. Reserveer gewoon je plek, dan weten we dat je erbij bent. Nog maar een paar plaatsen vrij.",
                 "l-count":"Aantal deelnemers","l-email":"Jouw e-mail","l-phone":"Telefoon (optioneel)","l-notes":"Opmerkingen (optioneel, bv. allergieën)","optin":"Houd me op de hoogte van toekomstige events (optioneel)","privacy":"We gebruiken je gegevens alleen om je reservatie te beheren en je een bevestiging te sturen, en delen ze nooit met derden. Je gegevens opvragen of laten verwijderen? Mail naar info@betabeatrise.com.",
                 "spots":"Nog {n} plaatsen beschikbaar","soldout-title":"Volzet","soldout-text":"Dit event is volgeboekt. Volg @betabeatrise voor nieuwe data, of stuur een mailtje en we houden je op de hoogte.",
-                "total-label":"Totaal", btn:"Bevestig reservatie", who:"Deelnemer", first:"Voornaam", last:"Achternaam",
+                "free":"Gratis", "total-label":"Totaal", btn:"Bevestig reservatie", who:"Deelnemer", first:"Voornaam", last:"Achternaam",
                 "pay-title":"Je plek is gereserveerd!","pay-intro":"Je hoeft nu niets te betalen, je betaalt gewoon ter plaatse met cash of Bancontact. Wil je toch liever vooraf betalen? Gebruik dan de QR of de gegevens hieronder (optioneel).",
                 "qr-hint":"Scan via de scanfunctie ín je bank-app (niet de gewone camera).",
                 "d-benef":"Begunstigde","d-iban":"IBAN","d-amount":"Bedrag","d-comm":"Mededeling", copy:"Kopieer", copied:"Gekopieerd!", "copy-all":"Kopieer alle gegevens",
                 "pay-note":"Je plek is voor je gereserveerd. Betalen kan ter plaatse met cash of Bancontact, of vooraf via de QR of overschrijving. Vermeld bij vooraf betalen de mededeling.",
                 "foot-title":"Laten we samen iets moois creëren.",
-                success:"Reservatie ontvangen! Je plek is gereserveerd, je betaalt gewoon ter plaatse.", error:"Oeps! Er ging iets mis. Probeer opnieuw."
+                success:"Je bent erbij! We hebben je reservatie ontvangen. Tot morgen!", error:"Oeps! Er ging iets mis. Probeer opnieuw."
             },
             en: {
                 home:"← Home", eyebrow:"Pilot Event · Turnhout", subtitle:"The Designer Edition",
                 tagline:"An evening of wine, color and design. With expert guidance you'll paint a piece that truly belongs in your home. Not a copy, but your own statement.",
                 "m-price":"per person","m-dur":"workshop","m-dur-v":"2.5-3h","m-spots":"spots","m-lang":"guidance","m-lang-v":"English",
-                cta:"Reserve your spot","hero-reassure":"No experience needed · guided step by step · materials, wine & snacks included · pay at the door","book-reassure":"No experience needed. Come solo or with friends, everything's provided.",
+                cta:"Reserve your spot","hero-reassure":"No experience needed · guided step by step · materials, wine & snacks included · free entry","book-reassure":"No experience needed. Come solo or with friends, everything's provided.",
                 "info-tag":"Practical","info-title":"When & where","info-l-date":"Date","info-date":"Tuesday 7 July 2026","info-time":"19:00 · lasts 2.5 to 3 hours","info-l-loc":"Location","info-directions":"Get directions →",
                 "exp-tag":"The Experience", "exp-title":"More than wine & paint",
                 "exp-lead":"This is not an evening of copying a sample. Guided by a trained interior designer, you'll explore color theory and composition, and create a canvas that belongs in a modern interior.",
@@ -547,24 +548,24 @@
                 "faq-q1":"I can't paint. Is this for me?","faq-a1":"Absolutely. No experience needed: Beta guides you step by step, and everyone leaves with a piece they're proud of.",
                 "faq-q2":"What do I need to bring?","faq-a2":"Nothing. All materials, canvas and aprons are provided. Just come as you are, solo or with friends.",
                 "faq-q3":"What language is the evening in?","faq-a3":"The evening is guided in English, so everyone can join in and follow along easily, whatever language you speak.",
-                "faq-q4":"How do I pay?","faq-a4":"Easiest is to pay at the event by cash or Bancontact. Prefer to pay in advance? You can, through your own banking app (QR) or a bank transfer, but it's not required.",
+                "faq-q4":"What does it cost?","faq-a4":"This pilot evening is free, there's nothing to pay. Just reserve your spot and come along.",
                 "faq-q5":"What if I can't make it?","faq-a5":"Let Beta know as early as you can. She'll gladly find a solution, such as a spot on another date.",
-                "book-title":"Reserve your spot", "book-intro":"Reserve your spot in under a minute. You simply pay at the event by cash or Bancontact, no need to pay in advance.",
+                "book-title":"Reserve your spot", "book-intro":"This first evening is completely free. Just reserve your spot so we know you're coming, only a few places left.",
                 "l-count":"Number of participants","l-email":"Your email","l-phone":"Phone (optional)","l-notes":"Notes (optional, e.g. allergies)","optin":"Keep me posted about future events (optional)","privacy":"We use your details only to manage your booking and send your confirmation, and never share them with third parties. To access or delete your data, email info@betabeatrise.com.",
                 "spots":"{n} spots still available","soldout-title":"Sold out","soldout-text":"This event is fully booked. Follow @betabeatrise for new dates, or send us an email and we'll keep you posted.",
-                "total-label":"Total", btn:"Confirm reservation", who:"Participant", first:"First name", last:"Last name",
+                "free":"Free", "total-label":"Total", btn:"Confirm reservation", who:"Participant", first:"First name", last:"Last name",
                 "pay-title":"Your spot is reserved!","pay-intro":"No need to pay now, you simply pay at the event by cash or Bancontact. Prefer to pay in advance instead? Use the QR or details below (optional).",
                 "qr-hint":"Scan from inside your banking app's scan function (not the regular camera).",
                 "d-benef":"Beneficiary","d-iban":"IBAN","d-amount":"Amount","d-comm":"Communication", copy:"Copy", copied:"Copied!", "copy-all":"Copy all details",
                 "pay-note":"Your spot is reserved for you. Pay at the event by cash or Bancontact, or in advance via the QR or bank transfer. If you pay in advance, please keep the communication.",
                 "foot-title":"Let's create something beautiful together.",
-                success:"Reservation received! Your spot is reserved, you can pay at the event.", error:"Oops! Something went wrong. Please try again."
+                success:"You're in! We've received your reservation. See you tomorrow!", error:"Oops! Something went wrong. Please try again."
             },
             fr: {
                 home:"← Accueil", eyebrow:"Événement Pilote · Turnhout", subtitle:"The Designer Edition",
                 tagline:"Une soirée de vin, de couleur et de design. Accompagné·e par une experte, peignez une œuvre qui s'intègre vraiment à votre intérieur. Pas une copie, mais votre propre signature.",
                 "m-price":"par personne","m-dur":"atelier","m-dur-v":"2h30-3h","m-spots":"places","m-lang":"accompagnement","m-lang-v":"Anglais",
-                cta:"Réservez votre place","hero-reassure":"Aucune expérience requise · accompagnement pas à pas · matériel, vin & amuse-bouches inclus · paiement sur place","book-reassure":"Aucune expérience requise. Venez seul·e ou entre amis, tout est fourni.",
+                cta:"Réservez votre place","hero-reassure":"Aucune expérience requise · accompagnement pas à pas · matériel, vin & amuse-bouches inclus · entrée gratuite","book-reassure":"Aucune expérience requise. Venez seul·e ou entre amis, tout est fourni.",
                 "info-tag":"Pratique","info-title":"Quand & où","info-l-date":"Date","info-date":"Mardi 7 juillet 2026","info-time":"19:00 · dure 2h30 à 3h","info-l-loc":"Lieu","info-directions":"Itinéraire →",
                 "exp-tag":"L'Expérience", "exp-title":"Plus que du vin & de la peinture",
                 "exp-lead":"Ce n'est pas une soirée où l'on recopie un modèle. Guidé·e par une architecte d'intérieur, vous explorez la théorie des couleurs et la composition, et créez une toile qui a sa place dans un intérieur moderne.",
@@ -580,18 +581,18 @@
                 "faq-q1":"Je ne sais pas peindre. Est-ce pour moi ?","faq-a1":"Tout à fait. Aucune expérience requise : Beta vous guide pas à pas, et chacun repart avec une œuvre dont il est fier.",
                 "faq-q2":"Que dois-je apporter ?","faq-a2":"Rien. Tout le matériel, la toile et les tabliers sont fournis. Venez comme vous êtes, seul·e ou entre amis.",
                 "faq-q3":"Dans quelle langue se déroule la soirée ?","faq-a3":"La soirée est guidée en anglais, pour que tout le monde puisse participer et suivre facilement, quelle que soit votre langue.",
-                "faq-q4":"Comment puis-je payer ?","faq-a4":"Le plus simple est de payer sur place, en espèces ou Bancontact. Vous préférez payer à l'avance ? C'est possible via votre application bancaire (QR) ou un virement, mais ce n'est pas obligatoire.",
+                "faq-q4":"Combien ça coûte ?","faq-a4":"Cette soirée pilote est gratuite, il n'y a rien à payer. Réservez simplement votre place et venez.",
                 "faq-q5":"Et si je ne peux pas venir ?","faq-a5":"Prévenez Beta dès que possible. Elle trouvera volontiers une solution, comme une place à une autre date.",
-                "book-title":"Réservez votre place", "book-intro":"Réservez votre place en une minute. Vous payez simplement sur place, en espèces ou Bancontact, aucun paiement à l'avance n'est requis.",
+                "book-title":"Réservez votre place", "book-intro":"Cette première soirée est entièrement gratuite. Réservez simplement votre place pour qu'on sache que vous venez, il ne reste que quelques places.",
                 "l-count":"Nombre de participants","l-email":"Votre e-mail","l-phone":"Téléphone (optionnel)","l-notes":"Remarques (optionnel, ex. allergies)","optin":"Tenez-moi informé·e des prochains événements (optionnel)","privacy":"Nous utilisons vos données uniquement pour gérer votre réservation et vous envoyer une confirmation, et ne les partageons jamais. Pour consulter ou supprimer vos données, écrivez à info@betabeatrise.com.",
                 "spots":"Encore {n} places disponibles","soldout-title":"Complet","soldout-text":"Cet événement est complet. Suivez @betabeatrise pour de nouvelles dates, ou écrivez-nous et nous vous tiendrons informé·e.",
-                "total-label":"Total", btn:"Confirmer la réservation", who:"Participant", first:"Prénom", last:"Nom",
+                "free":"Gratuit", "total-label":"Total", btn:"Confirmer la réservation", who:"Participant", first:"Prénom", last:"Nom",
                 "pay-title":"Votre place est réservée !","pay-intro":"Pas besoin de payer maintenant, vous payez simplement sur place en espèces ou Bancontact. Vous préférez payer à l'avance ? Utilisez le QR ou les détails ci-dessous (optionnel).",
                 "qr-hint":"Scannez depuis la fonction scan de votre application bancaire (pas l'appareil photo).",
                 "d-benef":"Bénéficiaire","d-iban":"IBAN","d-amount":"Montant","d-comm":"Communication", copy:"Copier", copied:"Copié !", "copy-all":"Copier tous les détails",
                 "pay-note":"Votre place vous est réservée. Vous pouvez payer sur place en espèces ou Bancontact, ou à l'avance via le QR ou un virement. Si vous payez à l'avance, conservez la communication.",
                 "foot-title":"Créons ensemble quelque chose de beau.",
-                success:"Réservation reçue ! Votre place est réservée, vous payez sur place.", error:"Oups ! Une erreur s'est produite. Réessayez."
+                success:"C'est noté ! Nous avons bien reçu votre réservation. À demain !", error:"Oups ! Une erreur s'est produite. Réessayez."
             }
         };
 
@@ -656,6 +657,12 @@
 
         function updateTotal(){
             const n = parseInt(countSel.value || '1', 10);
+            if (FREE_EVENT){
+                document.getElementById('total').textContent = T('free');
+                document.getElementById('per-line').textContent = '';
+                document.getElementById('meta-price').textContent = T('free');
+                return;
+            }
             const total = n * PRICE_PER_PERSON;
             document.getElementById('total').textContent = '€'+total;
             document.getElementById('per-line').textContent = '('+n+' × €'+PRICE_PER_PERSON+')';
@@ -756,7 +763,7 @@
                     btn.textContent = T('btn');
                     if (r.ok){
                         status.textContent = T('success'); status.className='status-msg ok'; status.style.display='block';
-                        showPayment();
+                        if (!FREE_EVENT) showPayment();
                     } else {
                         status.textContent = T('error'); status.className='status-msg err'; status.style.display='block';
                     }
