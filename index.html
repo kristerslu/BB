@@ -40,6 +40,11 @@
           "@type": "Language",
           "name": "French",
           "alternateName": "fr"
+        },
+        {
+          "@type": "Language",
+          "name": "Latvian",
+          "alternateName": "lv"
         }
       ],
       "sameAs": [
@@ -83,7 +88,7 @@
         .nav-content { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         .logo { justify-self: start; cursor: pointer; display: flex; align-items: center; }
         .logo img { height: 42px; width: auto; display: block; }
-        .lang { justify-self: center; display: flex; gap: 0.6rem; }
+        .lang { justify-self: center; display: flex; gap: 0.5rem; }
         .lang button { background: none; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; opacity: 0.4; padding: 4px; text-transform: uppercase; transition: opacity 0.2s; color: inherit; }
         .lang button.on { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
@@ -144,6 +149,16 @@
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
 
+        /* SOLD WORKS — still fully viewable, clearly no longer available */
+        .price-tag.is-sold { color: #b0b0b0; text-decoration: line-through; }
+        .sold-tag {
+            display: inline-block; margin-top: 0.6rem; padding: 3px 10px;
+            font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+            color: #6b6157; border: 1px solid var(--accent); background: var(--sand);
+        }
+        .artwork-page.is-sold-work .carousel-track img { opacity: 0.9; }
+        #modalSold { margin: 0 0 1.2rem; font-size: 0.8rem; line-height: 1.4; font-weight: 400; color: #6b6157; border: 1px solid var(--accent); background: var(--sand); padding: 0.8rem; }
+
         .alternative-email-section { margin-top: 2rem; }
         .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
         .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; transition: opacity 0.2s; }
@@ -176,8 +191,8 @@
             
             /* Make the logo slightly smaller on mobile */
             .logo img { height: 40px; }
-            .lang { gap: 0.3rem; }
-            .lang button { font-size: 10px; padding: 3px; }
+            .lang { gap: 0.15rem; }
+            .lang button { font-size: 10px; padding: 3px 2px; letter-spacing: 0.05em; }
 
         }
     </style>
@@ -189,6 +204,7 @@
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h2 class="serif" id="modalTitle" style="font-size: 1.8rem; margin-bottom: 0.3rem;"></h2>
             <p style="margin-bottom: 1.5rem; font-weight: 300; font-size: 0.85rem; color: var(--muted);" data-key="modal-sub"></p>
+            <p id="modalSold" data-key="modal-sold"></p>
             <form id="modalForm" action="https://formspree.io/f/xpqkjzkz" method="POST">
                 <input type="hidden" name="Subject" id="hiddenSubject">
                 <input type="text" name="name" data-key="p-name" placeholder="" required>
@@ -214,6 +230,7 @@
                 <button id="lng-nl" class="on" onclick="setLang('nl')">NL</button>
                 <button id="lng-fr" onclick="setLang('fr')">FR</button>
                 <button id="lng-en" onclick="setLang('en')">EN</button>
+                <button id="lng-lv" onclick="setLang('lv')">LV</button>
             </div>
             <button class="menu-toggle" id="menuToggle" onclick="toggleNav(event)" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -308,9 +325,11 @@
                 "int-tag": "Interieur", "int-title": "Interieuradvies", "int-desc": "Wist je dat ik ook advies geef?<br>Van kunst aan de muur tot een volledig harmonieus interieur.", "soon": "BINNENKORT",
                 "form-title": "Uniek Schilderij", "form-desc": "Wilt u een werk dat perfect bij uw interieur past? Laat uw gegevens achter voor een vrijblijvende aanvraag.", "form-btn": "Verstuur Aanvraag",
                 "modal-sub": "Heeft u interesse in dit werk? Laat hieronder uw gegevens achter.",
+                "modal-sold": "Dit werk is verkocht. Wenst u iets in dezelfde sfeer? Laat uw gegevens achter en ik maak graag een werk op maat.",
+                "sold": "Verkocht",
                 "email-intro": "Of stuur rechtstreeks een e-mail:",
                 "p-name": "Naam", "p-email": "E-mail", "p-phone": "Telefoon (Optioneel)", "p-msg": "Bericht", "p-msg-l": "Formaat, kleurenpalet, etc.",
-                "art0": "Begin van het Licht", "art1": "Gouden Cascade", "art2": "Vergulde Wandeling", "art3": "Sporen van Goud", "art4": "Holte", "art5": "Tussen de Stammen", "art6": "Wat Blijft",
+                "art0": "Begin van het Licht", "art1": "Gouden Cascade", "art2": "Vergulde Wandeling", "art3": "Sporen van Goud", "art4": "Holte", "art5": "Tussen de Stammen", "art6": "Wat Blijft", "art7": "Loofgoud",
                 "success": "Bericht verstuurd!", "error": "Oeps! Er ging iets mis."
             },
             en: {
@@ -321,9 +340,11 @@
                 "int-tag": "Interior", "int-title": "Interior Design", "int-desc": "Did you know I also provide advice?<br>From wall art to a fully harmonious interior.", "soon": "COMING SOON",
                 "form-title": "Custom Painting", "form-desc": "Looking for a unique piece? Leave your details below for a non-binding inquiry.", "form-btn": "Send Inquiry",
                 "modal-sub": "Are you interested in this piece? Leave your details below.",
+                "modal-sold": "This piece has been sold. Would you like something in the same spirit? Leave your details and I will gladly make a work to order.",
+                "sold": "Sold",
                 "email-intro": "Or send me an email directly:",
                 "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Size, color palette, etc.",
-                "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold", "art4": "Hollow", "art5": "Between the Trunks", "art6": "What Remains",
+                "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold", "art4": "Hollow", "art5": "Between the Trunks", "art6": "What Remains", "art7": "Leafgold",
                 "success": "Message sent!", "error": "Oops! Something went wrong."
             },
             fr: {
@@ -334,22 +355,42 @@
                 "int-tag": "Intérieur", "int-title": "Conseil d'Intérieur", "int-desc": "Saviez-vous que je donne aussi des conseils ?<br>De l'art mural à un intérieur totalement harmonieux.", "soon": "BIENTÔT DISPONIBLE",
                 "form-title": "Peinture Unique", "form-desc": "Vous recherchez une pièce unique ? Laissez vos coordonnées ci-dessous.", "form-btn": "Envoyer la Demande",
                 "modal-sub": "Êtes-vous intéressé par cette œuvre ? Laissez vos coordonnées ci-dessous.",
+                "modal-sold": "Cette œuvre est vendue. Vous souhaitez quelque chose dans le même esprit ? Laissez vos coordonnées et je réaliserai volontiers une œuvre sur mesure.",
+                "sold": "Vendu",
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
                 "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Format, palette de couleurs, etc.",
-                "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or", "art4": "Creux", "art5": "Entre les Troncs", "art6": "Ce qui Reste",
+                "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or", "art4": "Creux", "art5": "Entre les Troncs", "art6": "Ce qui Reste", "art7": "Or de Feuillage",
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
+            },
+            lv: {
+                "nav-coll": "Kolekcija", "nav-phil": "Filozofija", "nav-inq": "Pieprasījums",
+                "hero-desc": "Abstraktas kompozīcijas. Smagas faktūras. Zelta atspīdumi.",
+                "coll-tag": "Pieejamie Darbi", "coll-desc": "Iepazīsti kolekciju",
+                "about-tag": "Filozofija", "about-title": "Elegance Neapstrādātībā", "about-text": "Beta Beatrise pēta saikni starp neapstrādātu materiālu un izsmalcinātu eleganci. Viņas darbiem nav noteiktas augšas vai apakšas; tie ir radīti, lai tos grieztu, ļaujot skatītājam kompozīcijā atrast savu perspektīvu un emociju.",
+                "int-tag": "Interjers", "int-title": "Interjera Konsultācijas", "int-desc": "Vai zināji, ka sniedzu arī konsultācijas?<br>No mākslas uz sienas līdz pilnīgi harmoniskam interjeram.", "soon": "DRĪZUMĀ",
+                "form-title": "Unikāla Glezna", "form-desc": "Vēlaties darbu, kas ideāli iederas jūsu interjerā? Atstājiet savus datus nesaistošam pieprasījumam.", "form-btn": "Nosūtīt Pieprasījumu",
+                "modal-sub": "Vai jūs interesē šis darbs? Atstājiet savus datus zemāk.",
+                "modal-sold": "Šis darbs ir pārdots. Vēlaties kaut ko līdzīgā noskaņā? Atstājiet savus datus, un es labprāt radīšu darbu pēc pasūtījuma.",
+                "sold": "Pārdots",
+                "email-intro": "Vai rakstiet tieši e-pastā:",
+                "p-name": "Vārds", "p-email": "E-pasts", "p-phone": "Tālrunis (neobligāti)", "p-msg": "Ziņojums", "p-msg-l": "Izmērs, krāsu palete u.c.",
+                "art0": "Gaismas Sākums", "art1": "Zelta Kaskāde", "art2": "Zeltīta Pastaiga", "art3": "Zelta Pēdas", "art4": "Dobums", "art5": "Starp Stumbriem", "art6": "Kas Paliek", "art7": "Lapu Zelts",
+                "success": "Ziņojums nosūtīts!", "error": "Ak vai! Kaut kas nogāja greizi."
             }
         };
 
-const artworks = [
-    { id: "art0", price: "€ 200", size: "70x140 cm", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
-    { id: "art1", price: "€ 100", size: "60x80 cm", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
-    { id: "art2", price: "€ 35", size: "30x30 cm", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
-    { id: "art3", price: "€ 75", size: "50x50 cm", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] },
-    { id: "art4", price: "€ 55", size: "30x40 cm", images: ["public/Paintings/20.jpg", "public/Paintings/21.jpg", "public/Paintings/22.jpg", "public/Paintings/23.jpg", "public/Paintings/24.jpg", "public/Paintings/25.jpg", "public/Paintings/26.jpg"] },
-    { id: "art5", price: "€ 35", size: "20x20 cm", images: ["public/Paintings/27.jpg", "public/Paintings/28.jpg", "public/Paintings/29.jpg", "public/Paintings/30.jpg"] },
-    { id: "art6", price: "€ 55", size: "30x30 cm", images: ["public/Paintings/31.jpg", "public/Paintings/32.jpg", "public/Paintings/33.jpg", "public/Paintings/34.jpg", "public/Paintings/35.jpg", "public/Paintings/36.jpg", "public/Paintings/37.jpg"] }
-];
+        const languages = ['nl', 'fr', 'en', 'lv'];
+
+        const artworks = [
+            { id: "art0", price: "€ 200", size: "70x140 cm", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
+            { id: "art1", price: "€ 100", size: "60x80 cm", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { id: "art2", price: "€ 35", size: "30x30 cm", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
+            { id: "art3", price: "€ 75", size: "50x50 cm", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] },
+            { id: "art4", price: "€ 55", size: "30x40 cm", images: ["public/Paintings/20.jpg", "public/Paintings/21.jpg", "public/Paintings/22.jpg", "public/Paintings/23.jpg", "public/Paintings/24.jpg", "public/Paintings/25.jpg", "public/Paintings/26.jpg"] },
+            { id: "art5", price: "€ 35", size: "20x20 cm", sold: true, images: ["public/Paintings/27.jpg", "public/Paintings/28.jpg", "public/Paintings/29.jpg", "public/Paintings/30.jpg"] },
+            { id: "art6", price: "€ 55", size: "30x30 cm", sold: true, images: ["public/Paintings/31.jpg", "public/Paintings/32.jpg", "public/Paintings/33.jpg", "public/Paintings/34.jpg", "public/Paintings/35.jpg", "public/Paintings/36.jpg", "public/Paintings/37.jpg"] },
+            { id: "art7", price: "€ 60", size: "40x40 cm", images: ["public/Paintings/38.jpg", "public/Paintings/39.jpg", "public/Paintings/40.jpg", "public/Paintings/41.jpg"] }
+        ];
 
         let activeLang = 'nl';
 
@@ -362,7 +403,7 @@ const artworks = [
                     else el.innerHTML = translations[lang][key];
                 }
             });
-            ['nl','fr','en'].forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x === lang));
+            languages.forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x === lang));
 
             updateImageAltTags();
         }
@@ -387,7 +428,7 @@ const artworks = [
         const root = document.getElementById('gallery-root');
         artworks.forEach((art, idx) => {
             root.insertAdjacentHTML('beforeend', `
-                <div class="artwork-page" id="page-${idx}" data-idx="${idx}">
+                <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
                         <div class="carousel-wrapper">
                             <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, -1)" aria-label="Previous image">
@@ -404,7 +445,8 @@ const artworks = [
                         </div>
                         <div style="margin-top: 1.5rem;">
                             <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
-                            <span class="price-tag">${art.price}</span>
+                            <span class="price-tag${art.sold ? ' is-sold' : ''}">${art.price}</span>
+                            ${art.sold ? `<span class="sold-tag" data-key="sold">${translations['nl']['sold']}</span>` : ''}
                             <span class="size-tag">${art.size}</span>
                         </div>
                     </div>
@@ -467,8 +509,12 @@ const artworks = [
 
         function openModal(artId) {
             const currentLang = activeLang;
+            const art = artworks.find(a => a.id === artId);
+            const isSold = !!(art && art.sold);
+
             document.getElementById('modalTitle').innerText = translations[currentLang][artId];
-            document.getElementById('hiddenSubject').value = "Interest: " + translations[currentLang][artId];
+            document.getElementById('modalSold').style.display = isSold ? "block" : "none";
+            document.getElementById('hiddenSubject').value = (isSold ? "Sold work - similar request: " : "Interest: ") + translations[currentLang][artId];
             document.getElementById('artModal').style.display = "block";
             document.body.style.overflow = 'hidden';
         }
