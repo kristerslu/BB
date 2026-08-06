@@ -160,6 +160,14 @@
         #modalSold { margin: 0 0 1.2rem; font-size: 0.8rem; line-height: 1.4; font-weight: 400; color: #6b6157; border: 1px solid var(--accent); background: var(--sand); padding: 0.8rem; }
 
         .alternative-email-section { margin-top: 2rem; }
+
+        /* CONTACT */
+        .contact-links { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1px; background: var(--border); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .contact-link { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 0.2rem; background: var(--white); transition: background 0.3s, padding 0.3s; }
+        .contact-link-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+        .contact-link-value { font-size: 1rem; font-weight: 300; text-align: right; word-break: break-word; }
+        @media (hover: hover) { .contact-link:hover { background: var(--sand); padding-left: 0.7rem; padding-right: 0.7rem; } }
+        .contact-link:active { background: var(--sand); }
         .contact-intro { font-size: 13px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 300; }
         .contact-email { font-size: 14px; color: var(--black); text-decoration: underline; text-underline-offset: 4px; display: inline-block; font-weight: 400; transition: opacity 0.2s; }
         @media (hover: hover) { .contact-email:hover { opacity: 0.6; } }
@@ -241,6 +249,7 @@
             <a href="#collection" data-key="nav-coll" onclick="closeNav()">Collectie</a>
             <a href="#about" data-key="nav-phil" onclick="closeNav()">Filosofie</a>
             <a href="#inquire" data-key="nav-inq" onclick="closeNav()">Aanvraag</a>
+            <a href="#contact" data-key="nav-contact" onclick="closeNav()">Contact</a>
         </div>
     </nav>
 
@@ -307,6 +316,27 @@
         </div>
     </section>
 
+    <section id="contact">
+        <div class="reveal" style="max-width: 600px; padding: 0 1.5rem;">
+            <span class="section-tag" data-key="nav-contact"></span>
+            <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 0.6rem;" data-key="contact-title"></h2>
+            <p style="font-weight: 300; color: var(--muted); margin-top: 0;" data-key="contact-desc"></p>
+
+            <div class="contact-links">
+                <a href="mailto:info@betabeatrise.com" class="contact-link">
+                    <span class="contact-link-label" data-key="contact-email-label"></span>
+                    <span class="contact-link-value">info@betabeatrise.com</span>
+                </a>
+                <a href="https://www.instagram.com/betabeatrise.art" class="contact-link" target="_blank" rel="noopener">
+                    <span class="contact-link-label">Instagram</span>
+                    <span class="contact-link-value">@betabeatrise.art</span>
+                </a>
+            </div>
+
+            <p style="font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-top: 2.5rem;" data-key="contact-loc"></p>
+        </div>
+    </section>
+
     <script>
         // URL & SCROLL RESET
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
@@ -318,7 +348,9 @@
 
         const translations = {
             nl: {
-                "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag",
+                "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "nav-contact": "Contact",
+                "contact-title": "Neem Contact Op", "contact-desc": "Vragen over een werk, een opdracht of interieuradvies? Ik hoor het graag.",
+                "contact-email-label": "E-mail", "contact-loc": "Turnhout & Oud-Turnhout, België",
                 "hero-desc": "Abstracte composities. Zware texturen. Glinsteringen van goud.",
                 "coll-tag": "Beschikbaar Werk", "coll-desc": "Ontdek de collectie",
                 "about-tag": "Filosofie", "about-title": "Elegantie in de Puurheid", "about-text": "Beta Beatrise verkent de verbinding tussen ruw materiaal en verfijnde elegantie. Haar werken kennen geen vaste boven- of onderkant; ze zijn ontworpen om gedraaid te worden, zodat de kijker zijn eigen perspectief en emotie in de compositie kan vinden.",
@@ -333,7 +365,9 @@
                 "success": "Bericht verstuurd!", "error": "Oeps! Er ging iets mis."
             },
             en: {
-                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry",
+                "nav-coll": "Collection", "nav-phil": "Philosophy", "nav-inq": "Inquiry", "nav-contact": "Contact",
+                "contact-title": "Get in Touch", "contact-desc": "Questions about a piece, a commission or interior advice? I would love to hear from you.",
+                "contact-email-label": "Email", "contact-loc": "Turnhout & Oud-Turnhout, Belgium",
                 "hero-desc": "Abstract compositions. Heavy textures. Glimmers of gold.",
                 "coll-tag": "Available Work", "coll-desc": "Discover the collection",
                 "about-tag": "Philosophy", "about-title": "Elegance in the Raw", "about-text": "Beta Beatrise explores the connection between raw material and refined elegance. Her works have no fixed top or bottom; they are designed to be rotated, allowing the viewer to find their own perspective and emotion within the composition.",
@@ -348,7 +382,9 @@
                 "success": "Message sent!", "error": "Oops! Something went wrong."
             },
             fr: {
-                "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande",
+                "nav-coll": "Collection", "nav-phil": "Philosophie", "nav-inq": "Demande", "nav-contact": "Contact",
+                "contact-title": "Me Contacter", "contact-desc": "Des questions sur une œuvre, une commande ou un conseil d'intérieur ? Écrivez-moi.",
+                "contact-email-label": "E-mail", "contact-loc": "Turnhout & Oud-Turnhout, Belgique",
                 "hero-desc": "Compositions abstraites. Textures lourdes. Éclats d'or.",
                 "coll-tag": "Travail Disponible", "coll-desc": "Découvrez la collection",
                 "about-tag": "Philosophie", "about-title": "L'Élégance à l'État Brut", "about-text": "Beta Beatrise explore le lien entre la matière brute et l'élégance raffinée. Ses œuvres n'ont ni haut ni bas fixe ; elles sont conçues pour être pivotées, permettant au spectateur de trouver sa propre perspective et émotion au sein de la composition.",
@@ -363,7 +399,9 @@
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
             },
             lv: {
-                "nav-coll": "Kolekcija", "nav-phil": "Filozofija", "nav-inq": "Pieprasījums",
+                "nav-coll": "Kolekcija", "nav-phil": "Filozofija", "nav-inq": "Pieprasījums", "nav-contact": "Kontakti",
+                "contact-title": "Sazinies ar Mani", "contact-desc": "Jautājumi par darbu, pasūtījumu vai interjera konsultāciju? Priecāšos dzirdēt.",
+                "contact-email-label": "E-pasts", "contact-loc": "Turnhout un Oud-Turnhout, Beļģija",
                 "hero-desc": "Abstraktas kompozīcijas. Smagas faktūras. Zelta atspīdumi.",
                 "coll-tag": "Pieejamie Darbi", "coll-desc": "Iepazīsti kolekciju",
                 "about-tag": "Filozofija", "about-title": "Elegance Neapstrādātībā", "about-text": "Beta Beatrise pēta saikni starp neapstrādātu materiālu un izsmalcinātu eleganci. Viņas darbiem nav noteiktas augšas vai apakšas; tie ir radīti, lai tos grieztu, ļaujot skatītājam kompozīcijā atrast savu perspektīvu un emociju.",
