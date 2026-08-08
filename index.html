@@ -481,7 +481,7 @@
                             </button>
                             <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                                 <div class="carousel-track" id="t-${idx}" data-current="0">
-                                    ${art.images.map((img, i) => `<img src="${img}" alt="">`).join('')}
+                                    ${art.images.map((img, i) => `<img src="${img}" alt="" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">`).join('')}
                                 </div>
                             </div>
                             <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
