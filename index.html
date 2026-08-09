@@ -421,21 +421,25 @@
 
         const artworks = [
             { id: "art0", price: "€ 200", size: "70x140 cm", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
-            { id: "art1", price: "€ 100", size: "60x80 cm", images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
+            { id: "art1", price: "€ 100", size: "60x80 cm", sold: true, images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
             { id: "art2", price: "€ 35", size: "30x30 cm", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
             { id: "art3", price: "€ 75", size: "50x50 cm", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] },
             { id: "art4", price: "€ 55", size: "30x40 cm", images: ["public/Paintings/20.jpg", "public/Paintings/21.jpg", "public/Paintings/22.jpg", "public/Paintings/23.jpg", "public/Paintings/24.jpg", "public/Paintings/25.jpg", "public/Paintings/26.jpg"] },
             { id: "art5", price: "€ 35", size: "20x20 cm", sold: true, images: ["public/Paintings/27.jpg", "public/Paintings/28.jpg", "public/Paintings/29.jpg", "public/Paintings/30.jpg"] },
             { id: "art6", price: "€ 55", size: "30x30 cm", sold: true, images: ["public/Paintings/31.jpg", "public/Paintings/32.jpg", "public/Paintings/33.jpg", "public/Paintings/34.jpg", "public/Paintings/35.jpg", "public/Paintings/36.jpg", "public/Paintings/37.jpg"] },
             { id: "art7", price: "€ 60", size: "40x40 cm", images: ["public/Paintings/38.jpg", "public/Paintings/39.jpg", "public/Paintings/40.jpg", "public/Paintings/41.jpg"] },
-            { id: "art8", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/42.JPEG", "public/Paintings/43.JPEG", "public/Paintings/44.JPEG"] },
-            { id: "art9", price: "€ 30", size: "40x40 cm", images: ["public/Paintings/45.JPEG", "public/Paintings/46.JPEG", "public/Paintings/47.JPEG"] },
-            { id: "art10", price: "€ 20", size: "40x40 cm", images: ["public/Paintings/48.JPEG"] },
-            { id: "art11", price: "€ 35", size: "40x40 cm", images: ["public/Paintings/49.JPEG", "public/Paintings/50.JPEG", "public/Paintings/51.JPEG", "public/Paintings/52.JPEG"] },
-            { id: "art12", price: "€ 35", size: "40x40 cm", images: ["public/Paintings/53.JPEG", "public/Paintings/54.JPEG", "public/Paintings/55.JPEG", "public/Paintings/56.JPEG"] },
-            { id: "art13", price: "€ 65", size: "40x40 cm", images: ["public/Paintings/57.JPEG", "public/Paintings/58.JPEG", "public/Paintings/59.JPEG"] },
-            { id: "art14", price: "€ 40", size: "40x40 cm", images: ["public/Paintings/60.JPEG", "public/Paintings/61.JPEG", "public/Paintings/62.JPEG"] }
+            { id: "art8", price: "€ 75", size: "40x40 cm", sold: true, images: ["public/Paintings/42.JPEG", "public/Paintings/43.JPEG", "public/Paintings/44.JPEG"] },
+            { id: "art9", price: "€ 75", size: "40x40 cm", sold: true, images: ["public/Paintings/45.JPEG", "public/Paintings/46.JPEG", "public/Paintings/47.JPEG"] },
+            { id: "art10", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/48.JPEG"] },
+            { id: "art11", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/49.JPEG", "public/Paintings/50.JPEG", "public/Paintings/51.JPEG", "public/Paintings/52.JPEG"] },
+            { id: "art12", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/53.JPEG", "public/Paintings/54.JPEG", "public/Paintings/55.JPEG", "public/Paintings/56.JPEG"] },
+            { id: "art13", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/57.JPEG", "public/Paintings/58.JPEG", "public/Paintings/59.JPEG"] },
+            { id: "art14", price: "€ 75", size: "40x40 cm", images: ["public/Paintings/60.JPEG", "public/Paintings/61.JPEG", "public/Paintings/62.JPEG"] }
         ];
+
+        // Available works first, sold works pushed to the end — order within
+        // each group is preserved (Array.sort is stable).
+        const displayOrder = [...artworks].sort((a, b) => (a.sold ? 1 : 0) - (b.sold ? 1 : 0));
 
         let activeLang = 'nl';
 
@@ -460,7 +464,7 @@
         function updateImageAltTags() {
             artworks.forEach(art => {
                 const title = translations[activeLang][art.id];
-                const track = document.getElementById(`t-${artworks.indexOf(art)}`);
+                const track = document.getElementById(`t-${displayOrder.indexOf(art)}`);
                 if (track) {
                     const imgs = track.querySelectorAll('img');
                     imgs.forEach((img, i) => {
@@ -471,7 +475,7 @@
         }
 
         const root = document.getElementById('gallery-root');
-        artworks.forEach((art, idx) => {
+        displayOrder.forEach((art, idx) => {
             root.insertAdjacentHTML('beforeend', `
                 <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
                     <div class="artwork-container reveal">
