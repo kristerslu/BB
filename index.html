@@ -517,12 +517,26 @@ Index · HTML
             });
         }
  
+        async function discoverAllArtworkImages(items, concurrency = 3) {
+            // Probe only a few folders at a time — some hosts throttle or
+            // block a sudden burst of many simultaneous requests, even when
+            // each individual request is fine on its own.
+            let next = 0;
+            async function worker() {
+                while (next < items.length) {
+                    const item = items[next++];
+                    item.images = await discoverFolderImages(item.folder);
+                }
+            }
+            const workers = Array.from({ length: Math.min(concurrency, items.length) }, worker);
+            await Promise.all(workers);
+        }
+ 
         async function buildGallery() {
-            // Discover every painting's photos in parallel before rendering,
-            // so we know each carousel's true image count up front.
-            await Promise.all(artworks.map(async art => {
-                art.images = await discoverFolderImages(art.folder);
-            }));
+            // Discover every painting's photos (a few folders at a time)
+            // before rendering, so we know each carousel's true image count
+            // up front.
+            await discoverAllArtworkImages(artworks, 3);
  
             const root = document.getElementById('gallery-root');
             displayOrder.forEach((art, idx) => {
