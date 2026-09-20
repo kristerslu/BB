@@ -1,3 +1,6 @@
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -11,7 +14,7 @@
     <meta name="author" content="Beta Beatrise">
     
     <link rel="icon" href="favicon.png" type="image/png">
-
+ 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -57,12 +60,12 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
-
+ 
         :root {
             --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
             --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
         }
-
+ 
         /* RESET & SNAP */
         html { overflow: hidden; height: 100%; scroll-behavior: auto; }
         body { 
@@ -72,13 +75,13 @@
             font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
-
+ 
         a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
+ 
         /* NAVIGATION */
         nav { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
@@ -91,13 +94,13 @@
         .lang { justify-self: center; display: flex; gap: 0.5rem; }
         .lang button { background: none; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; opacity: 0.4; padding: 4px; text-transform: uppercase; transition: opacity 0.2s; color: inherit; }
         .lang button.on { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
-
+ 
         .menu-toggle { justify-self: end; background: none; border: none; cursor: pointer; width: 26px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
         .menu-toggle span { display: block; height: 2px; width: 100%; background: var(--black); transition: transform 0.3s, opacity 0.3s; }
         .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
+ 
         .nav-menu { display: none; position: absolute; top: 100%; right: 1.5rem; margin-top: 0.5rem; background: var(--white); border: 1px solid var(--border); min-width: 210px; box-shadow: 0 20px 45px -22px rgba(0,0,0,0.3); }
         .nav-menu.open { display: block; }
         .nav-menu a { display: block; padding: 0.95rem 1.3rem; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; border-bottom: 1px solid var(--border); }
@@ -105,7 +108,7 @@
         .nav-menu a.feature { color: #3d1f2e; font-weight: 700; background: var(--sand); }
         .nav-menu a.feature .badge { display: inline-block; background: #3d1f2e; color: #fff; font-size: 8px; padding: 2px 5px; margin-right: 6px; letter-spacing: 0.1em; }
         @media (hover: hover) { .nav-menu a:hover { background: var(--sand); } }
-
+ 
         /* SECTIONS */
         section, .artwork-page { 
             height: 100vh; height: 100dvh; width: 100%; 
@@ -113,9 +116,9 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             position: relative; box-sizing: border-box; text-align: center; 
         }
-
+ 
         .hero { 
-            background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1.jpg');
+            background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1/1.jpg');
             background-size: cover; background-position: center; 
         }
         .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); line-height: 0.9; margin: 0; letter-spacing: -2px; }
@@ -126,12 +129,12 @@
             border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); 
             transform: rotate(45deg); animation: arrow-vertical 2s infinite ease-in-out;
         }
-
+ 
         @keyframes arrow-vertical {
             0%, 100% { transform: rotate(45deg) translate(0, 0); }
             50% { transform: rotate(45deg) translate(8px, 8px); }
         }
-
+ 
         /* CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .carousel-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -139,16 +142,16 @@
         
         @media (hover: hover) { .gallery-arrow:hover, .art-title-btn:hover { color: var(--black); } }
         .gallery-arrow:active, .art-title-btn:active { color: var(--black); }
-
+ 
         .gallery-arrow svg { width: 28px; height: 28px; stroke-width: 1px; }
         .carousel { flex-grow: 1; position: relative; height: 50vh; overflow: hidden; cursor: pointer; margin: 0 10px; }
         .carousel-track { display: flex; align-items: center; width: 100%; height: 100%; pointer-events: none; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; }
         .carousel-track img { flex: 0 0 100%; width: 100%; max-height: 100%; object-fit: contain; box-sizing: border-box; padding: 15px; }
-
+ 
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s, color 0.3s; margin: 0; }
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
-
+ 
         /* SOLD WORKS — still fully viewable, clearly no longer available */
         .price-tag.is-sold { color: #b0b0b0; text-decoration: line-through; }
         .sold-tag {
@@ -158,9 +161,9 @@
         }
         .artwork-page.is-sold-work .carousel-track img { opacity: 0.9; }
         #modalSold { margin: 0 0 1.2rem; font-size: 0.8rem; line-height: 1.4; font-weight: 400; color: #6b6157; border: 1px solid var(--accent); background: var(--sand); padding: 0.8rem; }
-
+ 
         .alternative-email-section { margin-top: 2rem; }
-
+ 
         /* CONTACT */
         .contact-links { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1px; background: var(--border); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .contact-link { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 0.2rem; background: var(--white); transition: background 0.3s, padding 0.3s; }
@@ -175,19 +178,19 @@
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; box-sizing: border-box; border-radius: 0; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; display: block; margin: 0 auto; }
         .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
-
+ 
         #inquire { padding-top: 60px; justify-content: center; }
         #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.3rem !important; font-size: 1.8rem !important; line-height: 1.1; }
         #inquire p { font-size: 0.85rem; margin-bottom: 1.2rem !important; line-height: 1.3; color: var(--muted); font-weight: 300; }
-
+ 
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
         .modal-content { max-width: 500px; width: 90%; margin: 5vh auto; padding: 2.5rem 1.5rem; position: relative; text-align: center; box-sizing: border-box; background: #ffffff; }
         .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; z-index: 20001; transition: opacity 0.2s; }
         @media (hover: hover) { .close-modal:hover { opacity: 0.5; } }
-
+ 
         .bg-dark { background-color: var(--dark); color: var(--white); }
-
+ 
         @media (max-width: 768px) {
             .nav-content { grid-template-columns: auto 1fr auto; }
             .carousel { height: 40vh; margin: 0 5px; }
@@ -201,12 +204,12 @@
             .logo img { height: 40px; }
             .lang { gap: 0.15rem; }
             .lang button { font-size: 10px; padding: 3px 2px; letter-spacing: 0.05em; }
-
+ 
         }
     </style>
 </head>
 <body>
-
+ 
     <div id="artModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -228,7 +231,7 @@
             </div>
         </div>
     </div>
-
+ 
     <nav>
         <div class="nav-content">
             <div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo">
@@ -245,16 +248,17 @@
             </button>
         </div>
         <div class="nav-menu" id="navMenu">
-            <a href="wine-and-design.html" class="feature"><span class="badge">New</span>Wine &amp; Design</a>
+            <a href="wine-and-design.html" class="feature"><span class="badge">Event</span>Wine &amp; Design</a>
+            <a href="cards.html" class="feature"><span class="badge">New</span>Greeting Cards</a>
             <a href="#collection" data-key="nav-coll" onclick="closeNav()">Collectie</a>
             <a href="#about" data-key="nav-phil" onclick="closeNav()">Filosofie</a>
             <a href="#inquire" data-key="nav-inq" onclick="closeNav()">Aanvraag</a>
             <a href="#contact" data-key="nav-contact" onclick="closeNav()">Contact</a>
         </div>
     </nav>
-
-
-
+ 
+ 
+ 
     <section id="top" class="hero">
         <div class="reveal" style="width: 100%; max-width: 1100px; padding: 0 1.5rem; box-sizing: border-box; text-align: left;">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
@@ -264,7 +268,7 @@
             <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
         </div>
     </section>
-
+ 
     <section id="collection">
         <div class="reveal">
             <span class="section-tag" data-key="coll-tag"></span>
@@ -275,9 +279,9 @@
             <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
         </div>
     </section>
-
+ 
     <div id="gallery-root"></div>
-
+ 
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
         <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="about-tag"></span>
@@ -285,7 +289,7 @@
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text"></p>
         </div>
     </section>
-
+ 
     <section id="inquire">
         <div class="reveal">
             <span class="section-tag" data-key="nav-inq"></span>
@@ -306,7 +310,7 @@
             </div>
         </div>
     </section>
-
+ 
     <section id="interior" class="bg-dark">
         <div class="reveal">
             <span class="section-tag" data-key="int-tag"></span>
@@ -315,13 +319,13 @@
             <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon"></span>
         </div>
     </section>
-
+ 
     <section id="contact">
         <div class="reveal" style="max-width: 600px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="nav-contact"></span>
             <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 0.6rem;" data-key="contact-title"></h2>
             <p style="font-weight: 300; color: var(--muted); margin-top: 0;" data-key="contact-desc"></p>
-
+ 
             <div class="contact-links">
                 <a href="mailto:info@betabeatrise.com" class="contact-link">
                     <span class="contact-link-label" data-key="contact-email-label"></span>
@@ -332,11 +336,11 @@
                     <span class="contact-link-value">@betabeatrise.art</span>
                 </a>
             </div>
-
+ 
             <p style="font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-top: 2.5rem;" data-key="contact-loc"></p>
         </div>
     </section>
-
+ 
     <script>
         // URL & SCROLL RESET
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
@@ -345,7 +349,7 @@
             if (window.location.hash) { history.replaceState(null, null, window.location.pathname); }
             setTimeout(() => { window.scrollTo(0, 0); }, 10);
         };
-
+ 
         const translations = {
             nl: {
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "nav-contact": "Contact",
@@ -362,6 +366,7 @@
                 "email-intro": "Of stuur rechtstreeks een e-mail:",
                 "p-name": "Naam", "p-email": "E-mail", "p-phone": "Telefoon (Optioneel)", "p-msg": "Bericht", "p-msg-l": "Formaat, kleurenpalet, etc.",
                 "art0": "Begin van het Licht", "art1": "Gouden Cascade", "art2": "Vergulde Wandeling", "art3": "Sporen van Goud", "art4": "Holte", "art5": "Tussen de Stammen", "art6": "Wat Blijft", "art7": "Loofgoud", "art8": "Amber Resonantie", "art9": "Eucalyptus & Goudstof", "art10": "Fluisterende Dennen in Goud deel 2", "art11": "Fluisterende Dennen in Goud deel 1", "art12": "Woud van Licht", "art13": "Bloemblaadjes van Licht deel 1", "art14": "Bloemblaadjes van Licht deel 2",
+                "art15": "Nieuw Werk 16", "art16": "Nieuw Werk 17", "art17": "Nieuw Werk 18", "art18": "Nieuw Werk 19",
                 "success": "Bericht verstuurd!", "error": "Oeps! Er ging iets mis."
             },
             en: {
@@ -379,6 +384,7 @@
                 "email-intro": "Or send me an email directly:",
                 "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Size, color palette, etc.",
                 "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold", "art4": "Hollow", "art5": "Between the Trunks", "art6": "What Remains", "art7": "Leafgold", "art8": "Amber Resonance", "art9": "Eucalyptus & Gold Dust", "art10": "Whispering Pines in Gold pt.2", "art11": "Whispering Pines in Gold pt.1", "art12": "Forest of Light", "art13": "Petals of Light pt.1", "art14": "Petals of Light pt.2",
+                "art15": "New Work 16", "art16": "New Work 17", "art17": "New Work 18", "art18": "New Work 19",
                 "success": "Message sent!", "error": "Oops! Something went wrong."
             },
             fr: {
@@ -396,53 +402,89 @@
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
                 "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Format, palette de couleurs, etc.",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or", "art4": "Creux", "art5": "Entre les Troncs", "art6": "Ce qui Reste", "art7": "Or de Feuillage", "art8": "Résonance Ambrée", "art9": "Eucalyptus & Poussière d'Or", "art10": "Pins Chuchotants en Or partie 2", "art11": "Pins Chuchotants en Or partie 1", "art12": "Forêt de Lumière", "art13": "Pétales de Lumière partie 1", "art14": "Pétales de Lumière partie 2",
+                "art15": "Nouvelle Œuvre 16", "art16": "Nouvelle Œuvre 17", "art17": "Nouvelle Œuvre 18", "art18": "Nouvelle Œuvre 19",
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
             },
             lv: {
                 "nav-coll": "Kolekcija", "nav-phil": "Filozofija", "nav-inq": "Pieprasījums", "nav-contact": "Kontakti",
-                "contact-title": "Sazinies ar Mani", "contact-desc": "Jautājumi par darbu, pasūtījumu vai interjera konsultāciju? Priecāšos dzirdēt.",
+                "contact-title": "Sazinieties ar mani", "contact-desc": "Jautājumi par darbu, pasūtījumu vai interjera konsultāciju? Priecāšos par jūsu ziņu!",
                 "contact-email-label": "E-pasts", "contact-loc": "Turnhout un Oud-Turnhout, Beļģija",
-                "hero-desc": "Abstraktas kompozīcijas. Smagas faktūras. Zelta atspīdumi.",
-                "coll-tag": "Pieejamie Darbi", "coll-desc": "Iepazīsti kolekciju",
-                "about-tag": "Filozofija", "about-title": "Elegance Neapstrādātībā", "about-text": "Beta Beatrise pēta saikni starp neapstrādātu materiālu un izsmalcinātu eleganci. Viņas darbiem nav noteiktas augšas vai apakšas; tie ir radīti, lai tos grieztu, ļaujot skatītājam kompozīcijā atrast savu perspektīvu un emociju.",
-                "int-tag": "Interjers", "int-title": "Interjera Konsultācijas", "int-desc": "Vai zināji, ka sniedzu arī konsultācijas?<br>No mākslas uz sienas līdz pilnīgi harmoniskam interjeram.", "soon": "DRĪZUMĀ",
-                "form-title": "Unikāla Glezna", "form-desc": "Vēlaties darbu, kas ideāli iederas jūsu interjerā? Atstājiet savus datus nesaistošam pieprasījumam.", "form-btn": "Nosūtīt Pieprasījumu",
+                "hero-desc": "Abstraktas kompozīcijas. Izteiktas faktūras. Zelta atspīdumi.",
+                "coll-tag": "Pieejamie darbi", "coll-desc": "Iepazīstiet kolekciju",
+                "about-tag": "Filozofija", "about-title": "Elegance skarbumā", "about-text": "Beta Beatrise pēta saikni starp neapstrādātu materiālu un izsmalcinātu eleganci. Viņas darbiem nav noteiktas augšas vai apakšas; tie ir radīti, lai tos grieztu, ļaujot skatītājam kompozīcijā atrast savu perspektīvu un emociju.",
+                "int-tag": "Interjers", "int-title": "Interjera konsultācijas", "int-desc": "Vai zinājāt, ka sniedzu arī konsultācijas?<br>No sienas mākslas līdz pilnīgi harmoniskam interjeram.", "soon": "DRĪZUMĀ",
+                "form-title": "Unikāla glezna", "form-desc": "Vēlaties darbu, kas ideāli iederas jūsu interjerā? Atstājiet savus datus nesaistošam pieprasījumam.", "form-btn": "Nosūtīt pieprasījumu",
                 "modal-sub": "Vai jūs interesē šis darbs? Atstājiet savus datus zemāk.",
                 "modal-sold": "Šis darbs ir pārdots. Vēlaties kaut ko līdzīgā noskaņā? Atstājiet savus datus, un es labprāt radīšu darbu pēc pasūtījuma.",
                 "sold": "Pārdots",
-                "email-intro": "Vai rakstiet tieši e-pastā:",
+                "email-intro": "Vai arī rakstiet tieši uz e-pastu:",
                 "p-name": "Vārds", "p-email": "E-pasts", "p-phone": "Tālrunis (neobligāti)", "p-msg": "Ziņojums", "p-msg-l": "Izmērs, krāsu palete u.c.",
-                "art0": "Gaismas Sākums", "art1": "Zelta Kaskāde", "art2": "Zeltīta Pastaiga", "art3": "Zelta Pēdas", "art4": "Dobums", "art5": "Starp Stumbriem", "art6": "Kas Paliek", "art7": "Lapu Zelts", "art8": "Dzintara Rezonanse", "art9": "Eikalipts un Zelta Putekļi", "art10": "Čukstošas Priedes Zeltā, 2. daļa", "art11": "Čukstošas Priedes Zeltā, 1. daļa", "art12": "Gaismas Mežs", "art13": "Gaismas Ziedlapiņas, 1. daļa", "art14": "Gaismas Ziedlapiņas, 2. daļa",
-                "success": "Ziņojums nosūtīts!", "error": "Ak vai! Kaut kas nogāja greizi."
+                "art0": "Gaismas Sākums", "art1": "Zelta Kaskāde", "art2": "Zeltīta Pastaiga", "art3": "Zelta Pēdas", "art4": "Dobums", "art5": "Starp Stumbriem", "art6": "Kas Paliek", "art7": "Lapzelts", "art8": "Dzintara Rezonanse", "art9": "Eikalipts un Zelta Putekļi", "art10": "Čukstošas Priedes Zeltā, 2. daļa", "art11": "Čukstošas Priedes Zeltā, 1. daļa", "art12": "Gaismas Mežs", "art13": "Gaismas Ziedlapiņas, 1. daļa", "art14": "Gaismas Ziedlapiņas, 2. daļa",
+                "art15": "Jauns Darbs 16", "art16": "Jauns Darbs 17", "art17": "Jauns Darbs 18", "art18": "Jauns Darbs 19",
+                "success": "Ziņojums nosūtīts!", "error": "Ak nē! Kaut kas nogāja greizi."
             }
         };
-
+ 
         const languages = ['nl', 'fr', 'en', 'lv'];
-
+ 
+        // --- Folder-based image discovery -------------------------------
+        // Each painting's photos live at public/Paintings/<folder>/1.jpg,
+        // 2.jpg, 3.jpg ... with no gaps. Instead of hardcoding how many
+        // images exist, we probe with lightweight HEAD requests until one
+        // is missing. Add or remove photos on the server — as long as the
+        // remaining ones stay numbered 1.jpg upward with no gaps — and the
+        // site picks them up automatically, no code change needed.
+        async function probeExists(url) {
+            try {
+                const res = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
+                return res.ok;
+            } catch (e) {
+                return false;
+            }
+        }
+ 
+        async function discoverFolderImages(folderPath, maxCount = 40) {
+            const found = [];
+            for (let i = 1; i <= maxCount; i++) {
+                const url = encodeURI(`${folderPath}${i}.jpg`);
+                if (!(await probeExists(url))) break;
+                found.push(url);
+            }
+            return found;
+        }
+ 
+        // Prices, sizes, sold-status and titles carried over 1:1 from the
+        // previous 15 paintings (folders 1-15, same order as before).
+        // Folders 16-19 are the new additions — titles/prices/sizes below
+        // are placeholders pending confirmation.
         const artworks = [
-            { id: "art0", price: "€ 400", size: "70x140 cm", images: ["public/Paintings/1.jpg", "public/Paintings/2.jpg", "public/Paintings/3.jpg", "public/Paintings/4.jpg", "public/Paintings/5.jpg"] },
-            { id: "art1", price: "€ 200", size: "60x80 cm", sold: true, images: ["public/Paintings/6.jpg", "public/Paintings/7.jpg", "public/Paintings/8.jpg", "public/Paintings/9.jpg"] },
-            { id: "art2", price: "€ 70", size: "30x30 cm", images: ["public/Paintings/10.jpg", "public/Paintings/11.jpg", "public/Paintings/12.jpg", "public/Paintings/14.jpg", "public/Paintings/15.jpg"] },
-            { id: "art3", price: "€ 150", size: "50x50 cm", images: ["public/Paintings/16.jpg", "public/Paintings/17.jpg", "public/Paintings/18.jpg", "public/Paintings/19.jpg"] },
-            { id: "art4", price: "€ 110", size: "30x40 cm", images: ["public/Paintings/20.jpg", "public/Paintings/21.jpg", "public/Paintings/22.jpg", "public/Paintings/23.jpg", "public/Paintings/24.jpg", "public/Paintings/25.jpg", "public/Paintings/26.jpg"] },
-            { id: "art5", price: "€ 70", size: "20x20 cm", sold: true, images: ["public/Paintings/27.jpg", "public/Paintings/28.jpg", "public/Paintings/29.jpg", "public/Paintings/30.jpg"] },
-            { id: "art6", price: "€ 110", size: "30x30 cm", sold: true, images: ["public/Paintings/31.jpg", "public/Paintings/32.jpg", "public/Paintings/33.jpg", "public/Paintings/34.jpg", "public/Paintings/35.jpg", "public/Paintings/36.jpg", "public/Paintings/37.jpg"] },
-            { id: "art7", price: "€ 120", size: "40x40 cm", images: ["public/Paintings/38.jpg", "public/Paintings/39.jpg", "public/Paintings/40.jpg", "public/Paintings/41.jpg"] },
-            { id: "art8", price: "€ 150", size: "40x40 cm", sold: true, images: ["public/Paintings/42.JPEG", "public/Paintings/43.JPEG", "public/Paintings/44.JPEG"] },
-            { id: "art9", price: "€ 50", size: "15x15 cm", sold: true, images: ["public/Paintings/45.JPEG", "public/Paintings/46.JPEG", "public/Paintings/47.JPEG"] },
-            { id: "art10", price: "€ 40", size: "10x10 cm", images: ["public/Paintings/48.JPEG"] },
-            { id: "art11", price: "€ 80", size: "20x20 cm", images: ["public/Paintings/49.JPEG", "public/Paintings/50.JPEG", "public/Paintings/51.JPEG", "public/Paintings/52.JPEG"] },
-            { id: "art12", price: "€ 80", size: "20x20 cm", images: ["public/Paintings/53.JPEG", "public/Paintings/54.JPEG", "public/Paintings/55.JPEG", "public/Paintings/56.JPEG"] },
-            { id: "art13", price: "€ 150", size: "30x30 cm", images: ["public/Paintings/57.JPEG", "public/Paintings/58.JPEG", "public/Paintings/59.JPEG"] },
-            { id: "art14", price: "€ 90", size: "20x20 cm", images: ["public/Paintings/60.JPEG", "public/Paintings/61.JPEG", "public/Paintings/62.JPEG"] }
+            { id: "art0", price: "€ 400", size: "70x140 cm", folder: "public/Paintings/1/" },
+            { id: "art1", price: "€ 200", size: "60x80 cm", sold: true, folder: "public/Paintings/2/" },
+            { id: "art2", price: "€ 70", size: "30x30 cm", folder: "public/Paintings/3/" },
+            { id: "art3", price: "€ 150", size: "50x50 cm", folder: "public/Paintings/4/" },
+            { id: "art4", price: "€ 110", size: "30x40 cm", folder: "public/Paintings/5/" },
+            { id: "art5", price: "€ 70", size: "20x20 cm", sold: true, folder: "public/Paintings/6/" },
+            { id: "art6", price: "€ 110", size: "30x30 cm", sold: true, folder: "public/Paintings/7/" },
+            { id: "art7", price: "€ 120", size: "40x40 cm", folder: "public/Paintings/8/" },
+            { id: "art8", price: "€ 150", size: "40x40 cm", sold: true, folder: "public/Paintings/9/" },
+            { id: "art9", price: "€ 50", size: "15x15 cm", sold: true, folder: "public/Paintings/10/" },
+            { id: "art10", price: "€ 40", size: "10x10 cm", folder: "public/Paintings/11/" },
+            { id: "art11", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/12/" },
+            { id: "art12", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/13/" },
+            { id: "art13", price: "€ 150", size: "30x30 cm", folder: "public/Paintings/14/" },
+            { id: "art14", price: "€ 90", size: "20x20 cm", folder: "public/Paintings/15/" },
+            { id: "art15", price: "€ ?", size: "? cm", folder: "public/Paintings/16/" },
+            { id: "art16", price: "€ ?", size: "? cm", folder: "public/Paintings/17/" },
+            { id: "art17", price: "€ ?", size: "? cm", folder: "public/Paintings/18/" },
+            { id: "art18", price: "€ ?", size: "? cm", folder: "public/Paintings/19/" }
         ];
-
+ 
         // Available works first, sold works pushed to the end — order within
         // each group is preserved (Array.sort is stable).
         const displayOrder = [...artworks].sort((a, b) => (a.sold ? 1 : 0) - (b.sold ? 1 : 0));
-
+ 
         let activeLang = 'nl';
-
+ 
         function setLang(lang) {
             activeLang = lang;
             document.querySelectorAll('[data-key]').forEach(el => { 
@@ -453,14 +495,14 @@
                 }
             });
             languages.forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x === lang));
-
+ 
             updateImageAltTags();
         }
-
+ 
         function toggleNav(e){ e.stopPropagation(); document.getElementById('navMenu').classList.toggle('open'); document.getElementById('menuToggle').classList.toggle('open'); }
         function closeNav(){ document.getElementById('navMenu').classList.remove('open'); document.getElementById('menuToggle').classList.remove('open'); }
         window.addEventListener('click', () => closeNav());
-
+ 
         function updateImageAltTags() {
             artworks.forEach(art => {
                 const title = translations[activeLang][art.id];
@@ -473,61 +515,76 @@
                 }
             });
         }
-
-        const root = document.getElementById('gallery-root');
-        displayOrder.forEach((art, idx) => {
-            root.insertAdjacentHTML('beforeend', `
-                <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
-                    <div class="artwork-container reveal">
-                        <div class="carousel-wrapper">
-                            <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, -1)" aria-label="Previous image">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
-                            </button>
-                            <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
-                                <div class="carousel-track" id="t-${idx}" data-current="0">
-                                    ${art.images.map((img, i) => `<img src="${img}" alt="" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">`).join('')}
+ 
+        async function buildGallery() {
+            // Discover every painting's photos in parallel before rendering,
+            // so we know each carousel's true image count up front.
+            await Promise.all(artworks.map(async art => {
+                art.images = await discoverFolderImages(art.folder);
+            }));
+ 
+            const root = document.getElementById('gallery-root');
+            displayOrder.forEach((art, idx) => {
+                if (!art.images.length) return; // nothing found for this folder yet — skip silently
+                root.insertAdjacentHTML('beforeend', `
+                    <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
+                        <div class="artwork-container reveal">
+                            <div class="carousel-wrapper">
+                                <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, -1)" aria-label="Previous image">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
+                                </button>
+                                <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
+                                    <div class="carousel-track" id="t-${idx}" data-current="0">
+                                        ${art.images.map((img, i) => `<img src="${img}" alt="" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">`).join('')}
+                                    </div>
                                 </div>
+                                <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg>
+                                </button>
                             </div>
-                            <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18l6-6-6-6"/></svg>
-                            </button>
+                            <div style="margin-top: 1.5rem;">
+                                <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
+                                <span class="price-tag${art.sold ? ' is-sold' : ''}">${art.price}</span>
+                                ${art.sold ? `<span class="sold-tag" data-key="sold">${translations['nl']['sold']}</span>` : ''}
+                                <span class="size-tag">${art.size}</span>
+                            </div>
                         </div>
-                        <div style="margin-top: 1.5rem;">
-                            <h3 class="serif art-title-btn" onclick="openModal('${art.id}')" data-key="${art.id}">${translations['nl'][art.id]}</h3>
-                            <span class="price-tag${art.sold ? ' is-sold' : ''}">${art.price}</span>
-                            ${art.sold ? `<span class="sold-tag" data-key="sold">${translations['nl']['sold']}</span>` : ''}
-                            <span class="size-tag">${art.size}</span>
-                        </div>
-                    </div>
-                </div>`);
-        });
-
+                    </div>`);
+            });
+ 
+            attachCarouselSwipe();
+            attachResetObserver();
+            updateImageAltTags();
+        }
+ 
         // SWIPE LOGIC
         let touchStart = { x: 0, y: 0 };
         let isSwiping = false;
-
-        document.querySelectorAll('.carousel').forEach((carousel, idx) => {
-            carousel.addEventListener('touchstart', e => {
-                touchStart.x = e.touches[0].clientX;
-                touchStart.y = e.touches[0].clientY;
-                isSwiping = false;
-            }, {passive: false});
-
-            carousel.addEventListener('touchmove', e => {
-                if (!touchStart.x || !touchStart.y) return;
-                let dx = touchStart.x - e.touches[0].clientX;
-                let dy = touchStart.y - e.touches[0].clientY;
-                if (Math.abs(dx) > Math.abs(dy) && e.cancelable) { e.preventDefault(); }
-                if (Math.abs(dx) > 40 && !isSwiping && Math.abs(dx) > Math.abs(dy)) {
-                    isSwiping = true;
-                    move(idx, dx > 0 ? 1 : -1);
-                }
-            }, {passive: false});
-
-            carousel.addEventListener('touchend', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
-            carousel.addEventListener('touchcancel', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
-        });
-
+ 
+        function attachCarouselSwipe() {
+            document.querySelectorAll('.carousel').forEach((carousel, idx) => {
+                carousel.addEventListener('touchstart', e => {
+                    touchStart.x = e.touches[0].clientX;
+                    touchStart.y = e.touches[0].clientY;
+                    isSwiping = false;
+                }, {passive: false});
+ 
+                carousel.addEventListener('touchmove', e => {
+                    if (!touchStart.x || !touchStart.y) return;
+                    let dx = touchStart.x - e.touches[0].clientX;
+                    let dy = touchStart.y - e.touches[0].clientY;
+                    if (Math.abs(dx) > Math.abs(dy) && e.cancelable) { e.preventDefault(); }
+                    if (Math.abs(dx) > 40 && !isSwiping && Math.abs(dx) > Math.abs(dy)) {
+                        isSwiping = true;
+                        move(idx, dx > 0 ? 1 : -1);
+                    }
+                }, {passive: false});
+ 
+                carousel.addEventListener('touchend', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
+                carousel.addEventListener('touchcancel', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
+            });
+        }
+ 
         function handleCarouselClick(event, idx, id) {
             const rect = event.currentTarget.getBoundingClientRect();
             const x = event.clientX - rect.left;
@@ -535,7 +592,7 @@
             else if (x > rect.width * 0.7) move(idx, 1);
             else openModal(id);
         }
-
+ 
         function move(idx, dir) {
             const track = document.getElementById(`t-${idx}`);
             const totalImages = track.querySelectorAll('img').length;
@@ -544,7 +601,7 @@
             track.setAttribute('data-current', current);
             track.style.transform = `translateX(-${current * 100}%)`;
         }
-
+ 
         function resetGallery(idx) {
             const track = document.getElementById(`t-${idx}`);
             if (!track) return;
@@ -555,12 +612,12 @@
                 setTimeout(() => { track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; }, 50);
             }
         }
-
+ 
         function openModal(artId) {
             const currentLang = activeLang;
             const art = artworks.find(a => a.id === artId);
             const isSold = !!(art && art.sold);
-
+ 
             document.getElementById('modalTitle').innerText = translations[currentLang][artId];
             document.getElementById('modalSold').style.display = isSold ? "block" : "none";
             document.getElementById('hiddenSubject').value = (isSold ? "Sold work - similar request: " : "Interest: ") + translations[currentLang][artId];
@@ -585,10 +642,10 @@
                 }
             });
         }
-
+ 
         document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
         document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
-
+ 
         // RE-TRIGGER ANIMATIONS
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
@@ -597,19 +654,33 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
+ 
         // RESET ON EXIT
-        const resetObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.intersectionRatio < 0.1) {
-                    const idx = entry.target.getAttribute('data-idx');
-                    if (idx !== null) resetGallery(idx);
-                }
-            });
-        }, { threshold: [0, 0.1, 0.9, 1] }); 
-        document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
-
+        function attachResetObserver() {
+            const resetObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.intersectionRatio < 0.1) {
+                        const idx = entry.target.getAttribute('data-idx');
+                        if (idx !== null) resetGallery(idx);
+                    }
+                });
+            }, { threshold: [0, 0.1, 0.9, 1] }); 
+            document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
+        }
+ 
         setLang('nl');
+        buildGallery();
     </script>
 </body>
 </html>
+ 
+
+
+
+
+
+
+
+
+
+
