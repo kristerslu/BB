@@ -539,8 +539,10 @@ Index · HTML
             await discoverAllArtworkImages(artworks, 3);
  
             const root = document.getElementById('gallery-root');
+            const rendered = [];
             displayOrder.forEach((art, idx) => {
                 if (!art.images.length) return; // nothing found for this folder yet — skip silently
+                rendered.push(art.id);
                 root.insertAdjacentHTML('beforeend', `
                     <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
                         <div class="artwork-container reveal">
@@ -566,6 +568,27 @@ Index · HTML
                         </div>
                     </div>`);
             });
+ 
+            // Visible, no-devtools-needed diagnostics if something's off.
+            if (rendered.length < artworks.length) {
+                const missing = artworks.filter(a => !rendered.includes(a.id));
+                let sample = '';
+                try {
+                    const probeUrl = encodeURI(`${missing[0].folder}1.jpg`);
+                    const res = await fetch(probeUrl, { method: 'GET', headers: { Range: 'bytes=0-0' }, cache: 'no-cache' });
+                    if (res.body && res.body.cancel) { res.body.cancel().catch(() => {}); }
+                    sample = `${probeUrl} → HTTP ${res.status}`;
+                } catch (e) {
+                    sample = `${missing[0].folder}1.jpg → request failed: ${e.message}`;
+                }
+                root.insertAdjacentHTML('beforeend', `
+                    <div style="max-width:600px;margin:2rem auto;padding:1.2rem 1.4rem;background:#fff3f0;border:1px solid #e0b4a8;font-size:13px;line-height:1.6;text-align:left;">
+                        <strong>Diagnostic (visible only in this debug build):</strong><br>
+                        ${rendered.length} of ${artworks.length} paintings found photos.<br>
+                        Missing: ${missing.map(a => a.folder).join(', ')}<br>
+                        Sample check: ${sample}
+                    </div>`);
+            }
  
             attachCarouselSwipe();
             attachResetObserver();
