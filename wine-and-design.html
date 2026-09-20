@@ -526,10 +526,13 @@ Wine and design · HTML
             document.documentElement.lang = l;
         }
  
-        /* ---- Auto-discover recap photos: public/Wine and Design/1.jpg... ---- */
+        /* ---- Auto-discover recap photos: public/WIne and Design/1.jpg... ---- */
         async function probeExists(url) {
-            try { const res = await fetch(url, { method:'HEAD', cache:'no-cache' }); return res.ok; }
-            catch (e) { return false; }
+            try {
+                const res = await fetch(url, { method:'GET', headers:{ Range:'bytes=0-0' }, cache:'no-cache' });
+                if (res.body && res.body.cancel) { res.body.cancel().catch(() => {}); }
+                return res.status === 200 || res.status === 206;
+            } catch (e) { return false; }
         }
         async function discoverFolderImages(folderPath, maxCount = 40) {
             const found = [];
@@ -542,7 +545,7 @@ Wine and design · HTML
         }
  
         async function buildRecapGallery() {
-            const images = await discoverFolderImages('public/Wine and Design/');
+            const images = await discoverFolderImages('public/WIne and Design/');
             const grid = document.getElementById('recapGallery');
             grid.innerHTML = '';
             if (!images.length) {
