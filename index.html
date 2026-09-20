@@ -436,8 +436,9 @@ Index · HTML
         // site picks them up automatically, no code change needed.
         async function probeExists(url) {
             try {
-                const res = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
-                return res.ok;
+                const res = await fetch(url, { method: 'GET', headers: { Range: 'bytes=0-0' }, cache: 'no-cache' });
+                if (res.body && res.body.cancel) { res.body.cancel().catch(() => {}); }
+                return res.status === 200 || res.status === 206;
             } catch (e) {
                 return false;
             }
