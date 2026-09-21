@@ -594,6 +594,7 @@
 
             attachCarouselSwipe();
             attachResetObserver();
+            attachRevealObserver();
             updateImageAltTags();
         }
 
@@ -693,7 +694,13 @@
                 else { entry.target.classList.remove('active'); }
             });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        function attachRevealObserver() {
+            document.querySelectorAll('.reveal:not([data-reveal-observed])').forEach(el => {
+                el.setAttribute('data-reveal-observed', '');
+                revealObserver.observe(el);
+            });
+        }
+        attachRevealObserver();
 
         // RESET ON EXIT
         function attachResetObserver() {
