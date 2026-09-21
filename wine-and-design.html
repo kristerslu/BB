@@ -1,25 +1,22 @@
-
-
-Wine and design · HTML
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
- 
+
     <title>Wine &amp; Design: The Designer Edition · Terugblik | Beta Beatrise</title>
     <meta name="description" content="Terugblik op Wine & Design: The Designer Edition in Turnhout — foto's van de avond, en hoe je op de hoogte blijft van de volgende editie.">
     <link rel="icon" href="favicon.png" type="image/png">
- 
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
- 
+
     <style>
         :root {
             --white:#ffffff; --black:#000000; --muted:#777777; --accent:#c2b5a3;
             --sand:#fbfaf8; --dark:#1a1816; --border:#eeeeee;
             --wine:#3d1f2e; --wine-soft:#5a2a3a;
         }
- 
+
         * { box-sizing:border-box; }
         html { scroll-behavior:smooth; overflow-x:hidden; width:100%; }
         body {
@@ -29,10 +26,10 @@ Wine and design · HTML
         }
         a,button,input,textarea,select { color:inherit; font-family:inherit; -webkit-tap-highlight-color:transparent; }
         .serif { font-family:'Playfair Display',serif; font-weight:400; }
- 
+
         .reveal { opacity:0; transform:translateY(20px); transition:all 1s cubic-bezier(0.16,1,0.3,1); }
         .reveal.active { opacity:1; transform:translateY(0); }
- 
+
         /* NAV */
         nav {
             position:fixed; top:0; left:0; right:0; z-index:10000;
@@ -47,7 +44,7 @@ Wine and design · HTML
         .lang button.on { opacity:1; text-decoration:underline; text-underline-offset:4px; }
         .home-btn { justify-self:end; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; font-weight:700; text-decoration:underline; text-underline-offset:4px; display:inline-flex; align-items:center; gap:6px; transition:opacity 0.2s; cursor:pointer; }
         @media (hover:hover){ .home-btn:hover { opacity:0.6; } }
- 
+
         /* HERO */
         .hero {
             min-height:100vh; display:flex; flex-direction:column; justify-content:center;
@@ -62,12 +59,12 @@ Wine and design · HTML
         .hero h1 { font-size:clamp(3rem,11vw,6.5rem); line-height:0.9; margin:0; letter-spacing:-2px; }
         .hero .sub { font-size:clamp(1.1rem,3.5vw,1.7rem); margin-top:0.6rem; color:var(--wine); font-style:italic; }
         .tagline { max-width:520px; margin:2rem auto 0; font-size:1.05rem; font-weight:300; color:#333; }
- 
+
         .meta-row { display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem 2rem; margin:2.6rem auto 0; }
         .meta-item { text-align:center; }
         .meta-item .v { font-family:'Playfair Display',serif; font-size:1.5rem; }
         .meta-item .l { font-size:9px; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
- 
+
         .cta {
             display:inline-block; margin-top:2.8rem; background:var(--wine); color:#fff; border:none;
             padding:1.1rem 2.6rem; cursor:pointer; text-transform:uppercase; font-size:11px; letter-spacing:0.2em; font-weight:600;
@@ -77,14 +74,14 @@ Wine and design · HTML
         .cta.ghost { background:none; color:var(--wine); border:1px solid var(--wine); margin-left:0.8rem; }
         @media (hover:hover){ .cta.ghost:hover { background:var(--wine); color:#fff; } }
         .hero-reassure { margin-top:1.4rem; font-size:0.8rem; color:var(--muted); font-weight:300; line-height:1.7; }
- 
+
         .scroll-cue { position:absolute; bottom:3vh; left:50%; transform:translateX(-50%); width:12px; height:12px; border-right:1px solid var(--muted); border-bottom:1px solid var(--muted); transform-origin:center; animation:bob 2s infinite ease-in-out; }
         @keyframes bob { 0%,100%{ transform:translateX(-50%) rotate(45deg) translate(0,0);} 50%{ transform:translateX(-50%) rotate(45deg) translate(6px,6px);} }
- 
+
         section { padding:6rem 1.5rem; }
         .wrap { max-width:900px; margin:0 auto; }
         .section-tag { font-size:11px; letter-spacing:0.3em; text-transform:uppercase; font-weight:700; border-bottom:1px solid var(--accent); padding-bottom:4px; display:inline-block; margin-bottom:1.4rem; }
- 
+
         /* RECAP GALLERY */
         .recap { background:var(--white); text-align:center; }
         .recap h2 { font-size:clamp(1.8rem,5vw,2.6rem); margin:0 0 0.8rem; }
@@ -92,7 +89,7 @@ Wine and design · HTML
         .recap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0.8rem; }
         .recap-grid img { width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--sand); }
         .recap-empty { font-size:0.9rem; color:var(--muted); font-weight:300; }
- 
+
         /* EXPERIENCE */
         .experience { background:var(--sand); text-align:center; }
         .experience h2 { font-size:clamp(1.8rem,5vw,2.6rem); margin:0 0 1.2rem; }
@@ -102,7 +99,7 @@ Wine and design · HTML
         .point .n { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--accent); }
         .point h3 { margin:0.4rem 0 0.5rem; font-size:1rem; font-weight:600; }
         .point p { margin:0; font-size:0.9rem; font-weight:300; color:#555; }
- 
+
         /* PRACTICAL INFO (historical) */
         .info { background:var(--dark); color:var(--white); }
         .info .wrap { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
@@ -114,7 +111,7 @@ Wine and design · HTML
         .info .info-line .is { display:block; font-size:0.85rem; font-weight:300; opacity:0.7; margin-top:0.15rem; }
         .info .map { width:100%; height:300px; border:none; filter:grayscale(0.3) contrast(1.05); }
         .info .map-link { display:inline-block; margin-top:0.6rem; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
- 
+
         /* HOST */
         .host { background:var(--white); }
         .host .wrap { display:grid; grid-template-columns:280px 1fr; gap:3rem; align-items:center; }
@@ -125,7 +122,7 @@ Wine and design · HTML
         .host .creds { list-style:none; padding:0; margin:0; }
         .host .creds li { font-size:0.9rem; padding:0.4rem 0; border-bottom:1px solid var(--border); display:flex; gap:0.6rem; }
         .host .creds li span { color:var(--accent); }
- 
+
         /* INCLUDED */
         .included { background:var(--sand); text-align:center; }
         .included h2 { font-size:clamp(1.6rem,4.5vw,2.2rem); margin:0 0 2rem; }
@@ -134,7 +131,7 @@ Wine and design · HTML
         .inc-item .ic { font-size:1.6rem; color:var(--wine); }
         .inc-item .t { font-size:0.9rem; font-weight:600; margin-top:0.5rem; }
         .trust-line { max-width:560px; margin:2.6rem auto 0; font-size:0.85rem; color:var(--muted); line-height:1.7; }
- 
+
         /* FAQ */
         .faq { background:var(--white); }
         .faq .wrap { max-width:680px; }
@@ -148,13 +145,13 @@ Wine and design · HTML
         .faq-a { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
         .faq-item.open .faq-a { max-height:340px; }
         .faq-a p { margin:0 0 1.3rem; font-weight:300; color:#555; font-size:0.95rem; line-height:1.7; }
- 
+
         /* WAITLIST */
         .waitlist { background:var(--sand); }
         .waitlist-head { text-align:center; max-width:560px; margin:0 auto 3rem; }
         .waitlist-head h2 { font-size:clamp(1.8rem,5vw,2.6rem); margin:0 0 0.6rem; }
         .waitlist-head p { font-weight:300; color:var(--muted); margin:0; }
- 
+
         .card { background:var(--white); border:1px solid var(--border); padding:2.5rem; max-width:520px; margin:0 auto; box-shadow:0 30px 60px -40px rgba(26,24,22,0.4); }
         label.field-label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:600; margin:1.4rem 0 0.5rem; color:#444; }
         input, textarea {
@@ -162,14 +159,14 @@ Wine and design · HTML
             outline:none; background:transparent; font-size:16px; border-radius:0; transition:border-color 0.2s;
         }
         input:focus, textarea:focus { border-color:var(--wine); }
- 
+
         .submit-btn { background:var(--black); color:#fff; border:none; padding:1.1rem; width:100%; cursor:pointer; text-transform:uppercase; font-size:11px; letter-spacing:0.2em; margin-top:1.6rem; transition:opacity 0.3s; }
         @media (hover:hover){ .submit-btn:hover { opacity:0.85; } }
         .status-msg { font-size:12px; margin-top:14px; font-weight:600; text-align:center; text-transform:uppercase; letter-spacing:0.08em; display:none; }
         .status-msg.err { color:#a33; }
         .status-msg.ok { color:#2a7; }
         .privacy-note { font-size:0.72rem; line-height:1.6; color:var(--muted); font-weight:300; margin:0.9rem 0 0; }
- 
+
         /* FOOTER */
         footer { background:var(--dark); color:var(--white); text-align:center; padding:4rem 1.5rem; }
         footer .fserif { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:1.6rem; }
@@ -178,7 +175,7 @@ Wine and design · HTML
         footer .foot-home { display:inline-block; margin-top:1.8rem; border:1px solid var(--accent); color:var(--accent); padding:0.7rem 1.6rem; font-size:10px; text-transform:uppercase; letter-spacing:0.2em; text-decoration:none; transition:all 0.25s; }
         @media (hover:hover){ footer .foot-home:hover { background:var(--accent); color:var(--dark); } }
         footer .fine { font-size:10px; opacity:0.4; margin-top:2.4rem; letter-spacing:0.05em; }
- 
+
         @media (max-width:768px){
             .nav-content { grid-template-columns:auto 1fr auto; }
             .logo img { height:40px; }
@@ -196,7 +193,7 @@ Wine and design · HTML
     </style>
 </head>
 <body>
- 
+
     <nav>
         <div class="nav-content">
             <a href="index.html" class="logo"><img src="favicon.png" alt="Beta Beatrise"></a>
@@ -209,7 +206,7 @@ Wine and design · HTML
             <a href="index.html" class="home-btn" data-key="home">← Home</a>
         </div>
     </nav>
- 
+
     <!-- HERO -->
     <header class="hero">
         <div class="hero-inner reveal active">
@@ -230,7 +227,7 @@ Wine and design · HTML
         </div>
         <div class="scroll-cue"></div>
     </header>
- 
+
     <!-- RECAP GALLERY -->
     <section class="recap" id="recap">
         <div class="wrap reveal">
@@ -242,7 +239,7 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- EXPERIENCE -->
     <section class="experience">
         <div class="wrap reveal">
@@ -257,7 +254,7 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- PRACTICAL INFO (about the first edition) -->
     <section class="info">
         <div class="wrap reveal">
@@ -281,7 +278,7 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- HOST -->
     <section class="host">
         <div class="wrap reveal">
@@ -301,7 +298,7 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- INCLUDED -->
     <section class="included">
         <div class="wrap reveal">
@@ -316,7 +313,7 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- FAQ -->
     <section class="faq">
         <div class="wrap reveal">
@@ -344,34 +341,34 @@ Wine and design · HTML
             </div>
         </div>
     </section>
- 
+
     <!-- WAITLIST -->
     <section class="waitlist" id="waitlist">
         <div class="waitlist-head reveal">
             <h2 class="serif" data-key="wait-title">Blijf op de hoogte</h2>
             <p data-key="wait-intro">Laat je gegevens achter en je hoort als eerste wanneer de volgende editie een datum krijgt.</p>
         </div>
- 
+
         <div class="card reveal">
             <form id="waitForm" action="https://formspree.io/f/mnjyolqr" method="POST">
                 <input type="hidden" name="Subject" value="Wine & Design - Waitlist">
- 
+
                 <label class="field-label" for="w-name" data-key="l-name">Naam</label>
                 <input type="text" id="w-name" name="name" required>
- 
+
                 <label class="field-label" for="w-email" data-key="l-email">Jouw e-mail</label>
                 <input type="email" id="w-email" name="email" required>
- 
+
                 <label class="field-label" for="w-notes" data-key="l-notes">Opmerkingen (optioneel)</label>
                 <textarea id="w-notes" name="notes" rows="2"></textarea>
- 
+
                 <button type="submit" class="submit-btn" data-key="wait-btn">Hou me op de hoogte</button>
                 <div class="status-msg" id="status"></div>
                 <p class="privacy-note" data-key="privacy">We gebruiken je gegevens alleen om je te verwittigen over nieuwe data, en delen ze nooit met derden. Je gegevens laten verwijderen? Mail naar info@betabeatrise.com.</p>
             </form>
         </div>
     </section>
- 
+
     <!-- FOOTER -->
     <footer>
         <div class="reveal">
@@ -385,7 +382,7 @@ Wine and design · HTML
             <div class="fine">© Beta Beatrise · Wine &amp; Design: The Designer Edition</div>
         </div>
     </footer>
- 
+
     <script>
         const translations = {
             nl: {
@@ -509,10 +506,10 @@ Wine and design · HTML
                 success:"Paldies! Mēs tevi informēsim, tiklīdz būs jauns datums.", error:"Ak vai! Kaut kas nogāja greizi. Mēģiniet vēlreiz."
             }
         };
- 
+
         const languages = ['nl','fr','en','lv'];
         let lang = 'nl';
- 
+
         function setLang(l){
             lang = l;
             document.querySelectorAll('[data-key]').forEach(el => {
@@ -525,7 +522,7 @@ Wine and design · HTML
             languages.forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x===l));
             document.documentElement.lang = l;
         }
- 
+
         /* ---- Auto-discover recap photos: public/WIne and Design/1.jpg... ---- */
         async function probeExists(url) {
             try {
@@ -536,14 +533,19 @@ Wine and design · HTML
         }
         async function discoverFolderImages(folderPath, maxCount = 40) {
             const found = [];
+            const extensions = ['jpg', 'JPEG'];
             for (let i = 1; i <= maxCount; i++) {
-                const url = encodeURI(`${folderPath}${i}.jpg`);
-                if (!(await probeExists(url))) break;
-                found.push(url);
+                let hit = null;
+                for (const ext of extensions) {
+                    const url = encodeURI(`${folderPath}${i}.${ext}`);
+                    if (await probeExists(url)) { hit = url; break; }
+                }
+                if (!hit) break;
+                found.push(hit);
             }
             return found;
         }
- 
+
         async function buildRecapGallery() {
             const images = await discoverFolderImages('public/WIne and Design/');
             const grid = document.getElementById('recapGallery');
@@ -561,7 +563,7 @@ Wine and design · HTML
                 grid.appendChild(img);
             });
         }
- 
+
         /* ---- Waitlist form submit ---- */
         document.getElementById('waitForm').addEventListener('submit', function(e){
             e.preventDefault();
@@ -581,31 +583,20 @@ Wine and design · HTML
                 })
                 .catch(()=>{ btn.textContent = translations[lang]['wait-btn']; status.textContent = translations[lang].error; status.className='status-msg err'; status.style.display='block'; });
         });
- 
+
         /* ---- Reveal-on-scroll ---- */
         const io = new IntersectionObserver(es => es.forEach(en => {
             if (en.isIntersecting) en.target.classList.add('active');
             else en.target.classList.remove('active');
         }), {threshold:0.1});
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
- 
+
         /* ---- FAQ accordion ---- */
         document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => q.parentElement.classList.toggle('open')));
- 
+
         /* ---- Init ---- */
         setLang('nl');
         buildRecapGallery();
     </script>
 </body>
 </html>
- 
-
-
-
-
-
-
-
-
-
-
