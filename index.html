@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -14,7 +11,7 @@ Index · HTML
     <meta name="author" content="Beta Beatrise">
     
     <link rel="icon" href="favicon.png" type="image/png">
- 
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,12 +57,12 @@ Index · HTML
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
     <style>
- 
+
         :root {
             --white: #ffffff; --black: #000000; --muted: #777777; --accent: #c2b5a3;
             --sand: #fbfaf8; --dark: #1a1816; --border: #eeeeee;
         }
- 
+
         /* RESET & SNAP */
         html { overflow: hidden; height: 100%; scroll-behavior: auto; }
         body { 
@@ -75,13 +72,13 @@ Index · HTML
             font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); 
             line-height: 1.6; -webkit-font-smoothing: antialiased;
         }
- 
+
         a, button, input, textarea, span { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
         .serif { font-family: 'Playfair Display', serif; font-weight: 400; }
         
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
- 
+
         /* NAVIGATION */
         nav { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 10000; 
@@ -94,13 +91,13 @@ Index · HTML
         .lang { justify-self: center; display: flex; gap: 0.5rem; }
         .lang button { background: none; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; cursor: pointer; opacity: 0.4; padding: 4px; text-transform: uppercase; transition: opacity 0.2s; color: inherit; }
         .lang button.on { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
- 
+
         .menu-toggle { justify-self: end; background: none; border: none; cursor: pointer; width: 26px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
         .menu-toggle span { display: block; height: 2px; width: 100%; background: var(--black); transition: transform 0.3s, opacity 0.3s; }
         .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
- 
+
         .nav-menu { display: none; position: absolute; top: 100%; right: 1.5rem; margin-top: 0.5rem; background: var(--white); border: 1px solid var(--border); min-width: 210px; box-shadow: 0 20px 45px -22px rgba(0,0,0,0.3); }
         .nav-menu.open { display: block; }
         .nav-menu a { display: block; padding: 0.95rem 1.3rem; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; border-bottom: 1px solid var(--border); }
@@ -108,7 +105,7 @@ Index · HTML
         .nav-menu a.feature { color: #3d1f2e; font-weight: 700; background: var(--sand); }
         .nav-menu a.feature .badge { display: inline-block; background: #3d1f2e; color: #fff; font-size: 8px; padding: 2px 5px; margin-right: 6px; letter-spacing: 0.1em; }
         @media (hover: hover) { .nav-menu a:hover { background: var(--sand); } }
- 
+
         /* SECTIONS */
         section, .artwork-page { 
             height: 100vh; height: 100dvh; width: 100%; 
@@ -116,7 +113,7 @@ Index · HTML
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             position: relative; box-sizing: border-box; text-align: center; 
         }
- 
+
         .hero { 
             background-image: linear-gradient(rgba(255,255,255,0.79), rgba(255,255,255,0.79)), url('public/Paintings/1/1.jpg');
             background-size: cover; background-position: center; 
@@ -129,12 +126,12 @@ Index · HTML
             border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); 
             transform: rotate(45deg); animation: arrow-vertical 2s infinite ease-in-out;
         }
- 
+
         @keyframes arrow-vertical {
             0%, 100% { transform: rotate(45deg) translate(0, 0); }
             50% { transform: rotate(45deg) translate(8px, 8px); }
         }
- 
+
         /* CAROUSEL */
         .artwork-container { width: 100%; max-width: 800px; padding: 0 1.5rem; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .carousel-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -142,16 +139,16 @@ Index · HTML
         
         @media (hover: hover) { .gallery-arrow:hover, .art-title-btn:hover { color: var(--black); } }
         .gallery-arrow:active, .art-title-btn:active { color: var(--black); }
- 
+
         .gallery-arrow svg { width: 28px; height: 28px; stroke-width: 1px; }
         .carousel { flex-grow: 1; position: relative; height: 50vh; overflow: hidden; cursor: pointer; margin: 0 10px; }
         .carousel-track { display: flex; align-items: center; width: 100%; height: 100%; pointer-events: none; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform; }
         .carousel-track img { flex: 0 0 100%; width: 100%; max-height: 100%; object-fit: contain; box-sizing: border-box; padding: 15px; }
- 
+
         .art-title-btn { cursor: pointer; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: opacity 0.3s, color 0.3s; margin: 0; }
         .price-tag { font-weight: 400; font-size: 0.95rem; color: #333; display: block; margin-top: 0.8rem; letter-spacing: 0.05em; }
         .size-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 0.3rem; }
- 
+
         /* SOLD WORKS — still fully viewable, clearly no longer available */
         .price-tag.is-sold { color: #b0b0b0; text-decoration: line-through; }
         .sold-tag {
@@ -161,9 +158,9 @@ Index · HTML
         }
         .artwork-page.is-sold-work .carousel-track img { opacity: 0.9; }
         #modalSold { margin: 0 0 1.2rem; font-size: 0.8rem; line-height: 1.4; font-weight: 400; color: #6b6157; border: 1px solid var(--accent); background: var(--sand); padding: 0.8rem; }
- 
+
         .alternative-email-section { margin-top: 2rem; }
- 
+
         /* CONTACT */
         .contact-links { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1px; background: var(--border); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .contact-link { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 0.2rem; background: var(--white); transition: background 0.3s, padding 0.3s; }
@@ -178,19 +175,19 @@ Index · HTML
         input, textarea { width: 100%; border: none; border-bottom: 1px solid #000; padding: 0.8rem 0; margin-bottom: 1rem; outline: none; background: transparent; font-family: inherit; font-size: 14px; box-sizing: border-box; border-radius: 0; }
         .submit-btn { background: #000; color: #fff; border: none; padding: 1.1rem; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 0.2em; transition: all 0.3s; display: block; margin: 0 auto; }
         .status-msg { font-size: 12px; margin-top: 10px; font-weight: 600; display: none; text-transform: uppercase; letter-spacing: 0.1em; }
- 
+
         #inquire { padding-top: 60px; justify-content: center; }
         #inquire .reveal { width: 100%; max-width: 500px; padding: 0 1.5rem; box-sizing: border-box; text-align: center; }
         #inquire h2 { margin-bottom: 0.3rem !important; font-size: 1.8rem !important; line-height: 1.1; }
         #inquire p { font-size: 0.85rem; margin-bottom: 1.2rem !important; line-height: 1.3; color: var(--muted); font-weight: 300; }
- 
+
         .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background: #ffffff; overflow-y: auto; }
         .modal-content { max-width: 500px; width: 90%; margin: 5vh auto; padding: 2.5rem 1.5rem; position: relative; text-align: center; box-sizing: border-box; background: #ffffff; }
         .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; z-index: 20001; transition: opacity 0.2s; }
         @media (hover: hover) { .close-modal:hover { opacity: 0.5; } }
- 
+
         .bg-dark { background-color: var(--dark); color: var(--white); }
- 
+
         @media (max-width: 768px) {
             .nav-content { grid-template-columns: auto 1fr auto; }
             .carousel { height: 40vh; margin: 0 5px; }
@@ -204,12 +201,12 @@ Index · HTML
             .logo img { height: 40px; }
             .lang { gap: 0.15rem; }
             .lang button { font-size: 10px; padding: 3px 2px; letter-spacing: 0.05em; }
- 
+
         }
     </style>
 </head>
 <body>
- 
+
     <div id="artModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -231,7 +228,7 @@ Index · HTML
             </div>
         </div>
     </div>
- 
+
     <nav>
         <div class="nav-content">
             <div onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})" class="logo">
@@ -256,9 +253,9 @@ Index · HTML
             <a href="#contact" data-key="nav-contact" onclick="closeNav()">Contact</a>
         </div>
     </nav>
- 
- 
- 
+
+
+
     <section id="top" class="hero">
         <div class="reveal" style="width: 100%; max-width: 1100px; padding: 0 1.5rem; box-sizing: border-box; text-align: left;">
             <h1 class="hero-title serif">Beta<br>Beatrise</h1>
@@ -268,7 +265,7 @@ Index · HTML
             <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
         </div>
     </section>
- 
+
     <section id="collection">
         <div class="reveal">
             <span class="section-tag" data-key="coll-tag"></span>
@@ -279,9 +276,9 @@ Index · HTML
             <div class="scroll-down" style="margin: 0; border-color: #333;"></div>
         </div>
     </section>
- 
+
     <div id="gallery-root"></div>
- 
+
     <section id="about" style="background-color: var(--sand); border-top: 1px solid var(--border);">
         <div class="reveal" style="max-width: 700px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="about-tag"></span>
@@ -289,7 +286,7 @@ Index · HTML
             <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 300;" data-key="about-text"></p>
         </div>
     </section>
- 
+
     <section id="inquire">
         <div class="reveal">
             <span class="section-tag" data-key="nav-inq"></span>
@@ -310,7 +307,7 @@ Index · HTML
             </div>
         </div>
     </section>
- 
+
     <section id="interior" class="bg-dark">
         <div class="reveal">
             <span class="section-tag" data-key="int-tag"></span>
@@ -319,13 +316,13 @@ Index · HTML
             <span style="color: var(--accent); letter-spacing: 0.5em; font-size: 11px; font-weight: 700; margin-top: 4rem; display: block;" data-key="soon"></span>
         </div>
     </section>
- 
+
     <section id="contact">
         <div class="reveal" style="max-width: 600px; padding: 0 1.5rem;">
             <span class="section-tag" data-key="nav-contact"></span>
             <h2 class="serif" style="font-size: 2.2rem; margin-bottom: 0.6rem;" data-key="contact-title"></h2>
             <p style="font-weight: 300; color: var(--muted); margin-top: 0;" data-key="contact-desc"></p>
- 
+
             <div class="contact-links">
                 <a href="mailto:info@betabeatrise.com" class="contact-link">
                     <span class="contact-link-label" data-key="contact-email-label"></span>
@@ -336,11 +333,11 @@ Index · HTML
                     <span class="contact-link-value">@betabeatrise.art</span>
                 </a>
             </div>
- 
+
             <p style="font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-top: 2.5rem;" data-key="contact-loc"></p>
         </div>
     </section>
- 
+
     <script>
         // URL & SCROLL RESET
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
@@ -349,7 +346,7 @@ Index · HTML
             if (window.location.hash) { history.replaceState(null, null, window.location.pathname); }
             setTimeout(() => { window.scrollTo(0, 0); }, 10);
         };
- 
+
         const translations = {
             nl: {
                 "nav-coll": "Collectie", "nav-phil": "Filosofie", "nav-inq": "Aanvraag", "nav-contact": "Contact",
@@ -424,9 +421,9 @@ Index · HTML
                 "success": "Ziņojums nosūtīts!", "error": "Ak nē! Kaut kas nogāja greizi."
             }
         };
- 
+
         const languages = ['nl', 'fr', 'en', 'lv'];
- 
+
         // --- Folder-based image discovery -------------------------------
         // Each painting's photos live at public/Paintings/<folder>/1.jpg,
         // 2.jpg, 3.jpg ... with no gaps. Instead of hardcoding how many
@@ -443,17 +440,22 @@ Index · HTML
                 return false;
             }
         }
- 
+
         async function discoverFolderImages(folderPath, maxCount = 40) {
             const found = [];
+            const extensions = ['jpg', 'JPEG'];
             for (let i = 1; i <= maxCount; i++) {
-                const url = encodeURI(`${folderPath}${i}.jpg`);
-                if (!(await probeExists(url))) break;
-                found.push(url);
+                let hit = null;
+                for (const ext of extensions) {
+                    const url = encodeURI(`${folderPath}${i}.${ext}`);
+                    if (await probeExists(url)) { hit = url; break; }
+                }
+                if (!hit) break;
+                found.push(hit);
             }
             return found;
         }
- 
+
         // Prices, sizes, sold-status and titles carried over 1:1 from the
         // previous 15 paintings (folders 1-15, same order as before).
         // Folders 16-19 are the new additions — titles/prices/sizes below
@@ -479,13 +481,13 @@ Index · HTML
             { id: "art17", price: "€ ?", size: "? cm", folder: "public/Paintings/18/" },
             { id: "art18", price: "€ ?", size: "? cm", folder: "public/Paintings/19/" }
         ];
- 
+
         // Available works first, sold works pushed to the end — order within
         // each group is preserved (Array.sort is stable).
         const displayOrder = [...artworks].sort((a, b) => (a.sold ? 1 : 0) - (b.sold ? 1 : 0));
- 
+
         let activeLang = 'nl';
- 
+
         function setLang(lang) {
             activeLang = lang;
             document.querySelectorAll('[data-key]').forEach(el => { 
@@ -496,14 +498,14 @@ Index · HTML
                 }
             });
             languages.forEach(x => document.getElementById('lng-'+x).classList.toggle('on', x === lang));
- 
+
             updateImageAltTags();
         }
- 
+
         function toggleNav(e){ e.stopPropagation(); document.getElementById('navMenu').classList.toggle('open'); document.getElementById('menuToggle').classList.toggle('open'); }
         function closeNav(){ document.getElementById('navMenu').classList.remove('open'); document.getElementById('menuToggle').classList.remove('open'); }
         window.addEventListener('click', () => closeNav());
- 
+
         function updateImageAltTags() {
             artworks.forEach(art => {
                 const title = translations[activeLang][art.id];
@@ -516,7 +518,7 @@ Index · HTML
                 }
             });
         }
- 
+
         async function discoverAllArtworkImages(items, concurrency = 3) {
             // Probe only a few folders at a time — some hosts throttle or
             // block a sudden burst of many simultaneous requests, even when
@@ -531,13 +533,13 @@ Index · HTML
             const workers = Array.from({ length: Math.min(concurrency, items.length) }, worker);
             await Promise.all(workers);
         }
- 
+
         async function buildGallery() {
             // Discover every painting's photos (a few folders at a time)
             // before rendering, so we know each carousel's true image count
             // up front.
             await discoverAllArtworkImages(artworks, 3);
- 
+
             const root = document.getElementById('gallery-root');
             const rendered = [];
             displayOrder.forEach((art, idx) => {
@@ -568,7 +570,7 @@ Index · HTML
                         </div>
                     </div>`);
             });
- 
+
             // Visible, no-devtools-needed diagnostics if something's off.
             if (rendered.length < artworks.length) {
                 const missing = artworks.filter(a => !rendered.includes(a.id));
@@ -589,16 +591,16 @@ Index · HTML
                         Sample check: ${sample}
                     </div>`);
             }
- 
+
             attachCarouselSwipe();
             attachResetObserver();
             updateImageAltTags();
         }
- 
+
         // SWIPE LOGIC
         let touchStart = { x: 0, y: 0 };
         let isSwiping = false;
- 
+
         function attachCarouselSwipe() {
             document.querySelectorAll('.carousel').forEach((carousel, idx) => {
                 carousel.addEventListener('touchstart', e => {
@@ -606,7 +608,7 @@ Index · HTML
                     touchStart.y = e.touches[0].clientY;
                     isSwiping = false;
                 }, {passive: false});
- 
+
                 carousel.addEventListener('touchmove', e => {
                     if (!touchStart.x || !touchStart.y) return;
                     let dx = touchStart.x - e.touches[0].clientX;
@@ -617,12 +619,12 @@ Index · HTML
                         move(idx, dx > 0 ? 1 : -1);
                     }
                 }, {passive: false});
- 
+
                 carousel.addEventListener('touchend', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
                 carousel.addEventListener('touchcancel', () => { touchStart.x = 0; touchStart.y = 0; isSwiping = false; }, {passive: true});
             });
         }
- 
+
         function handleCarouselClick(event, idx, id) {
             const rect = event.currentTarget.getBoundingClientRect();
             const x = event.clientX - rect.left;
@@ -630,7 +632,7 @@ Index · HTML
             else if (x > rect.width * 0.7) move(idx, 1);
             else openModal(id);
         }
- 
+
         function move(idx, dir) {
             const track = document.getElementById(`t-${idx}`);
             const totalImages = track.querySelectorAll('img').length;
@@ -639,7 +641,7 @@ Index · HTML
             track.setAttribute('data-current', current);
             track.style.transform = `translateX(-${current * 100}%)`;
         }
- 
+
         function resetGallery(idx) {
             const track = document.getElementById(`t-${idx}`);
             if (!track) return;
@@ -650,12 +652,12 @@ Index · HTML
                 setTimeout(() => { track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; }, 50);
             }
         }
- 
+
         function openModal(artId) {
             const currentLang = activeLang;
             const art = artworks.find(a => a.id === artId);
             const isSold = !!(art && art.sold);
- 
+
             document.getElementById('modalTitle').innerText = translations[currentLang][artId];
             document.getElementById('modalSold').style.display = isSold ? "block" : "none";
             document.getElementById('hiddenSubject').value = (isSold ? "Sold work - similar request: " : "Interest: ") + translations[currentLang][artId];
@@ -680,10 +682,10 @@ Index · HTML
                 }
             });
         }
- 
+
         document.getElementById('mainForm').addEventListener('submit', (e) => handleSubmit(e, 'mainStatus'));
         document.getElementById('modalForm').addEventListener('submit', (e) => handleSubmit(e, 'modalStatus'));
- 
+
         // RE-TRIGGER ANIMATIONS
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
@@ -692,7 +694,7 @@ Index · HTML
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
- 
+
         // RESET ON EXIT
         function attachResetObserver() {
             const resetObserver = new IntersectionObserver((entries) => {
@@ -705,20 +707,9 @@ Index · HTML
             }, { threshold: [0, 0.1, 0.9, 1] }); 
             document.querySelectorAll('.artwork-page').forEach(el => resetObserver.observe(el));
         }
- 
+
         setLang('nl');
         buildGallery();
     </script>
 </body>
 </html>
- 
-
-
-
-
-
-
-
-
-
-
