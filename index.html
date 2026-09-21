@@ -534,17 +534,23 @@
             await Promise.all(workers);
         }
 
-        async function buildGallery() {
-            // Discover every painting's photos (a few folders at a time)
-            // before rendering, so we know each carousel's true image count
-            // up front.
-            await discoverAllArtworkImages(artworks, 3);
+        function handleImgFallback(img) {
+            // The optimistic first-image guess tried '.jpg'; if that 404s,
+            // this fires once to retry '.JPEG' before giving up.
+            const fallbackExt = img.getAttribute('data-ext-fallback');
+            if (!fallbackExt) return;
+            img.removeAttribute('data-ext-fallback');
+            img.src = img.src.replace(/\.jpg$/i, '.' + fallbackExt);
+        }
 
+        function buildGallery() {
+            // Render every painting immediately using data we already have
+            // (title, price, size — no network needed) plus a best-guess
+            // first photo, so the page has its full scroll structure from
+            // the very first paint. The exact photo count per painting is
+            // filled in a moment later, in the background.
             const root = document.getElementById('gallery-root');
-            const rendered = [];
             displayOrder.forEach((art, idx) => {
-                if (!art.images.length) return; // nothing found for this folder yet — skip silently
-                rendered.push(art.id);
                 root.insertAdjacentHTML('beforeend', `
                     <div class="artwork-page${art.sold ? ' is-sold-work' : ''}" id="page-${idx}" data-idx="${idx}">
                         <div class="artwork-container reveal">
@@ -554,7 +560,7 @@
                                 </button>
                                 <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                                     <div class="carousel-track" id="t-${idx}" data-current="0">
-                                        ${art.images.map((img, i) => `<img src="${img}" alt="" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">`).join('')}
+                                        <img src="${encodeURI(art.folder + '1.jpg')}" data-ext-fallback="JPEG" onerror="handleImgFallback(this)" alt="" loading="eager" decoding="async">
                                     </div>
                                 </div>
                                 <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
@@ -571,9 +577,36 @@
                     </div>`);
             });
 
+            attachCarouselSwipe();
+            attachResetObserver();
+            attachRevealObserver();
+            updateImageAltTags();
+
+            enhanceGalleryImages();
+        }
+
+        async function enhanceGalleryImages() {
+            // Discover the true, complete photo list per painting (a few
+            // folders at a time) and swap it in once known — replacing the
+            // single guessed photo with the full carousel, correcting the
+            // extension if the guess was wrong, with no layout shift for
+            // sections that were already visible.
+            await discoverAllArtworkImages(artworks, 3);
+
+            let missing = [];
+            displayOrder.forEach((art, idx) => {
+                const track = document.getElementById(`t-${idx}`);
+                if (!track) return;
+                if (!art.images.length) { missing.push(art); return; } // truly nothing found — leave the guessed image (shows broken icon)
+                track.innerHTML = art.images.map((img, i) => `<img src="${img}" alt="" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">`).join('');
+                track.setAttribute('data-current', '0');
+            });
+
+            updateImageAltTags();
+
             // Visible, no-devtools-needed diagnostics if something's off.
-            if (rendered.length < artworks.length) {
-                const missing = artworks.filter(a => !rendered.includes(a.id));
+            if (missing.length) {
+                const root = document.getElementById('gallery-root');
                 let sample = '';
                 try {
                     const probeUrl = encodeURI(`${missing[0].folder}1.jpg`);
@@ -586,16 +619,11 @@
                 root.insertAdjacentHTML('beforeend', `
                     <div style="max-width:600px;margin:2rem auto;padding:1.2rem 1.4rem;background:#fff3f0;border:1px solid #e0b4a8;font-size:13px;line-height:1.6;text-align:left;">
                         <strong>Diagnostic (visible only in this debug build):</strong><br>
-                        ${rendered.length} of ${artworks.length} paintings found photos.<br>
+                        ${artworks.length - missing.length} of ${artworks.length} paintings found photos.<br>
                         Missing: ${missing.map(a => a.folder).join(', ')}<br>
                         Sample check: ${sample}
                     </div>`);
             }
-
-            attachCarouselSwipe();
-            attachResetObserver();
-            attachRevealObserver();
-            updateImageAltTags();
         }
 
         // SWIPE LOGIC
