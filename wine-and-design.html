@@ -90,6 +90,10 @@
         .recap-grid img { width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--sand); }
         .recap-empty { font-size:0.9rem; color:var(--muted); font-weight:300; }
 
+        /* PRIVATE / CUSTOM EVENTS */
+        .private-events { background: var(--white); text-align: center; }
+        .private-events h2 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); margin: 0 0 1.2rem; }
+
         /* EXPERIENCE */
         .experience { background:var(--sand); text-align:center; }
         .experience h2 { font-size:clamp(1.8rem,5vw,2.6rem); margin:0 0 1.2rem; }
@@ -255,6 +259,16 @@
         </div>
     </section>
 
+    <!-- PRIVATE / CUSTOM EVENTS -->
+    <section class="private-events">
+        <div class="wrap reveal" style="max-width:680px;">
+            <span class="section-tag" data-key="priv-tag">Op Locatie</span>
+            <h2 class="serif" data-key="priv-title">Ook bij jou, voor elke gelegenheid</h2>
+            <p style="font-weight:300; color:#444; font-size:1.05rem; line-height:1.8;" data-key="priv-text">Naast deze publieke avonden organiseer ik Wine &amp; Design ook voor bedrijfsevents, vrijgezellenfeesten, verjaardagen en eigenlijk elke gelegenheid. Ik kom met alle materialen naar jouw locatie, waar die ook is. Neem contact op om je datum, groepsgrootte en prijs te bespreken.</p>
+            <a href="#waitlist" class="cta" data-key="priv-cta">Bespreek je evenement</a>
+        </div>
+    </section>
+
     <!-- PRACTICAL INFO (about the first edition) -->
     <section class="info">
         <div class="wrap reveal">
@@ -337,7 +351,7 @@
             </div>
             <div class="faq-item">
                 <button class="faq-q" data-key="faq-q5">Wat kost een volgende editie?</button>
-                <div class="faq-a"><p data-key="faq-a5">Dat wordt samen met de volgende datum bekendgemaakt. De eerste editie was een gratis pilot; latere edities kunnen een prijs per persoon hebben.</p></div>
+                <div class="faq-a"><p data-key="faq-a5">Dat wordt samen met de volgende datum bekendgemaakt.</p></div>
             </div>
         </div>
     </section>
@@ -407,8 +421,11 @@
                 "faq-q2":"Wat moet ik meebrengen?","faq-a2":"Niets. Alle materialen, canvas en schorten worden voorzien. Kom gewoon zoals je bent, alleen of met vrienden.",
                 "faq-q3":"In welke taal is de avond?","faq-a3":"De begeleiding is in het Engels, en Nederlands of Frans zijn altijd welkom. Je volgt makkelijk mee.",
                 "faq-q4":"Wanneer is de volgende editie?","faq-a4":"Nog niet vastgelegd. Laat je e-mail achter bij \"Blijf op de hoogte\" hieronder, en je bent de eerste die het hoort zodra er een nieuwe datum en prijs zijn.",
-                "faq-q5":"Wat kost een volgende editie?","faq-a5":"Dat wordt samen met de volgende datum bekendgemaakt. De eerste editie was een gratis pilot; latere edities kunnen een prijs per persoon hebben.",
-                "wait-title":"Blijf op de hoogte", "wait-intro":"Laat je gegevens achter en je hoort als eerste wanneer de volgende editie een datum krijgt.",
+                "faq-q5":"Wat kost een volgende editie?","faq-a5":"Dat wordt samen met de volgende datum bekendgemaakt.",
+                "wait-title":"Blijf op de hoogte", "wait-intro":"Laat je gegevens achter voor de volgende publieke editie, of om je eigen evenement te bespreken.",
+                "priv-tag":"Op Locatie", "priv-title":"Ook bij jou, voor elke gelegenheid",
+                "priv-text":"Naast deze publieke avonden organiseer ik Wine & Design ook voor bedrijfsevents, vrijgezellenfeesten, verjaardagen en eigenlijk elke gelegenheid. Ik kom met alle materialen naar jouw locatie, waar die ook is. Neem contact op om je datum, groepsgrootte en prijs te bespreken.",
+                "priv-cta":"Bespreek je evenement",
                 "l-name":"Naam","l-email":"Jouw e-mail","l-notes":"Opmerkingen (optioneel)",
                 "wait-btn":"Hou me op de hoogte",
                 "privacy":"We gebruiken je gegevens alleen om je te verwittigen over nieuwe data, en delen ze nooit met derden. Je gegevens laten verwijderen? Mail naar info@betabeatrise.com.",
@@ -437,8 +454,11 @@
                 "faq-q2":"What do I need to bring?","faq-a2":"Nothing. All materials, canvas and aprons are provided. Just come as you are, solo or with friends.",
                 "faq-q3":"What language is the evening in?","faq-a3":"The evening is guided in English, so everyone can join in and follow along easily, whatever language you speak.",
                 "faq-q4":"When is the next edition?","faq-a4":"Not yet set. Leave your email under \"Stay in the loop\" below, and you'll be the first to know once there's a new date and price.",
-                "faq-q5":"What will a future edition cost?","faq-a5":"That will be announced along with the next date. The first edition was a free pilot; later editions may carry a per-person price.",
-                "wait-title":"Stay in the loop", "wait-intro":"Leave your details and you'll be the first to hear once the next edition has a date.",
+                "faq-q5":"What will a future edition cost?","faq-a5":"That will be announced along with the next date.",
+                "wait-title":"Stay in the loop", "wait-intro":"Leave your details for the next public edition, or to discuss your own event.",
+                "priv-tag":"On Location", "priv-title":"At your venue, for any occasion",
+                "priv-text":"Beyond these public evenings, I also organise Wine & Design for company events, bachelorette parties, birthdays, and pretty much any occasion. I bring all the materials and come to your venue, wherever that is. Get in touch to talk through your date, group size, and pricing.",
+                "priv-cta":"Discuss your event",
                 "l-name":"Name","l-email":"Your email","l-notes":"Notes (optional)",
                 "wait-btn":"Keep me posted",
                 "privacy":"We use your details only to notify you about new dates, and never share them with third parties. To have your data deleted, email info@betabeatrise.com.",
@@ -467,8 +487,11 @@
                 "faq-q2":"Que dois-je apporter ?","faq-a2":"Rien. Tout le matériel, la toile et les tabliers sont fournis. Venez comme vous êtes, seul·e ou entre amis.",
                 "faq-q3":"Dans quelle langue se déroule la soirée ?","faq-a3":"La soirée est guidée en anglais, pour que tout le monde puisse participer et suivre facilement, quelle que soit votre langue.",
                 "faq-q4":"Quand aura lieu la prochaine édition ?","faq-a4":"Pas encore fixée. Laissez votre e-mail sous « Rester informé·e » ci-dessous, et vous serez averti·e en premier dès qu'une nouvelle date et un prix seront fixés.",
-                "faq-q5":"Combien coûtera une prochaine édition ?","faq-a5":"Cela sera annoncé en même temps que la prochaine date. La première édition était un pilote gratuit ; les suivantes pourraient avoir un tarif par personne.",
-                "wait-title":"Restez informé·e", "wait-intro":"Laissez vos coordonnées et vous serez averti·e en premier dès que la prochaine édition aura une date.",
+                "faq-q5":"Combien coûtera une prochaine édition ?","faq-a5":"Cela sera annoncé en même temps que la prochaine date.",
+                "wait-title":"Restez informé·e", "wait-intro":"Laissez vos coordonnées pour la prochaine édition publique, ou pour discuter de votre propre événement.",
+                "priv-tag":"Chez Vous", "priv-title":"Chez vous aussi, pour toute occasion",
+                "priv-text":"Au-delà de ces soirées publiques, j'organise aussi Wine & Design pour des événements d'entreprise, des enterrements de vie de jeune fille, des anniversaires, et pratiquement toute occasion. J'apporte tout le matériel et je me déplace jusqu'à votre lieu, où qu'il soit. Contactez-moi pour discuter de la date, du nombre de participants et du tarif.",
+                "priv-cta":"Discuter de votre événement",
                 "l-name":"Nom","l-email":"Votre e-mail","l-notes":"Remarques (optionnel)",
                 "wait-btn":"Tenez-moi informé·e",
                 "privacy":"Nous utilisons vos données uniquement pour vous avertir des nouvelles dates, et ne les partageons jamais. Pour faire supprimer vos données, écrivez à info@betabeatrise.com.",
@@ -497,8 +520,11 @@
                 "faq-q2":"Kas man jāņem līdzi?","faq-a2":"Nekas. Visi materiāli, audekls un priekšauti tiek nodrošināti. Vienkārši nāc tāds, kāds esi, viens vai kopā ar draugiem.",
                 "faq-q3":"Kādā valodā notiek vakars?","faq-a3":"Vakars tiek vadīts angļu valodā, lai ikviens varētu piedalīties un viegli sekot līdzi, neatkarīgi no valodas, kurā runā.",
                 "faq-q4":"Kad būs nākamā norise?","faq-a4":"Vēl nav noteikts. Atstājiet savu e-pastu pie \"Saņemt jaunumus\" zemāk, un uzzināsiet pirmais, tiklīdz būs jauns datums un cena.",
-                "faq-q5":"Cik maksās nākamā norise?","faq-a5":"Tas tiks paziņots kopā ar nākamo datumu. Pirmā norise bija bezmaksas izmēģinājums; nākamajām var būt cena par personu.",
-                "wait-title":"Saņemt jaunumus", "wait-intro":"Atstājiet savus datus, un uzzināsiet pirmais, tiklīdz nākamajai norisei būs datums.",
+                "faq-q5":"Cik maksās nākamā norise?","faq-a5":"Tas tiks paziņots kopā ar nākamo datumu.",
+                "wait-title":"Saņemt jaunumus", "wait-intro":"Atstājiet savus datus nākamajai publiskajai norisei, vai lai pārrunātu savu pasākumu.",
+                "priv-tag":"Pie Jums", "priv-title":"Arī pie jums, jebkurai reizei",
+                "priv-text":"Papildus šiem publiskajiem vakariem es organizēju Wine & Design arī uzņēmumu pasākumiem, vecmeitu ballītēm, dzimšanas dienām un praktiski jebkurai reizei. Es atvedu visus materiālus un ierodos jūsu izvēlētajā vietā, lai kur tā būtu. Sazinieties, lai pārrunātu datumu, dalībnieku skaitu un cenu.",
+                "priv-cta":"Pārrunāsim jūsu pasākumu",
                 "l-name":"Vārds","l-email":"Tavs e-pasts","l-notes":"Piezīmes (neobligāti)",
                 "wait-btn":"Ziņojiet man",
                 "privacy":"Mēs izmantojam tavus datus tikai, lai informētu par jauniem datumiem, un nekad tos nedalāmies ar trešajām pusēm. Lai dzēstu savus datus, raksti uz info@betabeatrise.com.",
