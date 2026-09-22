@@ -363,7 +363,7 @@
                 "email-intro": "Of stuur rechtstreeks een e-mail:",
                 "p-name": "Naam", "p-email": "E-mail", "p-phone": "Telefoon (Optioneel)", "p-msg": "Bericht", "p-msg-l": "Formaat, kleurenpalet, etc.",
                 "art0": "Begin van het Licht", "art1": "Gouden Cascade", "art2": "Vergulde Wandeling", "art3": "Sporen van Goud", "art4": "Holte", "art5": "Tussen de Stammen", "art6": "Wat Blijft", "art7": "Loofgoud", "art8": "Amber Resonantie", "art9": "Eucalyptus & Goudstof", "art10": "Fluisterende Dennen in Goud deel 2", "art11": "Fluisterende Dennen in Goud deel 1", "art12": "Woud van Licht", "art13": "Bloemblaadjes van Licht deel 1", "art14": "Bloemblaadjes van Licht deel 2",
-                "art15": "Nieuw Werk 16", "art16": "Nieuw Werk 17", "art17": "Nieuw Werk 18", "art18": "Nieuw Werk 19",
+                "art15": "Nieuw Werk 15", "art16": "Nieuw Werk 16", "art17": "Nieuw Werk 17", "art18": "Nieuw Werk 18", "art19": "Nieuw Werk 19",
                 "success": "Bericht verstuurd!", "error": "Oeps! Er ging iets mis."
             },
             en: {
@@ -381,7 +381,7 @@
                 "email-intro": "Or send me an email directly:",
                 "p-name": "Name", "p-email": "Email", "p-phone": "Phone (Optional)", "p-msg": "Message", "p-msg-l": "Size, color palette, etc.",
                 "art0": "Beginning of Light", "art1": "Golden Cascade", "art2": "Gilded Walk", "art3": "Traces of Gold", "art4": "Hollow", "art5": "Between the Trunks", "art6": "What Remains", "art7": "Leafgold", "art8": "Amber Resonance", "art9": "Eucalyptus & Gold Dust", "art10": "Whispering Pines in Gold pt.2", "art11": "Whispering Pines in Gold pt.1", "art12": "Forest of Light", "art13": "Petals of Light pt.1", "art14": "Petals of Light pt.2",
-                "art15": "New Work 16", "art16": "New Work 17", "art17": "New Work 18", "art18": "New Work 19",
+                "art15": "New Work 15", "art16": "New Work 16", "art17": "New Work 17", "art18": "New Work 18", "art19": "New Work 19",
                 "success": "Message sent!", "error": "Oops! Something went wrong."
             },
             fr: {
@@ -399,7 +399,7 @@
                 "email-intro": "Ou envoyez-moi un e-mail directement :",
                 "p-name": "Nom", "p-email": "E-mail", "p-phone": "Téléphone (Optionnel)", "p-msg": "Message", "p-msg-l": "Format, palette de couleurs, etc.",
                 "art0": "Commencement de la Lumière", "art1": "Cascade Dorée", "art2": "Promenade Dorée", "art3": "Traces d'Or", "art4": "Creux", "art5": "Entre les Troncs", "art6": "Ce qui Reste", "art7": "Or de Feuillage", "art8": "Résonance Ambrée", "art9": "Eucalyptus & Poussière d'Or", "art10": "Pins Chuchotants en Or partie 2", "art11": "Pins Chuchotants en Or partie 1", "art12": "Forêt de Lumière", "art13": "Pétales de Lumière partie 1", "art14": "Pétales de Lumière partie 2",
-                "art15": "Nouvelle Œuvre 16", "art16": "Nouvelle Œuvre 17", "art17": "Nouvelle Œuvre 18", "art18": "Nouvelle Œuvre 19",
+                "art15": "Nouvelle Œuvre 15", "art16": "Nouvelle Œuvre 16", "art17": "Nouvelle Œuvre 17", "art18": "Nouvelle Œuvre 18", "art19": "Nouvelle Œuvre 19",
                 "success": "Message envoyé !", "error": "Oups ! Quelque chose s'est mal passé."
             },
             lv: {
@@ -417,7 +417,7 @@
                 "email-intro": "Vai arī rakstiet tieši uz e-pastu:",
                 "p-name": "Vārds", "p-email": "E-pasts", "p-phone": "Tālrunis (neobligāti)", "p-msg": "Ziņojums", "p-msg-l": "Izmērs, krāsu palete u.c.",
                 "art0": "Gaismas Sākums", "art1": "Zelta Kaskāde", "art2": "Zeltīta Pastaiga", "art3": "Zelta Pēdas", "art4": "Dobums", "art5": "Starp Stumbriem", "art6": "Kas Paliek", "art7": "Lapzelts", "art8": "Dzintara Rezonanse", "art9": "Eikalipts un Zelta Putekļi", "art10": "Čukstošas Priedes Zeltā, 2. daļa", "art11": "Čukstošas Priedes Zeltā, 1. daļa", "art12": "Gaismas Mežs", "art13": "Gaismas Ziedlapiņas, 1. daļa", "art14": "Gaismas Ziedlapiņas, 2. daļa",
-                "art15": "Jauns Darbs 16", "art16": "Jauns Darbs 17", "art17": "Jauns Darbs 18", "art18": "Jauns Darbs 19",
+                "art15": "Jauns Darbs 15", "art16": "Jauns Darbs 16", "art17": "Jauns Darbs 17", "art18": "Jauns Darbs 18", "art19": "Jauns Darbs 19",
                 "success": "Ziņojums nosūtīts!", "error": "Ak nē! Kaut kas nogāja greizi."
             }
         };
@@ -441,10 +441,10 @@
             }
         }
 
-        async function discoverFolderImages(folderPath, maxCount = 40) {
+        async function discoverFolderImages(folderPath, maxCount = 40, startIndex = 1) {
             const found = [];
             const extensions = ['jpg', 'JPEG'];
-            for (let i = 1; i <= maxCount; i++) {
+            for (let i = startIndex; i < startIndex + maxCount; i++) {
                 let hit = null;
                 for (const ext of extensions) {
                     const url = encodeURI(`${folderPath}${i}.${ext}`);
@@ -471,15 +471,16 @@
             { id: "art7", price: "€ 120", size: "40x40 cm", folder: "public/Paintings/8/" },
             { id: "art8", price: "€ 150", size: "40x40 cm", sold: true, folder: "public/Paintings/9/" },
             { id: "art9", price: "€ 50", size: "15x15 cm", sold: true, folder: "public/Paintings/10/" },
-            { id: "art10", price: "€ 40", size: "10x10 cm", folder: "public/Paintings/11/" },
-            { id: "art11", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/12/" },
-            { id: "art12", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/13/" },
-            { id: "art13", price: "€ 150", size: "30x30 cm", folder: "public/Paintings/14/" },
-            { id: "art14", price: "€ 90", size: "20x20 cm", folder: "public/Paintings/15/" },
-            { id: "art15", price: "€ ?", size: "? cm", folder: "public/Paintings/16/" },
-            { id: "art16", price: "€ ?", size: "? cm", folder: "public/Paintings/17/" },
-            { id: "art17", price: "€ ?", size: "? cm", folder: "public/Paintings/18/" },
-            { id: "art18", price: "€ ?", size: "? cm", folder: "public/Paintings/19/" }
+            { id: "art10", price: "€ 40", size: "10x10 cm", folder: "public/Paintings/11/", startIndex: 1, maxImages: 1 },
+            { id: "art11", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/11/", startIndex: 2 },
+            { id: "art12", price: "€ 80", size: "20x20 cm", folder: "public/Paintings/12/" },
+            { id: "art13", price: "€ 150", size: "30x30 cm", folder: "public/Paintings/13/" },
+            { id: "art14", price: "€ 90", size: "20x20 cm", folder: "public/Paintings/14/" },
+            { id: "art15", price: "€ ?", size: "? cm", folder: "public/Paintings/15/" },
+            { id: "art16", price: "€ ?", size: "? cm", folder: "public/Paintings/16/" },
+            { id: "art17", price: "€ ?", size: "? cm", folder: "public/Paintings/17/" },
+            { id: "art18", price: "€ ?", size: "? cm", folder: "public/Paintings/18/" },
+            { id: "art19", price: "€ ?", size: "? cm", folder: "public/Paintings/19/" }
         ];
 
         // Available works first, sold works pushed to the end — order within
@@ -527,7 +528,7 @@
             async function worker() {
                 while (next < items.length) {
                     const item = items[next++];
-                    item.images = await discoverFolderImages(item.folder);
+                    item.images = await discoverFolderImages(item.folder, item.maxImages || 40, item.startIndex || 1);
                 }
             }
             const workers = Array.from({ length: Math.min(concurrency, items.length) }, worker);
@@ -560,7 +561,7 @@
                                 </button>
                                 <div class="carousel" id="carousel-${idx}" onclick="handleCarouselClick(event, ${idx}, '${art.id}')">
                                     <div class="carousel-track" id="t-${idx}" data-current="0">
-                                        <img src="${encodeURI(art.folder + '1.jpg')}" data-ext-fallback="JPEG" onerror="handleImgFallback(this)" alt="" loading="eager" decoding="async">
+                                        <img src="${encodeURI(art.folder + (art.startIndex || 1) + '.jpg')}" data-ext-fallback="JPEG" onerror="handleImgFallback(this)" alt="" loading="eager" decoding="async">
                                     </div>
                                 </div>
                                 <button class="gallery-arrow" onclick="event.stopPropagation(); move(${idx}, 1)" aria-label="Next image">
