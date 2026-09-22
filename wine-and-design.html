@@ -512,6 +512,7 @@
 
         function setLang(l){
             lang = l;
+            try { localStorage.setItem('bb-lang', l); } catch (e) {}
             document.querySelectorAll('[data-key]').forEach(el => {
                 const k = el.getAttribute('data-key');
                 if (translations[l] && translations[l][k] !== undefined) {
@@ -595,7 +596,12 @@
         document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => q.parentElement.classList.toggle('open')));
 
         /* ---- Init ---- */
-        setLang('nl');
+        let savedLang = 'nl';
+        try {
+            const stored = localStorage.getItem('bb-lang');
+            if (stored && languages.includes(stored)) savedLang = stored;
+        } catch (e) {}
+        setLang(savedLang);
         buildRecapGallery();
     </script>
 </body>
